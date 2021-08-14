@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const seasonSchema = mongoose.Schema({
   year: Number,
   races: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Race',
+    ref: "Race",
   },
 });
 
-module.exports = mongoose.model('Season', seasonSchema);
+module.exports = mongoose.model("Season", seasonSchema);

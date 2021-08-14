@@ -1,13 +1,13 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const raceSchema = mongoose.Schema({
   date: Date,
   circuite: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Circuite',
+    ref: "Circuite",
   },
   grandPrix: String,
   pictureLink: String,
 });
 
-module.exports = mongoose.model('Race', raceSchema);
+export default mongoose.model("Race", raceSchema);
