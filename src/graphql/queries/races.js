@@ -15,7 +15,7 @@ export const resolvers = {
           $gte: new Date(2020, 1, 1),
           $lt: new Date(2021, 12, 1),
         },
-      }).populate("circuite");
+      }).populate("circuit");
 
       return races;
     },

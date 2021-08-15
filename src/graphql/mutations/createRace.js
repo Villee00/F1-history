@@ -1,9 +1,10 @@
 import { gql } from "apollo-server";
+import { addSeason } from "../../utils/wikipediaApiHelper.js";
 
 const typeDefs = gql`
   input createRaceInput {
     date: Int
-    circuiteName: String
+    circuitName: String
     grandPrix: String
     pictureLink: String
   }
@@ -15,7 +16,11 @@ const typeDefs = gql`
 // TODO: Autentikointi
 const resolvers = {
   Mutation: {
-    createRace: async (obj, args) => {},
+    createRace: async (obj, args) => {
+      await addSeason();
+
+      return "Done";
+    },
   },
 };
 

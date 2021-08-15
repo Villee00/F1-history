@@ -8,4 +8,4 @@ const seasonSchema = mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Season", seasonSchema);
+export default mongoose.model("Season", seasonSchema);

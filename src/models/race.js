@@ -2,11 +2,14 @@ import mongoose from "mongoose";
 
 const raceSchema = mongoose.Schema({
   date: Date,
-  circuite: {
+  circuit: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Circuite",
+    ref: "Circuit",
   },
-  grandPrix: String,
+  grandPrix: {
+    type: String,
+    unique: true,
+  },
   pictureLink: String,
 });
 

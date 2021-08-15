@@ -1,12 +1,12 @@
 import { gql } from "apollo-server";
 
 const typeDefs = gql`
-  type Race {
+  type Circuit {
     id: ID!
-    date: String!
-    circuit: String!
-    grandPrix: String!
-    pictureLink: String!
+    name: String
+    location: String
+    length: Float
+    capacity: Float
   }
 `;
 
