@@ -1,6 +1,7 @@
 import wiki from "wikijs";
 import Circuit from "../models/circuit.js";
 import Race from "../models/race.js";
+import Season from "../models/season";
 
 const headers = {
   "User-Agent":
@@ -8,39 +9,52 @@ const headers = {
 };
 
 export const addCircuit = async (name) => {
-  const circuitName = name.replace(/ /g, "_");
   try {
     const page = await wiki({
       headers,
-    }).page(circuitName);
+    }).find(name);
 
     const length = await page.info("lengthKm");
     const capacity = await page.info("capacity");
-    const location = await page.info("location");
+    let location = await page.info("location");
 
+    if (Array.isArray(location)) {
+      location = location.join(", ");
+    }
+
+    if (!capacity) {
+      console.log(`${name} - no capacity`);
+    }
+    if (!length) {
+      console.log(`${name} - no length`);
+    }
     const circuit = new Circuit({
       name,
       length: length ? Number.parseFloat(length) : 0,
       capacity: capacity ? Number.parseFloat(capacity) : 0,
-      location: location.join(", "),
+      location: location,
     });
 
     return circuit.save();
   } catch (error) {
-    console.log(`No wikipedia article found with ${circuitName}`);
+    console.log(`ERROR: ${error}`);
   }
 };
 
 export const addSeason = async () => {
-  const page = await wiki({
+  const seasonPage = await wiki({
     headers,
-  }).page("2019_Formula_One_World_Championship");
-  const tables = await page.tables();
+  }).page("2020_Formula_One_World_Championship");
+  const seasonInfo = await seasonPage.info();
+  const tables = await seasonPage.tables();
 
   const racesSeason = tables.filter(
     (table) => table[0].round && table[0].tooltip
   )[0];
 
+  const seasonObj = new Season({
+    year: seasonInfo.year,
+  });
   for (let i = 0; i < racesSeason.length; i++) {
     try {
       const race = racesSeason[i];
@@ -54,7 +68,7 @@ export const addSeason = async () => {
         }).page(race.tooltip);
 
         const raceData = await report.info();
-        await addRace(
+        const raceObj = await addRace(
           {
             date: raceData.year
               ? new Date(raceData.year)
@@ -64,11 +78,15 @@ export const addSeason = async () => {
           },
           raceData.location[0]
         );
+
+        seasonObj.races.push(raceObj);
       }
     } catch (error) {
       console.log(error);
     }
   }
+
+  return await seasonObj.save();
 };
 
 export const addRace = async (race, circuitName) => {

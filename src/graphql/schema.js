@@ -3,6 +3,7 @@ import createRace from "./mutations/createRace.js";
 import races from "./queries/races.js";
 import Circuit from "./types/Circuit.js";
 import Race from "./types/Race.js";
+import Season from "./types/Season.js";
 const rootTypeDefs = gql`
   type Query {
     root: String
@@ -19,6 +20,7 @@ const typeDefs = [
   races.typeDefs,
   createRace.typeDefs,
   Circuit.typeDefs,
+  Season.typeDefs,
 ];
 
 const resolvers = [
@@ -26,6 +28,7 @@ const resolvers = [
   races.resolvers,
   createRace.resolvers,
   Circuit.resolvers,
+  Season.resolvers,
 ];
 
 const schema = {

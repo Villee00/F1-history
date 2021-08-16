@@ -9,7 +9,7 @@ const typeDefs = gql`
     pictureLink: String
   }
   extend type Mutation {
-    createRace(race: createRaceInput!): String
+    createRace(race: String): String
   }
 `;
 

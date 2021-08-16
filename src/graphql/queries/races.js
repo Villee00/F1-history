@@ -1,23 +1,24 @@
 import { gql } from "apollo-server";
-import Race from "../../models/race.js";
+import Season from "../../models/season.js";
 
 export const typeDefs = gql`
   extend type Query {
-    allRaces(seasonYear: Int!): [Race!]!
+    allRaces(seasonYear: Int!): Season
   }
 `;
 
 export const resolvers = {
   Query: {
     allRaces: async (root, args) => {
-      const races = await Race.find({
-        date: {
-          $gte: new Date(2020, 1, 1),
-          $lt: new Date(2021, 12, 1),
-        },
-      }).populate("circuit");
+      const season = await Season.findOne({
+        year: args.seasonYear,
+      }).populate("races");
 
-      return races;
+      season.races.forEach((race) => {
+        race.populate("circuit");
+      });
+
+      return season;
     },
   },
 };
