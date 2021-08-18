@@ -1,6 +1,7 @@
 import { gql } from "apollo-server";
 import Race from "../../models/race.js";
 import Season from "../../models/season.js";
+import { addSeason } from "../../utils/wikipediaApiHelper.js";
 
 export const typeDefs = gql`
   extend type Query {
@@ -12,10 +13,13 @@ export const typeDefs = gql`
 export const resolvers = {
   Query: {
     allRaces: async (root, args) => {
-      const season = await Season.findOne({
+      let season = await Season.findOne({
         year: args.seasonYear,
       }).populate("races");
 
+      if (!season) {
+        season = await addSeason(args.seasonYear);
+      }
       season.races.forEach((race) => {
         race.populate("circuit");
       });

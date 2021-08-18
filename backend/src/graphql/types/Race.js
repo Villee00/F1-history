@@ -1,5 +1,4 @@
 import { gql } from "apollo-server";
-import Circuit from "../../models/circuit";
 
 const typeDefs = gql`
   type Race {
@@ -8,6 +7,8 @@ const typeDefs = gql`
     circuit: Circuit
     grandPrix: String!
     pictureLink: String!
+    weather: String!
+    laps: Int!
   }
 `;
 

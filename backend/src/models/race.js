@@ -1,7 +1,10 @@
 import mongoose from "mongoose";
 
 const raceSchema = mongoose.Schema({
-  date: Date,
+  date: {
+    type: String,
+    required: true,
+  },
   circuit: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Circuit",
@@ -10,7 +13,18 @@ const raceSchema = mongoose.Schema({
     type: String,
     unique: true,
   },
-  pictureLink: String,
+  pictureLink: {
+    type: String,
+    required: true,
+  },
+  weather: {
+    type: String,
+    required: true,
+  },
+  laps: {
+    type: Number,
+    required: true,
+  },
 });
 
 export default mongoose.model("Race", raceSchema);

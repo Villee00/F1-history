@@ -2,6 +2,7 @@ import wiki from "wikijs";
 import Circuit from "../models/circuit.js";
 import Race from "../models/race.js";
 import Season from "../models/season";
+import ParseRaceData from "./ParseRaceData.js";
 
 const headers = {
   "User-Agent":
@@ -66,23 +67,11 @@ export const addSeason = async (year) => {
         const report = await wiki({
           headers,
         }).page(race.tooltip);
-
         const raceData = await report.info();
-        let raceDate;
+        const pictures = await report.images();
 
-        if (!raceData.date) {
-          console.log(`No race date: ${race.tooltip}`);
-        } else {
-          raceDate = new Date(raceData.date);
-
-          if (raceData.year) raceDate.setFullYear(raceData.year);
-        }
         const raceObj = await addRace(
-          {
-            date: raceDate,
-            grandPrix: race.tooltip,
-            pictureLink: raceData.image,
-          },
+          await ParseRaceData(raceData, pictures, race),
           raceData.location[0]
         );
 
