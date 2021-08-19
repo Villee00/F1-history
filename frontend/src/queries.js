@@ -13,3 +13,21 @@ query Query($SeasonYear: Int!) {
   }
 }
 `;
+
+export const GET_RACE = gql`
+query Query($raceInfoGrandPrix: String!) {
+  raceInfo(grandPrix: $raceInfoGrandPrix) {
+    date
+    circuit {
+      location
+      name
+      length
+      capacity
+    }
+    grandPrix
+    pictureLink
+    weather
+    laps
+  }
+}
+`;

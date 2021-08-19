@@ -1,15 +1,26 @@
 import React from 'react';
 import AppBar from './components/AppBar';
 import RacesContainer from './components/RacesContainer';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import RaceInfo from './components/RaceInfo';
 
 const App = () =>{
-
   return(
-    <div className="flex flex-shrink-0 p-6 flex-col items-center">
-      <p className="text-5xl font-bold font">F1</p>
-      <AppBar/>
-      <RacesContainer/>
-    </div>
+    <Router>
+      <div className="flex flex-shrink-0 p-6 flex-col items-center">
+        <p className="text-5xl font-bold font">F1</p>
+        <AppBar/>
+
+        <Switch>
+          <Route path="/race/:gp">
+            <RaceInfo/>
+          </Route>
+          <Route path="/">
+            <RacesContainer/>
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 };
 

@@ -6,7 +6,7 @@ import RaceCard from './RaceCard';
 const RacesContainer = () =>{
   const {data, loading} = useQuery(GET_SEASON_RACES_BASIC,{
     variables:{
-      SeasonYear: 2019
+      SeasonYear: 1986
     }
   });
 
@@ -16,7 +16,15 @@ const RacesContainer = () =>{
     </div>);
   }
 
-  const races = data.allRaces.races;
+  const races = data?.allRaces.races;
+  
+  if(!races){
+    return(
+      <div>
+        Error loading data
+      </div>
+    );
+  }
   return(
     <div className="flex flex-row flex-wrap justify-center">
       {races.map(race => 

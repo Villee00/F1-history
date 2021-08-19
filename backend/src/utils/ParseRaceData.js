@@ -4,7 +4,7 @@ const ParseRaceData = async (raceData, pictures, race) => {
   if (!raceData.date) {
     console.log(`No race date: ${race.tooltip}`);
   } else {
-    raceDate = new Date(race.date);
+    raceDate = new Date(raceData.date);
 
     if (raceData.year) raceDate.setFullYear(raceData.year);
   }
