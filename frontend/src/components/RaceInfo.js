@@ -26,7 +26,7 @@ const RaceInfo = () =>{
   return(
     <div className="flex flex-row">
       <div >
-        <img src={raceInfo.pictureLink}/>
+        <img className=" max-h-96" src={raceInfo.pictureLink}/>
       </div>
       <div>
         <p className="text-xl font-bold">{raceInfo.grandPrix}</p>

@@ -50,7 +50,9 @@ export const addSeason = async (year) => {
   const tables = await seasonPage.tables();
 
   const racesSeason = tables.filter(
-    (table) => table[0].round && table[0].tooltip
+    (table) =>
+      (table[0].round && (table[0].tooltip || table[0].report)) ||
+      (table[0].rnd && (table[0].tooltip || table[0].report))
   )[0];
 
   const seasonObj = new Season({
@@ -59,19 +61,21 @@ export const addSeason = async (year) => {
   for (let i = 0; i < racesSeason.length; i++) {
     try {
       const race = racesSeason[i];
-      console.log(race.tooltip);
 
-      const isRaceAdded = await Race.findOne({ grandPrix: race.tooltip });
+      const tooltip = race.tooltip ? race.tooltip : race.report;
+      console.log(tooltip);
+
+      const isRaceAdded = await Race.findOne({ grandPrix: tooltip });
 
       if (!isRaceAdded) {
         const report = await wiki({
           headers,
-        }).page(race.tooltip);
+        }).page(tooltip);
         const raceData = await report.info();
         const pictures = await report.images();
 
         const raceObj = await addRace(
-          await ParseRaceData(raceData, pictures, race),
+          await ParseRaceData(raceData, tooltip, pictures, race),
           raceData.location[0]
         );
 

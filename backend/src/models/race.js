@@ -12,6 +12,7 @@ const raceSchema = mongoose.Schema({
   grandPrix: {
     type: String,
     unique: true,
+    required: true,
   },
   pictureLink: {
     type: String,
@@ -23,7 +24,9 @@ const raceSchema = mongoose.Schema({
   },
   laps: {
     type: Number,
-    required: true,
+  },
+  length: {
+    type: Number,
   },
 });
 

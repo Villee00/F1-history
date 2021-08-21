@@ -7,6 +7,7 @@ export const typeDefs = gql`
   extend type Query {
     allRaces(seasonYear: Int!): Season
     raceInfo(grandPrix: String!): Race
+    filterRaces(weather: String): [Race]!
   }
 `;
 
@@ -32,6 +33,13 @@ export const resolvers = {
       }).populate("circuit");
 
       return race;
+    },
+    filterRaces: async (root, args) => {
+      const regexFilter = new RegExp(`${args.weather}*`, "i");
+      const races = await Race.find({
+        weather: { $regex: regexFilter },
+      });
+      return races;
     },
   },
 };

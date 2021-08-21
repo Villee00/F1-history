@@ -1,8 +1,8 @@
-const ParseRaceData = async (raceData, pictures, race) => {
+const ParseRaceData = async (raceData, tooltip, pictures, race) => {
   let raceDate;
 
   if (!raceData.date) {
-    console.log(`No race date: ${race.tooltip}`);
+    console.log(`No race date: ${tooltip}`);
   } else {
     raceDate = new Date(raceData.date);
 
@@ -21,7 +21,7 @@ const ParseRaceData = async (raceData, pictures, race) => {
 
   return {
     date: raceDate,
-    grandPrix: race.tooltip,
+    grandPrix: tooltip,
     pictureLink: image,
     weather: raceData.weather ? raceData.weather : "unknown",
     laps: raceData.distanceLaps ? raceData.distanceLaps : 0,

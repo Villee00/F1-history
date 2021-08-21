@@ -8,7 +8,6 @@ const App = () =>{
   return(
     <Router>
       <div className="flex flex-shrink-0 p-6 flex-col items-center">
-        <p className="text-5xl font-bold font">F1</p>
         <AppBar/>
 
         <Switch>
