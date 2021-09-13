@@ -20,11 +20,13 @@
   "homepage": "https://github.com/Villee00/F1-history-be#readme",
   "dependencies": {
     "apollo-server": "^3.1.2",
+    "cross-fetch": "^3.1.4",
     "dotenv": "^10.0.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "graphql": "^15.5.1",
     "mongoose": "^5.13.7",
+    "node-fetch": "^3.0.0",
     "wikijs": "^6.2.3"
   },
   "devDependencies": {
