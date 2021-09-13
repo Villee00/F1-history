@@ -8,6 +8,12 @@ const seasonSchema = mongoose.Schema({
       ref: "Race",
     },
   ],
+  drivers: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Driver",
+    },
+  ],
 });
 
 export default mongoose.model("Season", seasonSchema);
