@@ -6,7 +6,7 @@ const typeDefs = gql`
     date: String!
     circuit: Circuit
     grandPrix: String!
-    pictureLink: String!
+    pictureLink: String
     weather: String!
     laps: Int!
   }

@@ -1,7 +1,14 @@
 const mongoose = require("mongoose");
 
 const seasonSchema = mongoose.Schema({
-  year: Number,
+  wikipediaLink: {
+    type: String,
+    require: true,
+  },
+  year: {
+    type: Number,
+    require: true,
+  },
   races: [
     {
       type: mongoose.Schema.Types.ObjectId,

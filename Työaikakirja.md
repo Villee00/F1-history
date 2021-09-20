@@ -10,3 +10,4 @@
 | 18.8. | 8    | -Frontendiin tietojen haku ja kisojen näyttäminen omissa koreteissaan<br/>-Backendi uusia tietoja kisasta ja tietojen oikeanlainen hakeminen<br/>-Frontendi tarvittavat tyylikirjasto|
 | 21.8. | 7    | -Kisa sivu, jossa tarkemmin tietoa kisasta<br/>-Kisoista tallentaan enemmin tietoa<br/>-Filtteri lisäyksiä<br/>-Kausi kortti frontendiin|
 | 14.9. | 4    | -Kilpailijan modelin tekeminen mongoose ja graphql haku mahdolliseksi<br/>-Kisan loppujärjestyksen haku ergest apista <br/>|
+| 20.9. | 8    | -Ergest apista haetaan nyt samaan aikaan kisojen hajussa tiedot kuljettajille<br/>-Kisoihin tallennetaan kisa järjestys ja kuski <br/>-Kuljettajasta tallennetaan aloituspaikka ja kisan lopputulos, jotta voimme näyttää tilastot frontendissä <br/>|

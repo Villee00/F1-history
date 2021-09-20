@@ -8,7 +8,9 @@ const typeDefs = gql`
   }
   type Driver {
     id: ID!
-    driverNumber: Number
+    driverNumber: [Number]
+    seasonsDriven: [Number]
+    teams: [String]
     firstName: String!
     lastName: String!
     nationality: String

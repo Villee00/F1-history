@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 // TODO: Add more info fields
 const driverSchema = mongoose.Schema({
-  driverNumber: Number,
+  driverNumber: [Number],
   firstName: String,
   lastName: String,
   nationality: String,
@@ -14,14 +14,16 @@ const driverSchema = mongoose.Schema({
         ref: "Race",
       },
       position: {
-        Type: Number,
+        type: String,
       },
       grid: {
-        Type: Number,
+        type: String,
       },
     },
   ],
+  teams: [String],
   wikipediaLink: String,
+  seasonsDriven: [Number],
 });
 
 export default mongoose.model("Driver", driverSchema);

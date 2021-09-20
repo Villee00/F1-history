@@ -1,3 +1,5 @@
+import Circuit from "../models/circuit.js";
+
 const ParseRaceData = async (raceData, tooltip, pictures, race) => {
   let raceDate;
 
@@ -22,10 +24,27 @@ const ParseRaceData = async (raceData, tooltip, pictures, race) => {
   return {
     date: raceDate,
     grandPrix: tooltip,
-    pictureLink: image,
+    pictureLink:
+      image || "https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg",
     weather: raceData.weather ? raceData.weather : "unknown",
     laps: raceData.distanceLaps ? raceData.distanceLaps : 0,
   };
+};
+
+export const parseCircuitToDB = async (circuit) => {
+  if (Array.isArray(circuit.location)) {
+    circuit.location = circuit.location.join(", ");
+  }
+
+  if (!circuit.capacity) {
+    console.log(`${circuit.name} - no capacity`);
+  }
+  if (!circuit.length) {
+    console.log(`${circuit.name} - no length`);
+  }
+  const circuitObject = new Circuit(circuit);
+
+  return circuitObject.save();
 };
 
 export default ParseRaceData;

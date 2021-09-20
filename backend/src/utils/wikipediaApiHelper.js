@@ -2,7 +2,8 @@ import wiki from "wikijs";
 import Circuit from "../models/circuit.js";
 import Race from "../models/race.js";
 import Season from "../models/season";
-import ParseRaceData from "./ParseRaceData.js";
+import { getRaceResults } from "./ergestApiHelper.js";
+import ParseRaceData, { parseCircuitToDB } from "./ParseRaceData.js";
 
 const headers = {
   "User-Agent":
@@ -17,26 +18,14 @@ export const addCircuit = async (name) => {
 
     const length = await page.info("lengthKm");
     const capacity = await page.info("capacity");
-    let location = await page.info("location");
+    const location = await page.info("location");
 
-    if (Array.isArray(location)) {
-      location = location.join(", ");
-    }
-
-    if (!capacity) {
-      console.log(`${name} - no capacity`);
-    }
-    if (!length) {
-      console.log(`${name} - no length`);
-    }
-    const circuit = new Circuit({
+    parseCircuitToDB({
       name,
-      length: length ? Number.parseFloat(length) : 0,
-      capacity: capacity ? Number.parseFloat(capacity) : 0,
+      length: length ? Number.parseFloat(length) : undefined,
+      capacity: capacity ? Number.parseFloat(capacity) : undefined,
       location: location,
     });
-
-    return circuit.save();
   } catch (error) {
     console.log(`ERROR: ${error}`);
   }
@@ -55,32 +44,44 @@ export const addSeason = async (year) => {
       (table[0].rnd && (table[0].tooltip || table[0].report))
   )[0];
 
+  const number = racesSeason[0].round
+    ? parseInt(racesSeason[1].round.replace(/[^0-9.]/g, ""))
+    : parseInt(racesSeason[1].rnd.replace(/[^0-9.]/g, ""));
+
   const seasonObj = new Season({
+    wikipediaLink: seasonPage.fullurl,
     year: seasonInfo.year,
   });
+
   for (let i = 0; i < racesSeason.length; i++) {
     try {
       const race = racesSeason[i];
 
+      const round = race.round
+        ? parseInt(race.round.replace(/[^0-9.]/g, ""))
+        : parseInt(race.rnd.replace(/[^0-9.]/g, ""));
+
       const tooltip = race.tooltip ? race.tooltip : race.report;
       console.log(tooltip);
 
-      const isRaceAdded = await Race.findOne({ grandPrix: tooltip });
+      let raceDB = await Race.findOne({ grandPrix: tooltip });
 
-      if (!isRaceAdded) {
+      if (!raceDB) {
         const report = await wiki({
           headers,
         }).page(tooltip);
         const raceData = await report.info();
         const pictures = await report.images();
 
-        const raceObj = await addRace(
+        raceDB = await addRace(
           await ParseRaceData(raceData, tooltip, pictures, race),
           raceData.location[0]
         );
-
-        seasonObj.races.push(raceObj);
       }
+      seasonObj.races.push(raceDB);
+
+      await getRaceResults(raceDB, seasonInfo.year, round);
+      raceDB.save();
     } catch (error) {
       console.log(error);
     }
@@ -97,5 +98,5 @@ export const addRace = async (race, circuitName) => {
   }
 
   const newRace = new Race({ ...race, circuit: circuit });
-  return await newRace.save();
+  return await newRace;
 };

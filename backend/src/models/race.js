@@ -16,7 +16,6 @@ const raceSchema = mongoose.Schema({
   },
   pictureLink: {
     type: String,
-    required: true,
   },
   weather: {
     type: String,
@@ -28,6 +27,20 @@ const raceSchema = mongoose.Schema({
   length: {
     type: Number,
   },
+  results: [
+    {
+      driver: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Driver",
+      },
+      position: {
+        type: String,
+      },
+      grid: {
+        type: String,
+      },
+    },
+  ],
 });
 
 export default mongoose.model("Race", raceSchema);
