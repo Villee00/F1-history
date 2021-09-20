@@ -8,25 +8,18 @@ const typeDefs = gql`
   }
   type Driver {
     id: ID!
-    driverNumber: [Number]
-    seasonsDriven: [Number]
+    driverNumber: [Int]
+    seasonsDriven: [Int]
     teams: [String]
     firstName: String!
     lastName: String!
     nationality: String
-    dateOfBirth: Date
+    dateOfBirth: String
     races: [Races!]
     wikipediaLink: String!
   }
 `;
 
-const resolvers = {
-  Races: {
-    race: async (races, args, context, info) => {
-      return (await races.populate("race").execPopulate()).race;
-    },
-  },
-  Driver: {},
-};
+const resolvers = {};
 
 export default { typeDefs, resolvers };
