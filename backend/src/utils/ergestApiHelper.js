@@ -1,5 +1,6 @@
 import fetch from "cross-fetch";
 import Driver from "../models/driver.js";
+import { getPictureLink } from "./wikipediaApiHelper.js";
 
 export const getRaceResults = async (race, year, round) => {
   const fetched = await fetch(
@@ -22,6 +23,7 @@ export const getRaceResults = async (race, year, round) => {
       const nationality = driver.nationality;
       const dateOfBirth = driver.dateOfBirth;
       const wikipediaLink = driver.url;
+      const pictureLink = await getPictureLink(firstName + " " + lastName);
 
       driverInDB = new Driver({
         firstName,
@@ -32,6 +34,7 @@ export const getRaceResults = async (race, year, round) => {
         seasonsDriven: [year],
         driverNumber: [finisher.number],
         teams: [finisher.Constructor.name],
+        pictureLink,
       });
     } else if (!driverInDB.seasonsDriven.includes(year)) {
       driverInDB.seasonsDriven.push(year);

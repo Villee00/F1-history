@@ -24,6 +24,7 @@ const driverSchema = mongoose.Schema({
   teams: [String],
   wikipediaLink: String,
   seasonsDriven: [Number],
+  pictureLink: String,
 });
 
 export default mongoose.model("Driver", driverSchema);

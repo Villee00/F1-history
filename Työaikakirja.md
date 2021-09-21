@@ -11,3 +11,4 @@
 | 21.8. | 7    | -Kisa sivu, jossa tarkemmin tietoa kisasta<br/>-Kisoista tallentaan enemmin tietoa<br/>-Filtteri lisäyksiä<br/>-Kausi kortti frontendiin|
 | 14.9. | 4    | -Kilpailijan modelin tekeminen mongoose ja graphql haku mahdolliseksi<br/>-Kisan loppujärjestyksen haku ergest apista <br/>|
 | 20.9. | 8    | -Ergest apista haetaan nyt samaan aikaan kisojen hajussa tiedot kuljettajille<br/>-Kisoihin tallennetaan kisa järjestys ja kuski <br/>-Kuljettajasta tallennetaan aloituspaikka ja kisan lopputulos, jotta voimme näyttää tilastot frontendissä <br/>|
+| 22.9. | 6    | -Kilpailian kortin tekeminen frontendiin<br/>-Teidon haku muutoksia<br/>-Lisää graphql haku vaihtoehtoja <br/>|

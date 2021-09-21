@@ -20,11 +20,11 @@ export const addCircuit = async (name) => {
     const capacity = await page.info("capacity");
     const location = await page.info("location");
 
-    parseCircuitToDB({
+    return await parseCircuitToDB({
       name,
       length: length ? Number.parseFloat(length) : undefined,
       capacity: capacity ? Number.parseFloat(capacity) : undefined,
-      location: location,
+      location: location || "unkown",
     });
   } catch (error) {
     console.log(`ERROR: ${error}`);
@@ -43,10 +43,6 @@ export const addSeason = async (year) => {
       (table[0].round && (table[0].tooltip || table[0].report)) ||
       (table[0].rnd && (table[0].tooltip || table[0].report))
   )[0];
-
-  const number = racesSeason[0].round
-    ? parseInt(racesSeason[1].round.replace(/[^0-9.]/g, ""))
-    : parseInt(racesSeason[1].rnd.replace(/[^0-9.]/g, ""));
 
   const seasonObj = new Season({
     wikipediaLink: seasonPage.fullurl,
@@ -71,17 +67,17 @@ export const addSeason = async (year) => {
           headers,
         }).page(tooltip);
         const raceData = await report.info();
-        const pictures = await report.images();
+        const picture = await report.mainImage();
 
         raceDB = await addRace(
-          await ParseRaceData(raceData, tooltip, pictures, race),
+          await ParseRaceData(raceData, tooltip, picture, race),
           raceData.location[0]
         );
       }
       seasonObj.races.push(raceDB);
 
       await getRaceResults(raceDB, seasonInfo.year, round);
-      raceDB.save();
+      await raceDB.save();
     } catch (error) {
       console.log(error);
     }
@@ -98,5 +94,19 @@ export const addRace = async (race, circuitName) => {
   }
 
   const newRace = new Race({ ...race, circuit: circuit });
-  return await newRace;
+  return newRace;
+};
+
+export const getPictureLink = async (keyword) => {
+  try {
+    const page = await wiki({
+      headers,
+    }).find(keyword);
+    const picture = await page.mainImage();
+    return (
+      picture || "https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg"
+    );
+  } catch (error) {
+    console.log("Could not get picture " + error.message);
+  }
 };

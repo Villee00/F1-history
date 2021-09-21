@@ -1,4 +1,5 @@
 import { gql } from "apollo-server";
+import Driver from "../../models/driver.js";
 
 const typeDefs = gql`
   type Races {
@@ -17,9 +18,27 @@ const typeDefs = gql`
     dateOfBirth: String
     races: [Races!]
     wikipediaLink: String!
+    pictureLink: String!
+    racesDriven: Int
+    positionsGainedCareer: Int
   }
 `;
 
-const resolvers = {};
+const resolvers = {
+  Driver: {
+    async racesDriven(obj, args, context, info) {
+      const driver = await Driver.findById(obj.id);
+      return driver.races.length;
+    },
+    async positionsGainedCareer(obj, args, context, info) {
+      const driver = await Driver.findById(obj.id);
+      let positions = 0;
+      driver.races.forEach((race) => {
+        positions = race.position - race.grid;
+      });
+      return positions;
+    },
+  },
+};
 
 export default { typeDefs, resolvers };

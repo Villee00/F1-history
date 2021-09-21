@@ -1,6 +1,6 @@
 import Circuit from "../models/circuit.js";
 
-const ParseRaceData = async (raceData, tooltip, pictures, race) => {
+const ParseRaceData = async (raceData, tooltip, picture, race) => {
   let raceDate;
 
   if (!raceData.date) {
@@ -11,21 +11,11 @@ const ParseRaceData = async (raceData, tooltip, pictures, race) => {
     if (raceData.year) raceDate.setFullYear(raceData.year);
   }
 
-  const imageName = raceData.image.replace(/ /g, "_");
-
-  const image = pictures.find((n) =>
-    n.includes(
-      encodeURIComponent(imageName.replace("File:", ""))
-        .replace(/\(/g, "%28")
-        .replace(/\)/g, "%29")
-    )
-  );
-
   return {
     date: raceDate,
     grandPrix: tooltip,
     pictureLink:
-      image || "https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg",
+      picture || "https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg",
     weather: raceData.weather ? raceData.weather : "unknown",
     laps: raceData.distanceLaps ? raceData.distanceLaps : 0,
   };
@@ -44,7 +34,7 @@ export const parseCircuitToDB = async (circuit) => {
   }
   const circuitObject = new Circuit(circuit);
 
-  return circuitObject.save();
+  return await circuitObject.save();
 };
 
 export default ParseRaceData;

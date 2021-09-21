@@ -30,7 +30,10 @@ export const resolvers = {
     raceInfo: async (root, args) => {
       const race = await Race.findOne({
         grandPrix: args.grandPrix,
-      }).populate("circuit");
+      }).populate({
+        path: "circuit",
+        model: "Circuit",
+      });
 
       return race;
     },

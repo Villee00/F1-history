@@ -12,12 +12,6 @@ const typeDefs = gql`
   }
 `;
 
-const resolvers = {
-  Race: {
-    circuit: async (race, args, context, info) => {
-      return (await race.populate("circuit").execPopulate()).circuit;
-    },
-  },
-};
+const resolvers = {};
 
 export default { typeDefs, resolvers };

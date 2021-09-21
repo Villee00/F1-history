@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { GET_SEASON_RACES_BASIC } from '../queries';
 import RaceCard from './RaceCard';
 
-const RacesContainer = () =>{
+const DriversContainer = () =>{
   const {data, loading} = useQuery(GET_SEASON_RACES_BASIC,{
     variables:{
       SeasonYear: 1995
@@ -36,4 +36,4 @@ const RacesContainer = () =>{
   );
 };
 
-export default RacesContainer;
+export default DriversContainer;

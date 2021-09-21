@@ -8,6 +8,7 @@ const raceSchema = mongoose.Schema({
   circuit: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Circuit",
+    required: true,
   },
   grandPrix: {
     type: String,
