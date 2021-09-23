@@ -53,3 +53,15 @@ query Query($RaceWeather: String) {
 }
 ${RACE_DETAILS}
 `;
+
+export const GET_DRIVERS = gql`
+query Query {
+  getDriver {
+    firstName
+    lastName
+    positionsGainedCareer
+    racesDriven
+    pictureLink
+  }
+}
+`;

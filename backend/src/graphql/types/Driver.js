@@ -18,7 +18,7 @@ const typeDefs = gql`
     dateOfBirth: String
     races: [Races!]
     wikipediaLink: String!
-    pictureLink: String!
+    pictureLink: String
     racesDriven: Int
     positionsGainedCareer: Int
   }

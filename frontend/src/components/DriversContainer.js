@@ -5,9 +5,9 @@ import { GET_SEASON_RACES_BASIC } from '../queries';
 import RaceCard from './RaceCard';
 
 const DriversContainer = () =>{
-  const {data, loading} = useQuery(GET_SEASON_RACES_BASIC,{
+  const {data, loading} = useQuery(GET_DRIVERS,{
     variables:{
-      SeasonYear: 1995
+      SeasonYear: 2000
     }
   });
 

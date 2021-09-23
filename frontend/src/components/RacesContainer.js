@@ -7,7 +7,7 @@ import RaceCard from './RaceCard';
 const RacesContainer = () =>{
   const {data, loading} = useQuery(GET_SEASON_RACES_BASIC,{
     variables:{
-      SeasonYear: 1995
+      SeasonYear: 2002
     }
   });
 
