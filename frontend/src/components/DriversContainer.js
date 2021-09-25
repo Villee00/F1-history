@@ -1,15 +1,11 @@
 import { useQuery } from '@apollo/client';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { GET_SEASON_RACES_BASIC } from '../queries';
-import RaceCard from './RaceCard';
+import { GET_DRIVERS } from '../queries';
+import DriverCard from './DriverCard';
 
 const DriversContainer = () =>{
-  const {data, loading} = useQuery(GET_DRIVERS,{
-    variables:{
-      SeasonYear: 2000
-    }
-  });
+  const {data, loading} = useQuery(GET_DRIVERS);
 
   if(loading){
     return(<div>
@@ -17,9 +13,9 @@ const DriversContainer = () =>{
     </div>);
   }
 
-  const races = data?.allRaces.races;
+  const drivers = data?.getDriver;
   
-  if(!races){
+  if(!drivers){
     return(
       <div>
         Error loading data
@@ -28,9 +24,9 @@ const DriversContainer = () =>{
   }
   return(
     <div className="flex flex-row flex-wrap justify-center">
-      {races.map(race => 
-        <Link key={race.id} to={`/race/${encodeURIComponent(race.grandPrix)}`}>
-          <RaceCard race={race} />
+      {drivers.map(race => 
+        <Link key={race.id} to={`/driver/${encodeURIComponent(race.grandPrix)}`}>
+          <DriverCard driver={race} />
         </Link>)}
     </div>
   );

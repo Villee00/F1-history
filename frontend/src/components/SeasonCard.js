@@ -1,11 +1,30 @@
-import React from 'react';
+import * as React from 'react';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import { CardActionArea } from '@mui/material';
+import Typography from '@mui/material/Typography';
 
-const SeasonCard = () =>{
+const SeasonCard = ({year}) =>{
 
-  return(
-    <div className="text-purple-300 m-1 my-auto bg-gradient-to-l max-w-2xs from-purple-700 via-purple-800 to-purple-900 rounded-full p-4">
-      <p className="text-center">1970</p>
-    </div>
+  return (
+    <Card
+      sx={{
+        width: 250,
+        textAlign: 'center',
+        boxShadow: 2,
+        backgroundImage:
+          'linear-gradient(rgba(255, 255, 255, 0.0), rgba(0, 0, 0, 0.7)), url(https://1000logos.net/wp-content/uploads/2021/06/F1-logo.png)',
+        backgroundSize: 'cover'
+      }}
+    >
+      <CardActionArea>
+        <CardContent>
+          <Typography variant="h2" color="white">
+            {year}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
   );
 };
 

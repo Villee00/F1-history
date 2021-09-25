@@ -57,6 +57,7 @@ ${RACE_DETAILS}
 export const GET_DRIVERS = gql`
 query Query {
   getDriver {
+    id
     firstName
     lastName
     positionsGainedCareer

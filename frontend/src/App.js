@@ -1,8 +1,10 @@
 import React from 'react';
 import AppBar from './components/AppBar';
-import RacesContainer from './components/RacesContainer';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import RaceInfo from './components/RaceInfo';
+import RacesContainer from './components/RacesContainer';
+import DriversContainer from './components/DriversContainer';
+import SeasonsContainer from './components/SeasonContainer';
 
 const App = () =>{
   return(
@@ -14,8 +16,14 @@ const App = () =>{
           <Route path="/race/:gp">
             <RaceInfo/>
           </Route>
-          <Route path="/">
+          <Route path="/:year">
             <RacesContainer/>
+          </Route>
+          <Route path="/drivers">
+            <DriversContainer/>
+          </Route>
+          <Route exact path="/">
+            <SeasonsContainer/>
           </Route>
         </Switch>
       </div>

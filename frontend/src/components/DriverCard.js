@@ -17,19 +17,20 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary
 }));
 
-const DriverCard = () =>{
+const DriverCard = ({driver}) =>{
 
   return(
-    <Card sx={{ maxWidth: 270, borderRadius: 3 }}>
+    <Card sx={{ maxWidth: 270, borderRadius: 3, height: 600, margin: 2, boxShadow: 10}}>
       <CardMedia
         component="img"
         height="400"
-        image="https://upload.wikimedia.org/wikipedia/commons/d/d5/Lando_Norris_Formula_1_Driver_%2849379469418%29_%28cropped%29_%28cropped%29.jpg"
+        image={driver.pictureLink}
         alt="green iguana"
+        sx={{height:400}}
       />
       <CardContent >
         <Typography gutterBottom variant="h5" component="div">
-        Lando Norris
+          {driver.firstName} {driver.lastName} 
         </Typography>
         <Stack
           direction="row"
@@ -37,12 +38,12 @@ const DriverCard = () =>{
           spacing={2}
           sx={{ placeContent: 'center' }}
         >
-          <Item>80 Races</Item>
-          <Item>+5 positions gained</Item>
+          <Item>{driver.racesDriven} Races</Item>
+          <Item>{driver.positionsGainedCareer} positions gained</Item>
         </Stack>
       </CardContent>
       <CardActions>
-        <Button size="small" sx={{ width: '100%' }}>Details</Button>
+        <Button size="large" sx={{ width: '100%' }}>Details</Button>
       </CardActions>
     </Card>
   );
