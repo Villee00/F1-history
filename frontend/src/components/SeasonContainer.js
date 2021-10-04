@@ -18,7 +18,7 @@ const SeasonsContainer = () =>{
       {
         years.map(year =>
           <div key={year} className="m-5" >
-            <Link to={`/${year}`}>
+            <Link to={`/season/${year}`}>
               <SeasonCard year={year} />
             </Link>
           </div>)}

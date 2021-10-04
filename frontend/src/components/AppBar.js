@@ -17,7 +17,7 @@ const AppBar = () =>{
       <TabContext value={value}>
         <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
           <TabList onChange={handleChange} centered>
-            <Tab label="Seasons" value="seasons" to="/" component={Link}/>
+            <Tab label="Seasons" value="seasons" to="/seasons" component={Link}/>
             <Tab label="Drivers" value="drivers" to="/drivers" component={Link}/>
             <Tab label="Circuits" value="circuits" to="/circuits" component={Link}/>
           </TabList>

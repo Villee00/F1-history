@@ -16,11 +16,14 @@ const App = () =>{
           <Route path="/race/:gp">
             <RaceInfo/>
           </Route>
-          <Route path="/:year">
+          <Route path="/season/:year">
             <RacesContainer/>
           </Route>
           <Route path="/drivers">
             <DriversContainer/>
+          </Route>
+          <Route exact path="/seasons">
+            <SeasonsContainer/>
           </Route>
           <Route exact path="/">
             <SeasonsContainer/>

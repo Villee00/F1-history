@@ -11,18 +11,21 @@ export const getRaceResults = async (race, year, round) => {
   const data = JSON.parse(json);
   const result = data.MRData.RaceTable.Races;
 
-  result[0].Results.forEach(async (finisher) => {
-    const driver = finisher.Driver;
 
-    const firstName = driver.givenName;
-    const lastName = driver.familyName;
+  for (let index = 0; index < result[0].Results.length; index++) {
+    const finisher = result[0].Results[index];
+
+    const driverInfo = finisher.Driver;
+
+    const firstName = driverInfo.givenName;
+    const lastName = driverInfo.familyName;
 
     let driverInDB = await Driver.findOne({ firstName, lastName });
 
     if (!driverInDB) {
-      const nationality = driver.nationality;
-      const dateOfBirth = driver.dateOfBirth;
-      const wikipediaLink = driver.url;
+      const nationality = driverInfo.nationality;
+      const dateOfBirth = driverInfo.dateOfBirth;
+      const wikipediaLink = driverInfo.url;
       const pictureLink = await getPictureLink(firstName + " " + lastName);
 
       driverInDB = new Driver({
@@ -53,12 +56,11 @@ export const getRaceResults = async (race, year, round) => {
       grid: finisher.grid,
     });
 
-    const newDriver = await driverInDB.save();
-
+    const driver = await driverInDB.save();
     race.results.push({
-      driver: newDriver,
+      driver,
       position: finisher.position,
       grid: finisher.grid,
     });
-  });
+  }
 };

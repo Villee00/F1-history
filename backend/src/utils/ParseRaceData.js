@@ -1,10 +1,11 @@
 import Circuit from "../models/circuit.js";
 
-const ParseRaceData = async (raceData, tooltip, picture, race) => {
+const ParseRaceData = async (raceData, tooltip, picture, race, year) => {
   let raceDate;
 
   if (!raceData.date) {
     console.log(`No race date: ${tooltip}`);
+    raceDate = new Date(year);
   } else {
     raceDate = new Date(raceData.date);
 
@@ -18,6 +19,7 @@ const ParseRaceData = async (raceData, tooltip, picture, race) => {
       picture || "https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg",
     weather: raceData.weather ? raceData.weather : "unknown",
     laps: raceData.distanceLaps ? raceData.distanceLaps : 0,
+    results: [],
   };
 };
 

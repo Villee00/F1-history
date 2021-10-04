@@ -70,13 +70,14 @@ export const addSeason = async (year) => {
         const picture = await report.mainImage();
 
         raceDB = await addRace(
-          await ParseRaceData(raceData, tooltip, picture, race),
+          await ParseRaceData(raceData, tooltip, picture, race, seasonObj.year),
           raceData.location[0]
         );
       }
       seasonObj.races.push(raceDB);
 
       await getRaceResults(raceDB, seasonInfo.year, round);
+
       await raceDB.save();
     } catch (error) {
       console.log(error);
