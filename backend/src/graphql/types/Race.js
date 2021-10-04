@@ -1,6 +1,11 @@
 import { gql } from "apollo-server";
 
 const typeDefs = gql`
+  type Results {
+    driver: Driver
+    position: Int
+    grid: Int
+  }
   type Race {
     id: ID!
     date: String!
@@ -9,9 +14,12 @@ const typeDefs = gql`
     pictureLink: String
     weather: String!
     laps: Int!
+    results: [Results!]
   }
 `;
 
-const resolvers = {};
+const resolvers = {
+  Race: {},
+};
 
 export default { typeDefs, resolvers };

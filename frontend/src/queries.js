@@ -35,6 +35,14 @@ export const GET_RACE = gql`
 query Query($raceInfoGrandPrix: String!) {
   raceInfo(grandPrix: $raceInfoGrandPrix) {
     ...RaceDetails
+    results {
+      driver {
+        firstName
+        lastName
+      }
+      position
+      grid
+    }
   }
 }
 
