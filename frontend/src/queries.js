@@ -39,9 +39,11 @@ query Query($raceInfoGrandPrix: String!) {
       driver {
         firstName
         lastName
+        pictureLink
       }
       position
       grid
+      positionsGained
     }
   }
 }

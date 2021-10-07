@@ -34,7 +34,7 @@ const resolvers = {
       const driver = await Driver.findById(obj.id);
       let positions = 0;
       driver.races.forEach((race) => {
-        positions = race.position - race.grid;
+        positions = race.grid - race.position;
       });
       return positions;
     },

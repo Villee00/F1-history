@@ -39,7 +39,6 @@ export const resolvers = {
           path: "results.driver",
           model: "Driver",
         });
-
       return race;
     },
     filterRaces: async (root, args) => {
