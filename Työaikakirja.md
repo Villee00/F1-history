@@ -15,3 +15,4 @@
 | 25.9. | 6    | -Tabit antavat nyt oikeat tiedot<br/>-Kilpailiat näytetään toisella tabilla<br/>-Kausia voi nyt valita ja sen jälkeen näytetään kauden kisat tai jos niitä ei ole backend hakee tiedot ja tallentaa ne tietokantaan <br/>|
 | 04.10. | 4    | -Kisan tulos talukon korjauksia <br/>-Frontend korjauksia <br/> -Frontendiin kisan tulokset|
 | 07.10. | 4    | -Kisan tulokset näytetään nyt jokaisessa kisa tieto sivulla <br/>-Kisa tieto sivu kokonaan uusiksi <br/> -graphql lauseita lisää|
+| 08.10. | 3    | -Kisa kortit kokonaan uusiksi <br/>-backend muutoksia |

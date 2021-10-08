@@ -1,4 +1,6 @@
 import { useQuery } from '@apollo/client';
+import { Container } from '@mui/material';
+import { Box } from '@mui/system';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
@@ -29,12 +31,14 @@ const RacesContainer = () =>{
     );
   }
   return(
-    <div className="flex flex-row flex-wrap justify-center">
-      {races.map(race => 
-        <Link key={race.id} to={`/race/${encodeURIComponent(race.grandPrix)}`}>
-          <RaceCard race={race} />
-        </Link>)}
-    </div>
+    <Container maxWidth="xl" >
+      <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center">
+        {races.map(race => 
+          <Link key={race.id} to={`/race/${encodeURIComponent(race.grandPrix)}`}>
+            <RaceCard race={race} />
+          </Link>)}
+      </Box>
+    </Container>
   );
 };
 

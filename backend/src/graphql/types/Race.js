@@ -23,6 +23,9 @@ const typeDefs = gql`
 const resolvers = {
   Results: {
     async positionsGained(obj, args, context, info) {
+      if (parseInt(obj.grid) === 0) {
+        return 0;
+      }
       return obj.grid - obj.position;
     },
   },

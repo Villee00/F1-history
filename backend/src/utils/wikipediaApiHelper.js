@@ -102,7 +102,7 @@ export const getPictureLink = async (keyword) => {
   try {
     const page = await wiki({
       headers,
-    }).find(keyword);
+    }).find(keyword + " racing driver");
     const picture = await page.mainImage();
     return (
       picture || "https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg"

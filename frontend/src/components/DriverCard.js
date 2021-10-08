@@ -26,7 +26,7 @@ const DriverCard = ({driver}) =>{
         height="400"
         image={driver.pictureLink}
         alt="green iguana"
-        sx={{height:400}}
+        sx={{height:400, objectFit:'contain'}}
       />
       <CardContent >
         <Typography gutterBottom variant="h5" component="div">

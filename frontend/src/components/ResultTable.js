@@ -1,7 +1,9 @@
 /* eslint-disable react/display-name */
 import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import clsx from 'clsx';
 import { Avatar } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
 
 function CustomFooterStatusComponent(props) {
@@ -9,27 +11,53 @@ function CustomFooterStatusComponent(props) {
   return <div> { props.results.length} drivers in race</div>;
 }
 
+const useStyles = makeStyles({
+  root: {
+    '& .super-app.negative': {
+      backgroundColor: 'rgba(157, 255, 118, 0.49)',
+      fontWeight: '600',
+    },
+    '& .super-app.positive': {
+      backgroundColor: '#d47483',
+      fontWeight: '600',
+    },
+  },
+});
+
+
 const columns = [
-  { field: 'driver', sortable: false, width: 150,
-    renderCell: ({ value }) => <Avatar src={value.pictureLink} />},
+  { field: 'picture', headerName: '', sortable: false, width: 50,
+    renderCell: ({ value }) => <Avatar src={value} />},
+  { field: 'driver', sortable: false, headerName: 'Name', width: 150,
+    valueFormatter: ({ value }) => value.firstName + ' ' + value.lastName },
   { field: 'position', headerName: 'Finish position', width: 100 },
   { field: 'grid', headerName: 'Grid position', width: 150 },
-  { field: 'driver', sortable: false, headerName: 'First name', width: 150,
-    valueFormatter: ({ value }) => value.firstName + ' ' + value.lastName },
-
-  { field: 'grid', headerName: 'Grid position', width: 150 },
+  { field: 'grid', headerName: 'Grid position', width: 150, type: 'number' },
+  { field: 'positionsGained', headerName: 'Gained positions', flex: 1,  type: 'number',
+    cellClassName: ({value}) =>
+      clsx('super-app', {
+        negative: value > 0,
+        positive: value < 0,
+      }), },
 ];
+
 const ResultTable = ({results}) =>{
-  console.log(results);
+  const classes = useStyles();
+
+  const data = results.map(result => {
+    return ({...result, picture: result.driver.pictureLink});
+  });
+
   return(
     <div style={{ height: 600, width: '100%' }}>
-      <DataGrid rows={results} columns={columns} getRowId={() => Math.random()}
+      <DataGrid rows={data} columns={columns} getRowId={() => Math.random()}
         components={{
           Footer: CustomFooterStatusComponent
         }}
         componentsProps={{
           footer: { results }
-        }}/>
+        }}
+        className={classes.root}/>
     </div>
   );
 };
