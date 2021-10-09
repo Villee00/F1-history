@@ -44,8 +44,14 @@ const RaceInfo = () =>{
         
             <Typography variant="h6">Circuit</Typography>
             <Typography variant="subtitle1">{raceInfo.circuit.name}</Typography>
-            <Typography variant="subtitle1">{raceInfo.circuit.length} km</Typography>
-            <Typography variant="subtitle1">{raceInfo.circuit.capacity}K capacity</Typography>
+            {raceInfo.circuit.length?
+              <Typography variant="subtitle1">{raceInfo.circuit.length} km</Typography>:
+              null}
+            
+            {raceInfo.circuit.capacity?
+              <Typography variant="subtitle1">{raceInfo.circuit.capacity}K capacity</Typography>:
+              null}
+            
           </Box>
         </Box>
         <Box>

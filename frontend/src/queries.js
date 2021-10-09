@@ -66,13 +66,36 @@ ${RACE_DETAILS}
 
 export const GET_DRIVERS = gql`
 query Query {
-  getDriver {
+  getDrivers {
     id
-    firstName
-    lastName
+    fullName
     positionsGainedCareer
     racesDriven
     pictureLink
+  }
+}
+`;
+
+export const GET_DRIVER = gql`
+query Query($getDriverDriverId: String!) {
+  getDriver(driverID: $getDriverDriverId) {
+    pictureLink
+    racesDriven
+    positionsGainedCareer
+    fullName
+    seasonsDriven
+    teams
+    nationality
+    dateOfBirth
+    races {
+      race {
+        grandPrix
+        weather
+      }
+      position
+      grid
+      positionsGained
+    }
   }
 }
 `;

@@ -6,7 +6,7 @@ const driverSchema = mongoose.Schema({
   firstName: String,
   lastName: String,
   nationality: String,
-  dateOfBirth: Date,
+  dateOfBirth: String,
   races: [
     {
       race: {

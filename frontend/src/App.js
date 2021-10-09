@@ -9,6 +9,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import DriverInfo from './components/DriverInfo';
 
 const App = () =>{
   return(
@@ -25,6 +26,9 @@ const App = () =>{
           </Route>
           <Route path="/drivers">
             <DriversContainer/>
+          </Route>
+          <Route path="/driver/:id">
+            <DriverInfo/>
           </Route>
           <Route exact path="/seasons">
             <SeasonsContainer/>

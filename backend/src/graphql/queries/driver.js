@@ -3,22 +3,21 @@ import Driver from "../../models/driver.js";
 
 export const typeDefs = gql`
   extend type Query {
-    getDriver(driverID: String): [Driver]
+    getDrivers: [Driver!]!
+    getDriver(driverID: String!): Driver!
   }
 `;
 
 export const resolvers = {
   Query: {
-    getDriver: async (root, args) => {
-      if (args.driverID) {
-        return await Driver.findOne({
-          ID: args.driverID,
-        }).populate({
-          path: "races.race",
-          model: "Race",
-        });
-      }
+    getDrivers: async (obj, args, context, info) => {
       return await Driver.find({});
+    },
+    getDriver: async (obj, args, context, info) => {
+      return await Driver.findById(args.driverID).populate({
+        path: "races.race",
+        model: "Race",
+      });
     },
   },
 };

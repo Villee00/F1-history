@@ -6,6 +6,7 @@ const typeDefs = gql`
     race: Race
     position: Int
     grid: Int
+    positionsGained: Int
   }
   type Driver {
     id: ID!
@@ -21,6 +22,7 @@ const typeDefs = gql`
     pictureLink: String
     racesDriven: Int
     positionsGainedCareer: Int
+    fullName: String!
   }
 `;
 
@@ -39,6 +41,17 @@ const resolvers = {
         }
       });
       return positions;
+    },
+    async fullName(obj, args, context, info) {
+      return obj.firstName + " " + obj.lastName;
+    },
+  },
+  Races: {
+    async positionsGained(obj, args, context, info) {
+      if (parseInt(obj.grid) === 0) {
+        return 0;
+      }
+      return obj.grid - obj.position;
     },
   },
 };

@@ -1,4 +1,6 @@
 import { useQuery } from '@apollo/client';
+import { Container } from '@mui/material';
+import { Box } from '@mui/system';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { GET_DRIVERS } from '../queries';
@@ -13,7 +15,7 @@ const DriversContainer = () =>{
     </div>);
   }
 
-  const drivers = data?.getDriver;
+  const drivers = data?.getDrivers;
   
   if(!drivers){
     return(
@@ -23,12 +25,14 @@ const DriversContainer = () =>{
     );
   }
   return(
-    <div className="flex flex-row flex-wrap justify-center">
-      {drivers.map(race => 
-        <Link key={race.id} to={`/driver/${encodeURIComponent(race.grandPrix)}`}>
-          <DriverCard driver={race} />
-        </Link>)}
-    </div>
+    <Container maxWidth="xl" >
+      <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center">
+        {drivers.map(driver => 
+          <Link key={driver.id} to={`/driver/${driver.id}`}>
+            <DriverCard driver={driver} />
+          </Link>)}
+      </Box>
+    </Container>
   );
 };
 

@@ -30,7 +30,7 @@ const DriverCard = ({driver}) =>{
       />
       <CardContent >
         <Typography gutterBottom variant="h5" component="div">
-          {driver.firstName} {driver.lastName} 
+          {driver.fullName} 
         </Typography>
         <Stack
           direction="row"
