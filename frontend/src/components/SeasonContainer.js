@@ -13,12 +13,12 @@ const SeasonsContainer = () =>{
   return(
     <div className="flex flex-row flex-wrap justify-center ">
       <div className="w-screen text-center">
-        <Typography variant="h3" width="!00%" centerd> Select a season </Typography>
+        <Typography variant="h3" width="!00%"> Select a season </Typography>
       </div>
       {
         years.map(year =>
           <div key={year} className="m-5" >
-            <Link to={`/season/${year}`}>
+            <Link to={`/seasons/${year}`}>
               <SeasonCard year={year} />
             </Link>
           </div>)}

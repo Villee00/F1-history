@@ -1,5 +1,4 @@
 import { gql } from "apollo-server";
-import createRace from "./mutations/createRace.js";
 import races from "./queries/races.js";
 import Circuit from "./types/Circuit.js";
 import Race from "./types/Race.js";
@@ -21,7 +20,6 @@ const typeDefs = [
   rootTypeDefs,
   Race.typeDefs,
   races.typeDefs,
-  createRace.typeDefs,
   Circuit.typeDefs,
   Season.typeDefs,
   Driver.typeDefs,
@@ -31,7 +29,6 @@ const typeDefs = [
 const resolvers = [
   Race.resolvers,
   races.resolvers,
-  createRace.resolvers,
   Circuit.resolvers,
   Season.resolvers,
   Driver.resolvers,

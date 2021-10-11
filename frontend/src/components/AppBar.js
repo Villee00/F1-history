@@ -6,8 +6,8 @@ import Tab from '@mui/material/Tab';
 import { Link } from 'react-router-dom';
 
 const AppBar = () =>{
-  const [value, setValue] = React.useState('seasons');
-
+  const [value, setValue] = React.useState(window.location.pathname.split('/')[1] == ''? 'seasons': window.location.pathname.split('/')[1]);
+  console.log();
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -19,7 +19,6 @@ const AppBar = () =>{
           <TabList onChange={handleChange} centered>
             <Tab label="Seasons" value="seasons" to="/seasons" component={Link}/>
             <Tab label="Drivers" value="drivers" to="/drivers" component={Link}/>
-            <Tab label="Circuits" value="circuits" to="/circuits" component={Link}/>
           </TabList>
         </Box>
       </TabContext>

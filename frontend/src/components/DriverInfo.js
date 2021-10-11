@@ -35,7 +35,7 @@ const DriverInfo = () =>{
         <Box textAlign="center"> 
           <Typography variant="h2">{driverInfo.fullName}</Typography>
         </Box>
-        <Box display="flex" flexDirection="row" justifyContent="space-evenly" flexWrap="wrap" sx={{placeItems:'flex-start'}}>
+        <Box display="flex" flexDirection="row" justifyContent="space-evenly" flexWrap="wrap" sx={{placeItems:'flex-start'}} margin={2}>
           <Paper elevation={3}>
             <img className="max-h-96 min-h-96" src={driverInfo.pictureLink}/>
           </Paper>

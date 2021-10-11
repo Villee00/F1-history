@@ -4,6 +4,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import clsx from 'clsx';
 import { Avatar } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { Link } from 'react-router-dom';
 
 
 function CustomFooterStatusComponent(props) {
@@ -29,7 +30,12 @@ const columns = [
   { field: 'picture', headerName: '', sortable: false, width: 50,
     renderCell: ({ value }) => <Avatar src={value} />},
   { field: 'driver', sortable: false, headerName: 'Name', width: 150,
-    valueFormatter: ({ value }) => value.firstName + ' ' + value.lastName },
+    valueFormatter: ({ value }) => value.firstName + ' ' + value.lastName, 
+    renderCell: ({value}) =>(
+      <Link to={`/drivers/${value.id}`} >
+        {value.firstName} {value.lastName}
+      </Link>
+    )},
   { field: 'position', headerName: 'Finish position', width: 100 },
   { field: 'grid', headerName: 'Grid position', width: 150 },
   { field: 'grid', headerName: 'Grid position', width: 150, type: 'number' },

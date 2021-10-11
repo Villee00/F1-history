@@ -27,6 +27,8 @@ query Query($SeasonYear: Int!) {
       weather
       pictureLink
     }
+    wikipediaLink
+    year
   }
 }
 `;
@@ -37,6 +39,7 @@ query Query($raceInfoGrandPrix: String!) {
     ...RaceDetails
     results {
       driver {
+        id
         firstName
         lastName
         pictureLink
@@ -65,8 +68,8 @@ ${RACE_DETAILS}
 `;
 
 export const GET_DRIVERS = gql`
-query Query {
-  getDrivers {
+query Query($limit: Int, $offset: Int) {
+  getDrivers(limit: $limit, offset: $offset) {
     id
     fullName
     positionsGainedCareer
@@ -97,5 +100,11 @@ query Query($getDriverDriverId: String!) {
       positionsGained
     }
   }
+}
+`;
+
+export const GET_DRIVER_COUNT = gql`
+query Query {
+  getDriverCount
 }
 `;

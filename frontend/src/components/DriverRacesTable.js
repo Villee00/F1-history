@@ -3,6 +3,7 @@ import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import clsx from 'clsx';
 import { makeStyles } from '@mui/styles';
+import { Link } from 'react-router-dom';
 
 
 function CustomFooterStatusComponent(props) {
@@ -24,7 +25,11 @@ const useStyles = makeStyles({
 
 
 const columns = [
-  { field: 'grandPrix',  headerName: 'Grand Prix', width: 300},
+  { field: 'grandPrix',  headerName: 'Grand Prix', width: 300, renderCell: (params) =>(
+    <Link to={`/seasons/drivers/${encodeURIComponent(params.value)}`} >
+      {params.value} testi
+    </Link>
+  )},
   { field: 'weather', headerName: 'Weather', width: 200 },
   { field: 'positionsGained', headerName: 'Gained positions', flex: 1,  type: 'number',
     cellClassName: ({value}) =>

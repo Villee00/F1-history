@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { Container } from '@mui/material';
+import { CircularProgress, Container, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -16,25 +16,44 @@ const RacesContainer = () =>{
   });
 
   if(loading){
-    return(<div>
-      Loading...
-    </div>);
+    return(     
+      <Box textAlign="center" margin={2}>
+        <CircularProgress/>
+        <Typography>Loading races</Typography>
+        <Typography>This could take few minutes</Typography>
+      </Box>);
   }
 
   const races = data?.allRaces.races;
-  
   if(!races){
     return(
-      <div>
-        Error loading data
-      </div>
+      <Box>
+        <Typography>Error loading data</Typography>
+      </Box>
+      
+    );
+  }
+  if(races.length == 0){
+    return(
+      <Box textAlign="center">
+        <Typography variant="h6">No data could be parsed from {data?.allRaces.year} season</Typography>
+        <Typography variant="subtitle2">Wikipedia article </Typography>
+        <Typography variant="body1">
+          <a href={data?.allRaces.wikipediaLink} >
+            {data?.allRaces.wikipediaLink} 
+          </a>
+        </Typography>
+      </Box>
     );
   }
   return(
     <Container maxWidth="xl" >
+      <Typography variant="h3" textAlign="center">
+        Season {data?.allRaces.year} 
+      </Typography>
       <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center">
         {races.map(race => 
-          <Link key={race.id} to={`/race/${encodeURIComponent(race.grandPrix)}`}>
+          <Link key={race.id} to={`/seasons/${year}/${encodeURIComponent(race.grandPrix)}`}>
             <RaceCard race={race} />
           </Link>)}
       </Box>

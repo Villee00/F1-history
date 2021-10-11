@@ -5,7 +5,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Collapse, Icon, IconButton, Typography } from '@mui/material';
+import { Collapse, Icon, IconButton, Stack, Typography } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import CakeIcon from '@mui/icons-material/Cake';
@@ -118,16 +118,12 @@ const CollapseRow = ({header, data}) =>{
       >
         <TableCell colSpan={6} style={{ paddingBottom: 0, paddingTop: 0 }}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Table>
-              {data.map(season => <TableRow key={season}>
-                <TableCell
-                  align="center">
-                  <Typography >
-                    {season}
-                  </Typography>
-                </TableCell>
-              </TableRow>)}
-            </Table>
+            <Stack spaceing={2} textAlign="center">
+              {data.map(season => 
+                <Typography key={season} margin={2}>
+                  {season}
+                </Typography>)}
+            </Stack>
           </Collapse>
         </TableCell>
       </TableRow></>

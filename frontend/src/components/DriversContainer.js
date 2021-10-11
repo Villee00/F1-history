@@ -1,51 +1,69 @@
 import { useQuery } from '@apollo/client';
-import { Container, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { CircularProgress, Container, Pagination, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { GET_DRIVERS } from '../queries';
+import { GET_DRIVERS, GET_DRIVER_COUNT } from '../queries';
 import DriverCard from './DriverCard';
 
 const DriversContainer = () =>{
-  const {data, loading} = useQuery(GET_DRIVERS);
-
-  if(loading){
-    return(<div>
-      Loading...
-    </div>);
-  }
-
-  const drivers = data?.getDrivers;
+  const driverCount = useQuery(GET_DRIVER_COUNT);
+  const [page, setPage] = useState(1);
+  const {data, fetchMore} = useQuery(GET_DRIVERS,{
+    variables: {
+      offset: (page -1)* 12,
+      limit: 12
+    },
+  });
   
-  if(!drivers){
+
+  const handleChange = (event, value) =>{
+    setPage(value);
+    fetchMore({
+      variables: {
+        offset: (value)* 12,
+        limit: 12
+      },
+      updateQuery: (prevResult, { fetchMoreResult }) => {
+        console.log(prevResult.getDrivers);
+        if (!fetchMoreResult) return prevResult;
+        return {
+          ...prevResult,
+          GetCumulativeStats: [
+            ...fetchMoreResult.getDrivers,
+          ],
+        };
+      },
+    });
+
+  };
+
+  if(driverCount.loading){
     return(
-      <div>
-        Error loading data
-      </div>
+      <CircularProgress/>
     );
   }
+
+  const drivers = data?.getDrivers? data?.getDrivers: [];
+  const pageCount = Math.ceil(driverCount.data.getDriverCount/12);
+
   return(
     <Container maxWidth="xl" >
+      <Typography variant="h2" textAlign="center">
+        Drivers ordered by age
+      </Typography>
       <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="space-evenly">
         <TextField id="standard-basic" label="Standard" variant="standard" />
-        <FormControl sx={{minWidth:200}}>
-          <InputLabel id="demo-simple-select-label">Sorting</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            label="Age"
-          >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
-        </FormControl>
       </Box>
       <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center">
-        {drivers.map(driver => 
-          <Link key={driver.id} to={`/driver/${driver.id}`}>
+        {drivers.map((driver) => 
+          <Link key={driver.id} to={`/drivers/${driver.id}`}>
             <DriverCard driver={driver} />
           </Link>)}
+
+      </Box>
+      <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center">
+        <Pagination count={pageCount} defaultPage={page} color="primary" onChange={handleChange} size="large" boundaryCount={2}/>
       </Box>
     </Container>
   );

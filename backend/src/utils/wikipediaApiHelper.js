@@ -46,41 +46,48 @@ export const addSeason = async (year) => {
 
   const seasonObj = new Season({
     wikipediaLink: seasonPage.fullurl,
-    year: seasonInfo.year,
+    year,
   });
+  if (racesSeason) {
+    for (let i = 0; i < racesSeason.length; i++) {
+      try {
+        const race = racesSeason[i];
 
-  for (let i = 0; i < racesSeason.length; i++) {
-    try {
-      const race = racesSeason[i];
+        const round = race.round
+          ? parseInt(race.round.replace(/[^0-9.]/g, ""))
+          : parseInt(race.rnd.replace(/[^0-9.]/g, ""));
 
-      const round = race.round
-        ? parseInt(race.round.replace(/[^0-9.]/g, ""))
-        : parseInt(race.rnd.replace(/[^0-9.]/g, ""));
+        const tooltip = race.tooltip ? race.tooltip : race.report;
+        console.log(tooltip);
 
-      const tooltip = race.tooltip ? race.tooltip : race.report;
-      console.log(tooltip);
+        let raceDB = await Race.findOne({ grandPrix: tooltip });
 
-      let raceDB = await Race.findOne({ grandPrix: tooltip });
+        if (!raceDB) {
+          const report = await wiki({
+            headers,
+          }).page(tooltip);
+          const raceData = await report.info();
+          const picture = await report.mainImage();
 
-      if (!raceDB) {
-        const report = await wiki({
-          headers,
-        }).page(tooltip);
-        const raceData = await report.info();
-        const picture = await report.mainImage();
+          raceDB = await addRace(
+            await ParseRaceData(
+              raceData,
+              tooltip,
+              picture,
+              race,
+              seasonObj.year
+            ),
+            raceData.location[0]
+          );
+        }
+        seasonObj.races.push(raceDB);
 
-        raceDB = await addRace(
-          await ParseRaceData(raceData, tooltip, picture, race, seasonObj.year),
-          raceData.location[0]
-        );
+        await getRaceResults(raceDB, seasonInfo.year, round);
+
+        await raceDB.save();
+      } catch (error) {
+        console.log(error);
       }
-      seasonObj.races.push(raceDB);
-
-      await getRaceResults(raceDB, seasonInfo.year, round);
-
-      await raceDB.save();
-    } catch (error) {
-      console.log(error);
     }
   }
 
@@ -102,7 +109,7 @@ export const getPictureLink = async (keyword) => {
   try {
     const page = await wiki({
       headers,
-    }).find(keyword + " racing driver");
+    }).find(keyword + " driver");
     const picture = await page.mainImage();
     return (
       picture || "https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg"
