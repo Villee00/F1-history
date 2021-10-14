@@ -10,7 +10,7 @@ import {
 import { relayStylePagination } from '@apollo/client/utilities';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/',
+  uri: 'https://serene-scrubland-10481.herokuapp.com/graphql',
   cache: new InMemoryCache({
     typePolicies: {
       Query: {

@@ -1,6 +1,6 @@
 import { ApolloServer } from "apollo-server";
 
-import ApolloServerPluginLandingPageDisabled from "apollo-server-core";
+import { ApolloServerPluginLandingPageDisabled } from "apollo-server-core";
 import mongoose from "mongoose";
 import schema from "./graphql/schema.js";
 import dotenv from "dotenv";
