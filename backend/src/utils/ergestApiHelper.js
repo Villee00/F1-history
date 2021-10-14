@@ -11,7 +11,6 @@ export const getRaceResults = async (race, year, round) => {
   const data = JSON.parse(json);
   const result = data.MRData.RaceTable.Races;
 
-
   for (let index = 0; index < result[0].Results.length; index++) {
     const finisher = result[0].Results[index];
 

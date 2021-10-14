@@ -17,7 +17,7 @@ const App = () =>{
     <Router>
       <div className="flex flex-shrink-0 p-6 flex-col items-center">
         <Link to="/">
-          <Typography variant="h1" sx={{ fontStyle: 'oblique',fontWeight: 'bold' }}>F1</Typography>
+          <Typography variant="h2" sx={{ fontStyle: 'oblique',fontWeight: 'bold' }}>F1 HISTORY</Typography>
         </Link>
         <AppBar/>
 
