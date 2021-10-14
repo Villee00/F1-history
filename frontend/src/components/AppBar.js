@@ -17,6 +17,7 @@ const AppBar = () =>{
   useEffect(() =>{
     setValue(location.pathname.split('/')[1] == ''? 'seasons': location.pathname.split('/')[1]);
   },[location]);
+  
   return(
     <Box sx={{ width: '100%', typography: 'body1' }}>
       <TabContext value={value}>
