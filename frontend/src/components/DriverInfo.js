@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import { GET_DRIVER } from '../queries';
-import { Container, Paper, Typography } from '@mui/material';
+import { CircularProgress, Container, Paper, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import DriverTable from './DriverTable';
 import DriverRacesTable from './DriverRacesTable';
@@ -17,7 +17,7 @@ const DriverInfo = () =>{
   
   if(loading){
     return(
-      <Typography>Loading...</Typography>
+      <CircularProgress />
     );
   }
 
@@ -30,14 +30,14 @@ const DriverInfo = () =>{
 
   
   return(
-    <Container maxWidth="md" >
+    <Container  maxWidth="md" >
       <Box display="flex" flexDirection="column">
         <Box textAlign="center"> 
           <Typography variant="h2">{driverInfo.fullName}</Typography>
         </Box>
         <Box display="flex" flexDirection="row" justifyContent="space-evenly" flexWrap="wrap" sx={{placeItems:'flex-start'}} margin={2}>
           <Paper elevation={3}>
-            <img className="max-h-96 min-h-96" src={driverInfo.pictureLink}/>
+            <img className="max-h-96 min-w-96" src={driverInfo.pictureLink}/>
           </Paper>
           <DriverTable driver={driverInfo}/>
         </Box>

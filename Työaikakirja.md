@@ -18,3 +18,4 @@
 | 08.10. | 3    | -Kisa kortit kokonaan uusiksi <br/>-backend muutoksia |
 | 09.10. | 7    | -Kuskeille sivut, jossa voi katsoa kuskin teitoja <br/>-graphql muutoksia kisojen etsimiseen|
 | 11.10. | 8    | -Kuskit haetaan nyt osissa, jotta sivut olisi nopeammat <br/>-Jos kautta ei pysty hakea annetaan wikipedia linkki kaudelle <br/>-Yläbaari toimii riipuen siitä missä sivustolla ollaan <br/>-Tulos taulusta pääsee suoraan katsomaan kuskin tietoja klikkaamalla <br/>-Kuskin kisoista pääsee katsomaan kisan tarkempia teitoja klikkaamalla |
+| 14.10. | 3    | -Viimestely ja viimeisiä bugi fixauksia |

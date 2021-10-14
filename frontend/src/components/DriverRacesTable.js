@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 const columns = [
   { field: 'grandPrix',  headerName: 'Grand Prix', width: 300, renderCell: (params) =>(
     <Link to={`/seasons/drivers/${encodeURIComponent(params.value)}`} >
-      {params.value} testi
+      {params.value}
     </Link>
   )},
   { field: 'weather', headerName: 'Weather', width: 200 },
@@ -43,7 +43,7 @@ const DriverRacesTable = ({races}) =>{
   const classes = useStyles();
 
   const data = races.map(result => {
-    return ({...result, grandPrix: result.race.grandPrix, weather: result.race.weather});
+    return result.race?.grandPrix?({...result, grandPrix: result.race.grandPrix, weather: result.race.weather}): null;
   });
 
   return(

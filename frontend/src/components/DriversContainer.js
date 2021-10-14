@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { CircularProgress, Container, Pagination, TextField, Typography } from '@mui/material';
+import { CircularProgress, Container, Pagination, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -23,17 +23,7 @@ const DriversContainer = () =>{
       variables: {
         offset: (value)* 12,
         limit: 12
-      },
-      updateQuery: (prevResult, { fetchMoreResult }) => {
-        console.log(prevResult.getDrivers);
-        if (!fetchMoreResult) return prevResult;
-        return {
-          ...prevResult,
-          GetCumulativeStats: [
-            ...fetchMoreResult.getDrivers,
-          ],
-        };
-      },
+      }
     });
 
   };
@@ -52,9 +42,6 @@ const DriversContainer = () =>{
       <Typography variant="h2" textAlign="center">
         Drivers ordered by age
       </Typography>
-      <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="space-evenly">
-        <TextField id="standard-basic" label="Standard" variant="standard" />
-      </Box>
       <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center">
         {drivers.map((driver) => 
           <Link key={driver.id} to={`/drivers/${driver.id}`}>
@@ -63,7 +50,7 @@ const DriversContainer = () =>{
 
       </Box>
       <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center">
-        <Pagination count={pageCount} defaultPage={page} color="primary" onChange={handleChange} size="large" boundaryCount={2}/>
+        <Pagination count={pageCount} value={page ? page : ' '}  color="primary" onChange={handleChange} size="large" boundaryCount={2}/>
       </Box>
     </Container>
   );

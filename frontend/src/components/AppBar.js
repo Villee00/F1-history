@@ -1,17 +1,22 @@
-import * as React from 'react';
+import React, {useEffect} from 'react';
 import Box from '@mui/material/Box';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import Tab from '@mui/material/Tab';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const AppBar = () =>{
-  const [value, setValue] = React.useState(window.location.pathname.split('/')[1] == ''? 'seasons': window.location.pathname.split('/')[1]);
-  console.log();
+  const location = useLocation();
+  const [value, setValue] = React.useState('seasons');
+  
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  useEffect(() =>{
+    setValue(location.pathname.split('/')[1] == ''? 'seasons': location.pathname.split('/')[1]);
+  },[location]);
   return(
     <Box sx={{ width: '100%', typography: 'body1' }}>
       <TabContext value={value}>
