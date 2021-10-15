@@ -3,7 +3,7 @@ import Driver from "../../models/driver.js";
 
 export const typeDefs = gql`
   extend type Query {
-    getDrivers(limit: Int, offset: Int): [Driver!]!
+    getDrivers(limit: Int, offset: Int, name: String, season: Int): [Driver!]!
     getDriver(driverID: String!): Driver!
     getDriverCount: Int!
   }
@@ -12,7 +12,7 @@ export const typeDefs = gql`
 export const resolvers = {
   Query: {
     getDrivers: async (obj, args, context, info) => {
-      return await Driver.find()
+      return await Driver.find({})
         .sort({ dateOfBirth: -1 })
         .limit(args.limit)
         .skip(args.offset)

@@ -19,12 +19,7 @@ export const resolvers = {
       }).populate("races");
 
       if (!season) {
-        for (let year = 1950; year < 2020; year++) {
-          await addSeason(year);
-        }
-        season = await Season.findOne({
-          year: args.seasonYear,
-        }).populate("races");
+        season = await addSeason(args.seasonYear);
       }
       season.races.forEach((race) => {
         race.populate("circuit");
