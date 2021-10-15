@@ -16,4 +16,4 @@ Jos haluaa saada enemmän tietoa kisasta, jossa kuski ajoi voi kisan nimeä pain
 
 
 Kauden kisat ja ratojen tiedot yritetään hakea Wikipediasta. Joitain kausia ei pysty hakea, sillä jokainen Wikipedian sivu on vähän erillainen ja kisa listaa ei pystytty hakemaan sivuilta. Näissä tilanteissa annetaan sivulle Wikipedia artikkeli, jos haluaa lukea lisää.
-<br/> kisojen tuloksien saamiseen käytin sivua: http://ergast.com/mrd/ <br/>
+<br/> Kisojen tuloksien saamiseen käytin sivua: http://ergast.com/mrd/ <br/>
