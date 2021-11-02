@@ -28,14 +28,14 @@ const RaceInfo = () =>{
     );
   }
   return(
-    <Container maxWidth="md" >
+    <Container maxWidth="lg" >
       <Box display="flex" flexDirection="column">
         <Box textAlign="center"> 
           <Typography variant="h2">{raceInfo.grandPrix}</Typography>
         </Box>
-        <Box display="flex" flexDirection="row" justifyContent="space-evenly" flexWrap="wrap">
-          <Box>
-            <img className="w-96" src={raceInfo.pictureLink}/>
+        <Box display="flex" flexDirection="row" justifyContent="center" flexWrap="wrap">
+          <Box sx={{alignSelf:'center'}}>
+            <img style={{ maxHeight: 400, maxWidth: 400 }} src={raceInfo.pictureLink}/>
           </Box>
           <Box>
             <RaceInfoTable race={raceInfo}/>

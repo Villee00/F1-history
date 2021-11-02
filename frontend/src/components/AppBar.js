@@ -19,7 +19,7 @@ const AppBar = () =>{
   },[location]);
   
   return(
-    <Box sx={{ width: '100%', typography: 'body1' }}>
+    <Box sx={{ width: '100%', typography: 'body1', paddingBottom: 5 }}>
       <TabContext value={value}>
         <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
           <TabList onChange={handleChange} centered>

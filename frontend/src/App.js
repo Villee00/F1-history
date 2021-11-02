@@ -1,23 +1,23 @@
 import React from 'react';
 import AppBar from './components/AppBar';
-import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
-import RaceInfo from './components/RaceInfo';
-import RacesContainer from './components/RacesContainer';
-import DriversContainer from './components/DriversContainer';
-import SeasonsContainer from './components/SeasonContainer';
+import {BrowserRouter as Router, Route, Switch, Link as RouterLink} from 'react-router-dom';
+import Link from '@mui/material/Link';
+import RaceInfo from './raceInfo';
+import DriversContainer from './driversContainer';
+import SeasonsContainer from './seasonContainer';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import DriverInfo from './components/DriverInfo';
-import { Typography } from '@mui/material';
+import DriverInfo from './driverInfo';
+import { Container, Typography } from '@mui/material';
 
 const App = () =>{
   return(
     <Router>
-      <div className="flex flex-shrink-0 p-6 flex-col items-center">
-        <Link to="/">
-          <Typography variant="h2" sx={{ fontStyle: 'oblique',fontWeight: 'bold' }}>F1 HISTORY</Typography>
+      <Container maxWidth="l" sx={{display:'flex', flexDirection:'column', alignItems: 'center'}}>
+        <Link component={RouterLink} underline='hover' to="/">
+          <Typography variant="h3">F1 HISTORY</Typography>
         </Link>
         <AppBar/>
 
@@ -25,23 +25,23 @@ const App = () =>{
           <Route path="/seasons/:year/:gp" exact>
             <RaceInfo/>
           </Route>
-          <Route path="/seasons/:year">
-            <RacesContainer/>
-          </Route>
           <Route path="/drivers" exact>
             <DriversContainer/>
           </Route>
           <Route path="/drivers/:id" exact>
             <DriverInfo/>
           </Route>
-          <Route  path="/seasons" exact>
+          <Route exact path="/seasons/:year">
             <SeasonsContainer/>
           </Route>
-          <Route exact path="/">
+          <Route exact path="/seasons/">
+            <SeasonsContainer/>
+          </Route>
+          <Route  path="/" exact>
             <SeasonsContainer/>
           </Route>
         </Switch>
-      </div>
+      </Container >
     </Router>
   );
 };

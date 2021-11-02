@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cross-env NODE_ENV=production node -r esm ./src/index.js",
+    "start": "NODE_ENV=production node -r esm ./src/index.js",
+    "start:windows": "cross-env NODE_ENV=production node -r esm ./src/index.js",
     "dev": "cross-env NODE_ENV=development nodemon -r esm ./src/index.js",
     "build:ui": "rm build && cd ../frontend && npm run build && cp -r build ../backend"
   },

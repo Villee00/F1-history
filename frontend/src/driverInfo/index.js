@@ -30,14 +30,14 @@ const DriverInfo = () =>{
 
   
   return(
-    <Container  maxWidth="md" >
+    <Container  maxWidth="lg" >
       <Box display="flex" flexDirection="column">
         <Box textAlign="center"> 
           <Typography variant="h2">{driverInfo.fullName}</Typography>
         </Box>
         <Box display="flex" flexDirection="row" justifyContent="space-evenly" flexWrap="wrap" sx={{placeItems:'flex-start'}} margin={2}>
           <Paper elevation={3}>
-            <img className="max-h-96 min-w-96" src={driverInfo.pictureLink}/>
+            <img style={{ maxHeight: 400, maxWidth: 350 }} src={driverInfo.pictureLink}/>
           </Paper>
           <DriverTable driver={driverInfo}/>
         </Box>

@@ -23,9 +23,8 @@ const DriverCard = ({driver}) =>{
     <Card sx={{ maxWidth: 270, borderRadius: 3, height: 600, margin: 2, boxShadow: 10}}>
       <CardMedia
         component="img"
-        height="400"
         image={driver.pictureLink}
-        alt="green iguana"
+        alt="Driver"
         sx={{height:400, objectFit:'contain'}}
       />
       <CardContent >

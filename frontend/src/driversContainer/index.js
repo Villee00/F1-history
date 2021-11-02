@@ -2,9 +2,10 @@ import { useQuery } from '@apollo/client';
 import { CircularProgress, Container, Pagination, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { GET_DRIVERS, GET_DRIVER_COUNT } from '../queries';
 import DriverCard from './DriverCard';
+import Link from '@mui/material/Link';
 
 const DriversContainer = () =>{
   const driverCount = useQuery(GET_DRIVER_COUNT);
@@ -44,7 +45,7 @@ const DriversContainer = () =>{
       </Typography>
       <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center">
         {drivers.map((driver) => 
-          <Link key={driver.id} to={`/drivers/${driver.id}`}>
+          <Link key={driver.id} component={RouterLink} underline="none" to={`/drivers/${driver.id}`}>
             <DriverCard driver={driver} />
           </Link>)}
 

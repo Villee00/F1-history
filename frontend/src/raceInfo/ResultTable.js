@@ -2,12 +2,14 @@
 import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import clsx from 'clsx';
+import { Avatar } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Link } from 'react-router-dom';
 
 
 function CustomFooterStatusComponent(props) {
-  return <div> { props.races.length} races</div>;
+
+  return <div> { props.results.length} drivers in race</div>;
 }
 
 const useStyles = makeStyles({
@@ -25,13 +27,18 @@ const useStyles = makeStyles({
 
 
 const columns = [
-  { field: 'grandPrix',  headerName: 'Grand Prix', width: 300, renderCell: (params) =>(
-    <Link to={`/seasons/drivers/${encodeURIComponent(params.value)}`} >
-      {params.value}
-    </Link>
-  )},
-  { field: 'weather', headerName: 'Weather', width: 200 },
-  { field: 'positionsGained', headerName: 'Gained positions', flex: 1,  type: 'number',
+  { field: 'picture', headerName: '', sortable: false, width: 50,
+    renderCell: ({ value }) => <Avatar src={value} />},
+  { field: 'driver', sortable: false, headerName: 'Name', flex:1, type: 'text',
+    valueFormatter: ({ value }) => value.firstName + ' ' + value.lastName, 
+    renderCell: ({value}) =>(
+      <Link to={`/drivers/${value.id}`} >
+        {value.firstName} {value.lastName}
+      </Link>
+    )},
+  { field: 'position', headerName: 'Finish position', flex:0.5, type: 'number' },
+  { field: 'grid', headerName: 'Grid position', flex:0.5, type: 'number' },
+  { field: 'positionsGained', headerName: 'Gained positions', flex: 0.5,  type: 'number',
     cellClassName: ({value}) =>
       clsx('super-app', {
         negative: value > 0,
@@ -39,11 +46,11 @@ const columns = [
       }), },
 ];
 
-const DriverRacesTable = ({races}) =>{
+const ResultTable = ({results}) =>{
   const classes = useStyles();
 
-  const data = races.map(result => {
-    return result.race?.grandPrix?({...result, grandPrix: result.race.grandPrix, weather: result.race.weather}): null;
+  const data = results.map(result => {
+    return ({...result, picture: result.driver.pictureLink});
   });
 
   return(
@@ -53,11 +60,11 @@ const DriverRacesTable = ({races}) =>{
           Footer: CustomFooterStatusComponent
         }}
         componentsProps={{
-          footer: { races }
+          footer: { results }
         }}
         className={classes.root}/>
     </div>
   );
 };
 
-export default DriverRacesTable;
+export default ResultTable;
