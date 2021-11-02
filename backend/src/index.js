@@ -27,25 +27,37 @@ const serverStart = async () => {
 
   const app = express();
   const httpServer = http.createServer(app);
-  const server = new ApolloServer({
-    ...schema,
-    plugins: [
-      ApolloServerPluginLandingPageDisabled(),
-      ApolloServerPluginDrainHttpServer({ httpServer }),
-    ],
-  });
-  app.use(express.static("build"));
+  let server;
+  if(process.env.NODE_ENV == "production"){
+    app.use(express.static("build"));
+    server = new ApolloServer({
+      ...schema,
+      plugins: [
+        ApolloServerPluginLandingPageDisabled(),
+        ApolloServerPluginDrainHttpServer({ httpServer }),
+      ],
+    });
+    await server.start();
+    server.applyMiddleware({ app });
+    app.get("*", (req, res) => {
+      res.sendFile(path.resolve(__dirname, "..", "build", "index.html"));
+    });
+  }
+  else{
+    server = new ApolloServer({
+      ...schema,
+      plugins: [
+        ApolloServerPluginDrainHttpServer({ httpServer }),
+      ],
+    });
+    await server.start();
+    server.applyMiddleware({ app });
+  }
 
-  await server.start();
-  server.applyMiddleware({ app });
-
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "..", "build", "index.html"));
-  });
   await new Promise((resolve) =>
     httpServer.listen({ port: process.env.PORT || 4000 }, resolve)
   );
-  console.log(`Server ready`);
+  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
 };
 
 serverStart();
