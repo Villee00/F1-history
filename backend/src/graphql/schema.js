@@ -5,6 +5,8 @@ import Race from "./types/Race.js";
 import Season from "./types/Season.js";
 import driver from "./queries/driver.js";
 import Driver from "./types/Driver.js";
+import DriverFilter from "./types/Filter.js";
+import Team from "./types/Team.js";
 
 const rootTypeDefs = gql`
   type Query {
@@ -24,6 +26,8 @@ const typeDefs = [
   Season.typeDefs,
   Driver.typeDefs,
   driver.typeDefs,
+  DriverFilter.typeDefs,
+  Team.typeDefs
 ];
 
 const resolvers = [
@@ -33,6 +37,8 @@ const resolvers = [
   Season.resolvers,
   Driver.resolvers,
   driver.resolvers,
+  DriverFilter.resolvers,
+  Team.resolvers
 ];
 
 const schema = {

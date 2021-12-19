@@ -83,7 +83,7 @@ const DriverTable = ({driver}) => {
           </TableRow>
 
           <CollapseRow header="Seasons driven in" data={driver.seasonsDriven}/>
-          <CollapseRow header="Teams raced in" data={driver.teams}/>
+          <CollapseRow header="Teams raced in" data={driver.teams.map(team => team.name)}/>
         </TableBody>
       </Table>
     </TableContainer>
@@ -119,9 +119,9 @@ const CollapseRow = ({header, data}) =>{
         <TableCell colSpan={6} style={{ paddingBottom: 0, paddingTop: 0 }}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Stack spaceing={2} textAlign="center">
-              {data.map(season => 
-                <Typography key={season} margin={2}>
-                  {season}
+              {data.map(object => 
+                <Typography key={object} margin={2}>
+                  {object}
                 </Typography>)}
             </Stack>
           </Collapse>

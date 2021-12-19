@@ -1,5 +1,6 @@
 import fetch from "cross-fetch";
 import Driver from "../models/driver.js";
+import Team from "../models/team.js";
 import { getPictureLink } from "./wikipediaApiHelper.js";
 
 export const getRaceResults = async (race, year, round) => {
@@ -20,12 +21,13 @@ export const getRaceResults = async (race, year, round) => {
     const lastName = driverInfo.familyName;
 
     let driverInDB = await Driver.findOne({ firstName, lastName });
-
+    const team = await setTeam(finisher.Constructor.name);
     if (!driverInDB) {
       const nationality = driverInfo.nationality;
       const dateOfBirth = driverInfo.dateOfBirth;
       const wikipediaLink = driverInfo.url;
       const pictureLink = await getPictureLink(firstName + " " + lastName);
+
 
       driverInDB = new Driver({
         firstName,
@@ -35,7 +37,7 @@ export const getRaceResults = async (race, year, round) => {
         wikipediaLink,
         seasonsDriven: [year],
         driverNumber: [finisher.number],
-        teams: [finisher.Constructor.name],
+        teams: [team],
         pictureLink,
       });
     } else if (!driverInDB.seasonsDriven.includes(year)) {
@@ -44,8 +46,8 @@ export const getRaceResults = async (race, year, round) => {
         driverInDB.driverNumber.push(finisher.number);
       }
 
-      if (!driverInDB.teams.includes(finisher.Constructor.name)) {
-        driverInDB.teams.push(finisher.Constructor.name);
+      if (!driverInDB.teams.includes(team)) {
+        driverInDB.teams.push(team);
       }
     }
 
@@ -63,3 +65,13 @@ export const getRaceResults = async (race, year, round) => {
     });
   }
 };
+
+
+const setTeam = async (team) =>{
+  const foundTeam = await Team.findOne({name: team});
+  if(!foundTeam){ 
+    const newTeam = new Team({name: team});
+    return await newTeam.save();
+  }
+  return foundTeam;
+}

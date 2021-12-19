@@ -21,4 +21,5 @@
 | 14.10. | 3    | -Viimestely ja viimeisiä bugi fixauksia |
 | 15.10. | 2    | -Readme kirjottelu ja express korjaus |
 | 2.11. | 7    | -Frontend muutoksia<br/> -Tailwind poisto <br/> -Bugi korjauksia <br/> -Frontend tiedostejen puhistuksia|
-| yht   | 103   | | 
+| 20.12. | 9    | -Frontend kuskien filtteröinti rivi<br/> -Graphql muutoksia kuskeihin <br/> -Backend kuskien etsintä muutoksia <br/> -Validaatio scheemoja|
+| yht   | 112   | | 

@@ -68,13 +68,16 @@ ${RACE_DETAILS}
 `;
 
 export const GET_DRIVERS = gql`
-query Query($limit: Int, $offset: Int) {
-  getDrivers(limit: $limit, offset: $offset) {
-    id
-    fullName
-    positionsGainedCareer
-    racesDriven
-    pictureLink
+query Query($limit: Int, $offset: Int, $name: String) {
+  getDrivers(limit: $limit, offset: $offset, name: $name) {
+    drivers {
+      id
+      fullName
+      positionsGainedCareer
+      racesDriven
+      pictureLink
+    }
+    driverCount
   }
 }
 `;
@@ -100,11 +103,5 @@ query Query($getDriverDriverId: String!) {
       positionsGained
     }
   }
-}
-`;
-
-export const GET_DRIVER_COUNT = gql`
-query Query {
-  getDriverCount
 }
 `;
