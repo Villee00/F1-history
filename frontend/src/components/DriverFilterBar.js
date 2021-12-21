@@ -4,6 +4,7 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
+import { Input } from "@mui/material";
 
 const DriverFilterBar = ({onSearchButton, 
   setSearchName, 
@@ -11,7 +12,9 @@ const DriverFilterBar = ({onSearchButton,
   setSearchTeam,
   searchTeam,
   setSearchYears,
-  searchYears}) => {
+  searchYears,
+  setSearchNationality,
+  searchNationality}) => {
   return (
     <Paper
       component="form"
@@ -39,12 +42,23 @@ const DriverFilterBar = ({onSearchButton,
         variant="standard"
       />
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-      <TextField
+      <Input
+        type="number"
         sx={{ ml: 1, flex: 1 }}
         placeholder="Driven year"
         inputProps={{ "aria-label": "Drove that year" }}
         value={searchYears} 
-        onChange={(event) => setSearchYears(event.target.value)}
+        onChange={(event) => setSearchYears(parseInt(event.target.value))}
+        errorText="Please give value as number"
+        variant="standard"
+      />
+      <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+      <TextField
+        sx={{ ml: 1, flex: 1 }}
+        placeholder="Driver nationality"
+        inputProps={{ "aria-label": "Drove that year" }}
+        value={searchNationality} 
+        onChange={(event) => setSearchNationality(event.target.value)}
         variant="standard"
       />
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />

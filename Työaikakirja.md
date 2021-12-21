@@ -23,4 +23,5 @@
 | 2.11. | 7    | -Frontend muutoksia<br/> -Tailwind poisto <br/> -Bugi korjauksia <br/> -Frontend tiedostejen puhistuksia|
 | 20.12. | 9    | -Frontend kuskien filtteröinti rivi<br/> -Graphql muutoksia kuskeihin <br/> -Backend kuskien etsintä muutoksia <br/> -Validaatio scheemoja|
 | 21.12. | 4    | -Kuskin tietokannata kysely uusiksi<br/> -Frontend filtteröintiin muutoksia <br/> -Filtteröinti pelkän tallin nimellä tai kuskin- ja tallin nimellä lisätty  |
-| yht   | 116   | | 
+| 21.12. | 3    | -Filtteri lisätty kuskien kansallisuudelle ja kaudelle<br/>  |
+| yht   | 119   | | 

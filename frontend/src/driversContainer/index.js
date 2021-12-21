@@ -13,16 +13,19 @@ const DriversContainer = () =>{
   const [pageCount, setPageCount] = useState(1);
   const [searchName, setSearchName] = useState('');
   const [searchTeam, setSearchTeam] = useState('');
-  const [searchYears, setSearchYears] = useState('');
+  const [searchYears, setSearchYears] = useState();
+  const [searchNationality, setSearchNationality] = useState('');
   const {data, loading, refetch} = useQuery(GET_DRIVERS,{
+    notifyOnNetworkStatusChange: true,
     variables:{
       offset: (page -1)* 12,
       limit: 12,
       filters:{
         name: searchName,
-        team: searchTeam
+        team: searchTeam,
+        year: searchYears,
+        nationality: searchNationality
       }
-      
     }
   });
 
@@ -45,12 +48,6 @@ const DriversContainer = () =>{
     refetch();
 
   },[page]);
-
-  if(loading){
-    return(
-      <CircularProgress/>
-    );
-  }
   const drivers = data?.getDrivers?.drivers? data?.getDrivers?.drivers: [];
   return(
     <Container maxWidth="xl" >
@@ -64,14 +61,17 @@ const DriversContainer = () =>{
       setSearchTeam={setSearchTeam} 
       searchTeam={searchTeam}
       setSearchYears={setSearchYears} 
-      searchYears={searchYears}/>
+      searchYears={searchYears}
+      setSearchNationality={setSearchNationality} 
+      searchNationality={searchNationality}/>
       
       <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center">
-        {drivers.length > 0? drivers.map((driver) => 
+        {loading ? <CircularProgress/>:
+        drivers.length > 0? drivers.map((driver) => 
           <Link key={driver.id} component={RouterLink} underline="none" to={`/drivers/${driver.id}`}>
             <DriverCard driver={driver} />
           </Link>): 
-          <Typography>No drivers found with {searchName}</Typography>}
+          <Typography>No drivers found those filters</Typography>}
 
       </Box>
 

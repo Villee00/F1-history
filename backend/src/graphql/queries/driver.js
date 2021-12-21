@@ -12,6 +12,7 @@ export const typeDefs = gql`
     name: String
     team: String
     year: Int
+    nationality: String
   }
   extend type Query {
     getDrivers(limit: Int, offset: Int, filters: Filters): Drivers!
@@ -27,9 +28,19 @@ const argsSchema = yup.object({
   filters: yup.object().shape({
     name: yup.string(),
     team: yup.string(),
-    year: yup.number()
+    year: yup.number(),
+    nationality: yup.string()
   })
 })
+
+let query = {};
+const buildDBquery = (mongoQuery, filter) => {
+  if (filter) {
+    if (!('$and' in query))
+      query = { $and: [] }
+    query.$and.push(mongoQuery)
+  }
+}
 
 export const resolvers = {
   Query: {
@@ -44,31 +55,17 @@ export const resolvers = {
       const {
         name,
         team,
-        year
+        year,
+        nationality
       } = filters;
 
-      let query = {};
-      if (name) {
-        const searchName = new RegExp(name, 'i');
-        if(!('$and' in query))
-          query = {$and: []}
-        
-        query.$and.push({
-          $or: [
-            { "lastName": searchName },
-            { "firstName": searchName }]
-        })
-      }
+      query = {};
 
-      if (team) {
-        const searchTeam = new RegExp(team, 'i');
-        if(!('$and' in query))
-          query = {$and: []}
-        
-        query.$and.push(
-          { "teams": searchTeam }
-        )
-      }
+      buildDBquery({ $or: [{ "lastName": new RegExp(name, 'i') }, { "firstName": new RegExp(name, 'i') }] }, name);
+      buildDBquery({ "teams": new RegExp(team, 'i') }, team);
+      buildDBquery({ "nationality": new RegExp(nationality, 'i') }, nationality);
+      buildDBquery({ "seasonsDriven": parseInt(year) }, year);
+
       const drivers = await Driver
         .find(query)
         .sort({ dateOfBirth: -1 })
