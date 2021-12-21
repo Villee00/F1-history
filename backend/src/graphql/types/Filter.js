@@ -14,7 +14,6 @@ const resolvers = {
     async teams(args, context, info) {
         let teamSet = set();
         const teams = await Driver.find({}).select('teams -_id');
-        console.log(teams)
         return teams;
     },
   },

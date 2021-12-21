@@ -68,8 +68,8 @@ ${RACE_DETAILS}
 `;
 
 export const GET_DRIVERS = gql`
-query Query($limit: Int, $offset: Int, $name: String) {
-  getDrivers(limit: $limit, offset: $offset, name: $name) {
+query Query($limit: Int, $offset: Int, $filters: Filters) {
+  getDrivers(limit: $limit, offset: $offset, filters: $filters) {
     drivers {
       id
       fullName

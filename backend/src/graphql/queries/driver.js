@@ -8,8 +8,13 @@ export const typeDefs = gql`
     drivers: [Driver!]!
     driverCount: Int!
   }
+  input Filters{
+    name: String
+    team: String
+    year: Int
+  }
   extend type Query {
-    getDrivers(limit: Int, offset: Int, name: String, season: Int): Drivers!
+    getDrivers(limit: Int, offset: Int, filters: Filters): Drivers!
     getDriver(driverID: String!): Driver!
     getDriverCount: Int!
     getDriverFilters: DriverFilter!
@@ -17,44 +22,65 @@ export const typeDefs = gql`
 `;
 
 const argsSchema = yup.object({
-  limit: yup.number().default(10), 
-  offset: yup.number(), 
-  name: yup.string(), 
-  season: yup.number()
+  limit: yup.number().default(10),
+  offset: yup.number(),
+  filters: yup.object().shape({
+    name: yup.string(),
+    team: yup.string(),
+    year: yup.number()
+  })
 })
- 
+
 export const resolvers = {
   Query: {
     getDrivers: async (obj, args, context, info) => {
       const normalizedArgs = await argsSchema.validate(args);
       const {
-        limit, 
-        offset, 
-        name, 
-        season
+        limit,
+        offset,
+        filters
       } = normalizedArgs;
 
-      let query;
-      let driverCount;
-      if(name){
-        const search = new RegExp(name, 'i');
-        query = Driver.find({$or:[{"lastName": search}, {"firstName": search}]});
-        driverCount = await Driver.countDocuments({$or:[{"lastName": search}, {"firstName": search}]})
-      }
-      else{
-        query = Driver.find({})
-        driverCount = await Driver.countDocuments({})
+      const {
+        name,
+        team,
+        year
+      } = filters;
 
-      }
-
-      const drivers = await query
-        .sort({ dateOfBirth: -1 })
-        .limit(args.limit)
-        .skip(args.offset)
-        .exec()
+      let query = {};
+      if (name) {
+        const searchName = new RegExp(name, 'i');
+        if(!('$and' in query))
+          query = {$and: []}
         
-      console.log(drivers)
-      return {drivers: drivers, driverCount}
+        query.$and.push({
+          $or: [
+            { "lastName": searchName },
+            { "firstName": searchName }]
+        })
+      }
+
+      if (team) {
+        const searchTeam = new RegExp(team, 'i');
+        if(!('$and' in query))
+          query = {$and: []}
+        
+        query.$and.push(
+          { "teams": searchTeam }
+        )
+      }
+      const drivers = await Driver
+        .find(query)
+        .sort({ dateOfBirth: -1 })
+        .limit(limit)
+        .skip(offset)
+        .exec()
+
+      const driverCount = await Driver
+        .find(query)
+        .countDocuments();
+
+      return { drivers, driverCount }
     },
     getDriver: async (obj, args, context, info) => {
       return await Driver.findById(args.driverID).populate({
@@ -65,8 +91,8 @@ export const resolvers = {
     getDriverCount: async (obj, args, context, info) => {
       return await Driver.find({}).countDocuments();
     },
-    getDriverFilters: ()=>{
-      return {teams: []}
+    getDriverFilters: () => {
+      return { teams: [] }
     }
   },
 };
