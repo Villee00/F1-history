@@ -28,7 +28,9 @@ const argsSchema = yup.object({
   filters: yup.object().shape({
     name: yup.string(),
     team: yup.string(),
-    year: yup.number(),
+    year: yup.number()
+    .min(1950, 'Season must be between 1950 and 2020')
+    .max(2020, 'Season must be between 1950 and 2020'),
     nationality: yup.string()
   })
 })

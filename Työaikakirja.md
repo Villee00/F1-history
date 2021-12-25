@@ -24,4 +24,5 @@
 | 20.12. | 9    | -Frontend kuskien filtteröinti rivi<br/> -Graphql muutoksia kuskeihin <br/> -Backend kuskien etsintä muutoksia <br/> -Validaatio scheemoja|
 | 21.12. | 4    | -Kuskin tietokannata kysely uusiksi<br/> -Frontend filtteröintiin muutoksia <br/> -Filtteröinti pelkän tallin nimellä tai kuskin- ja tallin nimellä lisätty  |
 | 21.12. | 3    | -Filtteri lisätty kuskien kansallisuudelle ja kaudelle<br/>  |
-| yht   | 119   | | 
+| 21.12. | 4    | -Formik lisäys <br/>-Validointia haku kentille <br/>-Koodi puhdistusta <br/>  |
+| yht   | 123   | | 

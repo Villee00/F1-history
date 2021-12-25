@@ -14,6 +14,7 @@ const DriversContainer = () =>{
   const [searchName, setSearchName] = useState('');
   const [searchTeam, setSearchTeam] = useState('');
   const [searchYears, setSearchYears] = useState();
+  const [sortingOrder, setSortingOrder] = useState({type: 'age', order: 'ASC'});
   const [searchNationality, setSearchNationality] = useState('');
   const {data, loading, refetch} = useQuery(GET_DRIVERS,{
     notifyOnNetworkStatusChange: true,
@@ -23,7 +24,7 @@ const DriversContainer = () =>{
       filters:{
         name: searchName,
         team: searchTeam,
-        year: searchYears,
+        year: !isNaN(searchYears)? searchYears: undefined,
         nationality: searchNationality
       }
     }
@@ -37,6 +38,10 @@ const DriversContainer = () =>{
     if(value !== page){
       setPage(value);
     }
+  };
+  
+  const handleOrderChange = (event) =>{
+    setSortingOrder(event.target.value);
   };
 
   useEffect(() =>{
@@ -57,13 +62,13 @@ const DriversContainer = () =>{
       <DriverFilterBar 
       onSearchButton={handleSearch} 
       setSearchName={setSearchName} 
-      searchName={searchName}
       setSearchTeam={setSearchTeam} 
-      searchTeam={searchTeam}
       setSearchYears={setSearchYears} 
-      searchYears={searchYears}
       setSearchNationality={setSearchNationality} 
-      searchNationality={searchNationality}/>
+      sortingOrder={sortingOrder} 
+      setSortingOrder={setSortingOrder}
+      handleOrderChange={handleOrderChange}
+      refetch={refetch}/>
       
       <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center">
         {loading ? <CircularProgress/>:
