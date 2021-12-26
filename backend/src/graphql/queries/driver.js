@@ -14,8 +14,12 @@ export const typeDefs = gql`
     year: Int
     nationality: String
   }
+  input Sorting{
+    field: String
+    order: String
+  }
   extend type Query {
-    getDrivers(limit: Int, offset: Int, filters: Filters): Drivers!
+    getDrivers(limit: Int, offset: Int, filters: Filters, sort: Sorting): Drivers!
     getDriver(driverID: String!): Driver!
     getDriverCount: Int!
     getDriverFilters: DriverFilter!
@@ -32,6 +36,10 @@ const argsSchema = yup.object({
     .min(1950, 'Season must be between 1950 and 2020')
     .max(2020, 'Season must be between 1950 and 2020'),
     nationality: yup.string()
+  }),
+  sort: yup.object().shape({
+    field: yup.string(),
+    order: yup.string()
   })
 })
 
@@ -44,6 +52,15 @@ const buildDBquery = (mongoQuery, filter) => {
   }
 }
 
+const sortOrderQuery = (field, order) =>{
+  switch(field){
+    case "age":
+      return {dateOfBirth: order}
+    case "races":
+      return {__v: order}
+  }
+}
+
 export const resolvers = {
   Query: {
     getDrivers: async (obj, args, context, info) => {
@@ -51,7 +68,8 @@ export const resolvers = {
       const {
         limit,
         offset,
-        filters
+        filters,
+        sort
       } = normalizedArgs;
 
       const {
@@ -68,9 +86,11 @@ export const resolvers = {
       buildDBquery({ "nationality": new RegExp(nationality, 'i') }, nationality);
       buildDBquery({ "seasonsDriven": parseInt(year) }, year);
 
+      const sortOrder = sortOrderQuery(sort.field, sort.order);
+      console.log(sortOrder)
       const drivers = await Driver
         .find(query)
-        .sort({ dateOfBirth: -1 })
+        .sort(sortOrder)
         .limit(limit)
         .skip(offset)
         .exec()

@@ -6,6 +6,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import SearchTextField from "./SearchTextField";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { MenuItem, Select } from "@mui/material";
 
 const validationSchema = yup.object({
   name: yup
@@ -16,7 +17,7 @@ const validationSchema = yup.object({
     .number('Enter a season year in numbers')
     .max(2020, 'Season year must be between 1950-2020')
     .min(1950, 'Season year must be between 1950-2020'),
-    Nationality: yup
+  Nationality: yup
     .string('Enter a drivers nationality'),
 });
 
@@ -26,7 +27,6 @@ const DriverFilterBar = ({
   setSearchYears,
   setSearchNationality,
   setSortingOrder,
-  handleOrderChange,
   refetch }) => {
 
   const formik = useFormik({
@@ -34,13 +34,17 @@ const DriverFilterBar = ({
       name: "",
       team: "",
       nationality: "",
+      sort: "age:desc"
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
       setSearchName(values.name);
       setSearchTeam(values.team);
-      setSearchYears(values.year);
+      setSearchYears(isNaN(parseInt(values.year)) ? parseInt(values.year) : null);
       setSearchNationality(values.nationality);
+
+      const sort = values.sort.split(':');
+      setSortingOrder({field: sort[0], order: sort[1]});
       refetch();
     },
   });
@@ -79,21 +83,21 @@ const DriverFilterBar = ({
         handleChange={formik.handleChange}
         error={formik.touched.nationality && Boolean(formik.errors.nationality)} />
 
+      <Select
+        value={formik.values.sort}
+        name="sort"
+        onChange={formik.handleChange}
+        label="Sorting order"
+      >
+        <MenuItem value="age:desc">Youngest to oldest</MenuItem>
+        <MenuItem value="age:asc">Oldest to youngest</MenuItem>
+        <MenuItem value="races:desc">Most races</MenuItem>
+        <MenuItem value="races:asc">Least races</MenuItem>
+      </Select>
+      <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
       <IconButton sx={{ p: "10px" }} aria-label="search" type="submit">
         <SearchIcon />
       </IconButton>
-      <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-      {/* <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={sortingOrder}
-        onChange={handleOrderChange}
-        label="Sorting order"
-      >
-        <MenuItem value={{ type: 'age', order: 'DESC' }}>Oldest to yuongest</MenuItem>
-        <MenuItem value={{ type: 'age', order: 'ASC' }}>Yougest to oldest</MenuItem>
-        <MenuItem value={{ type: 'gain', order: 'DESC' }}>positions gained</MenuItem>
-      </Select> */}
     </Paper>
   );
 };

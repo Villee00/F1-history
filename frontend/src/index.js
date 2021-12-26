@@ -7,7 +7,6 @@ import {
   InMemoryCache,
   ApolloProvider,
 } from '@apollo/client';
-import { relayStylePagination } from '@apollo/client/utilities';
 
 const client = new ApolloClient({
   uri: '/graphql',
@@ -15,7 +14,6 @@ const client = new ApolloClient({
     typePolicies: {
       Query: {
         fields: {
-          getDrivers: relayStylePagination(),
         },
       },
     },

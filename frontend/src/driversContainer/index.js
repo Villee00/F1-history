@@ -13,8 +13,8 @@ const DriversContainer = () =>{
   const [pageCount, setPageCount] = useState(1);
   const [searchName, setSearchName] = useState('');
   const [searchTeam, setSearchTeam] = useState('');
-  const [searchYears, setSearchYears] = useState();
-  const [sortingOrder, setSortingOrder] = useState({type: 'age', order: 'ASC'});
+  const [searchYears, setSearchYears] = useState(NaN);
+  const [sortingOrder, setSortingOrder] = useState({field: 'age', order: 'desc'});
   const [searchNationality, setSearchNationality] = useState('');
   const {data, loading, refetch} = useQuery(GET_DRIVERS,{
     notifyOnNetworkStatusChange: true,
@@ -26,7 +26,8 @@ const DriversContainer = () =>{
         team: searchTeam,
         year: !isNaN(searchYears)? searchYears: undefined,
         nationality: searchNationality
-      }
+      },
+      sort: sortingOrder
     }
   });
 
