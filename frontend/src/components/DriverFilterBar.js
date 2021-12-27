@@ -40,7 +40,7 @@ const DriverFilterBar = ({
     onSubmit: (values) => {
       setSearchName(values.name);
       setSearchTeam(values.team);
-      setSearchYears(isNaN(parseInt(values.year)) ? parseInt(values.year) : null);
+      setSearchYears(!isNaN(parseInt(values.year)) ? parseInt(values.year) : undefined);
       setSearchNationality(values.nationality);
 
       const sort = values.sort.split(':');

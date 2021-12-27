@@ -87,7 +87,6 @@ export const resolvers = {
       buildDBquery({ "seasonsDriven": parseInt(year) }, year);
 
       const sortOrder = sortOrderQuery(sort.field, sort.order);
-      console.log(sortOrder)
       const drivers = await Driver
         .find(query)
         .sort(sortOrder)

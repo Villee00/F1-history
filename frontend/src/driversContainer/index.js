@@ -1,4 +1,4 @@
-import { useQuery  } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { CircularProgress, Container, Pagination, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState, useEffect } from 'react';
@@ -8,81 +8,83 @@ import DriverCard from './DriverCard';
 import Link from '@mui/material/Link';
 import DriverFilterBar from '../components/DriverFilterBar';
 
-const DriversContainer = () =>{
+const DriversContainer = () => {
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
   const [searchName, setSearchName] = useState('');
   const [searchTeam, setSearchTeam] = useState('');
   const [searchYears, setSearchYears] = useState(NaN);
-  const [sortingOrder, setSortingOrder] = useState({field: 'age', order: 'desc'});
+  const [sortingOrder, setSortingOrder] = useState({ field: 'age', order: 'desc' });
   const [searchNationality, setSearchNationality] = useState('');
-  const {data, loading, refetch} = useQuery(GET_DRIVERS,{
+  const { data, loading, refetch, error } = useQuery(GET_DRIVERS, {
     notifyOnNetworkStatusChange: true,
-    variables:{
-      offset: (page -1)* 12,
+    variables: {
+      offset: (page - 1) * 12,
       limit: 12,
-      filters:{
+      filters: {
         name: searchName,
         team: searchTeam,
-        year: !isNaN(searchYears)? searchYears: undefined,
+        year: !isNaN(searchYears) ? searchYears : undefined,
         nationality: searchNationality
       },
       sort: sortingOrder
     }
   });
 
-  const handleSearch = () =>{
+  const handleSearch = () => {
     refetch();
   };
 
-  const handleChange = (_event, value) =>{
-    if(value !== page){
+  const handleChange = (_event, value) => {
+    if (value !== page) {
       setPage(value);
     }
   };
-  
-  const handleOrderChange = (event) =>{
+
+  const handleOrderChange = (event) => {
     setSortingOrder(event.target.value);
   };
 
-  useEffect(() =>{
-    const pages = Math.ceil(data?.getDrivers?.driverCount/12);
+  useEffect(() => {
+    const pages = Math.ceil(data?.getDrivers?.driverCount / 12);
     setPageCount(pages);
-  },[data]);
+  }, [data]);
 
-  useEffect(() =>{
+  useEffect(() => {
     refetch();
+  }, [page]);
 
-  },[page]);
-  const drivers = data?.getDrivers?.drivers? data?.getDrivers?.drivers: [];
-  return(
+  const drivers = data?.getDrivers?.drivers ? data?.getDrivers?.drivers : [];
+
+  return (
     <Container maxWidth="xl" >
       <Typography variant="h2" textAlign="center">
-        Drivers ordered by age
+        F1 DRIVERS
       </Typography>
-      <DriverFilterBar 
-      onSearchButton={handleSearch} 
-      setSearchName={setSearchName} 
-      setSearchTeam={setSearchTeam} 
-      setSearchYears={setSearchYears} 
-      setSearchNationality={setSearchNationality} 
-      sortingOrder={sortingOrder} 
-      setSortingOrder={setSortingOrder}
-      handleOrderChange={handleOrderChange}
-      refetch={refetch}/>
-      
+      <DriverFilterBar
+        onSearchButton={handleSearch}
+        setSearchName={setSearchName}
+        setSearchTeam={setSearchTeam}
+        setSearchYears={setSearchYears}
+        setSearchNationality={setSearchNationality}
+        sortingOrder={sortingOrder}
+        setSortingOrder={setSortingOrder}
+        handleOrderChange={handleOrderChange}
+        refetch={refetch} />
+
       <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center">
-        {loading ? <CircularProgress/>:
-        drivers.length > 0? drivers.map((driver) => 
-          <Link key={driver.id} component={RouterLink} underline="none" to={`/drivers/${driver.id}`}>
-            <DriverCard driver={driver} />
-          </Link>): 
-          <Typography>No drivers found those filters</Typography>}
+        {loading ? <CircularProgress /> :
+          drivers.length > 0 ? drivers.map((driver) =>
+            <Link key={driver.id} component={RouterLink} underline="none" to={`/drivers/${driver.id}`}>
+              <DriverCard driver={driver} />
+            </Link>) :
+            error ? error?.graphQLErrors.map(({message}, i) => <Typography color="red" key={i}>{message}</Typography>) :
+              <Typography>No drivers found those filters</Typography>}
 
       </Box>
 
       <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center">
-        <Pagination count={pageCount} value={page ? page : ' '}  color="primary" onChange={handleChange} size="large" boundaryCount={2}/>
+        <Pagination count={pageCount} value={page ? page : ' '} color="primary" onChange={handleChange} size="large" boundaryCount={2} />
       </Box>
     </Container>
   );
