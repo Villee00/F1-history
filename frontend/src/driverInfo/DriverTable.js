@@ -18,7 +18,7 @@ const DriverTable = ({driver}) => {
   const birthDay = new Date(driver.dateOfBirth).toLocaleDateString('en-FI');
   
   return (
-    <TableContainer sx={{minWidth:400, maxWidth:500}} component={Paper}>
+    <TableContainer sx={{ maxWidth:500}} component={Paper}>
       <Table sx={{ minWidth: 400 }} aria-label="racer info">
         <TableBody>
           <TableRow

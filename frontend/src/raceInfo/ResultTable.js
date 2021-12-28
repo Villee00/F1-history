@@ -2,14 +2,14 @@
 import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import clsx from 'clsx';
-import { Avatar } from '@mui/material';
+import { Avatar, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Link } from 'react-router-dom';
 
 
 function CustomFooterStatusComponent(props) {
 
-  return <div> { props.results.length} drivers in race</div>;
+  return <div> {props.results.length} drivers in race</div>;
 }
 
 const useStyles = makeStyles({
@@ -27,33 +27,41 @@ const useStyles = makeStyles({
 
 
 const columns = [
-  { field: 'picture', headerName: '', sortable: false, width: 50,
-    renderCell: ({ value }) => <Avatar src={value} />},
-  { field: 'driver', sortable: false, headerName: 'Name', flex:1, type: 'text',
-    valueFormatter: ({ value }) => value.firstName + ' ' + value.lastName, 
-    renderCell: ({value}) =>(
-      <Link to={`/drivers/${value.id}`} >
-        {value.firstName} {value.lastName}
+  {
+    field: 'picture', headerName: '', sortable: false, width: 50,
+    renderCell: ({ value }) => <Avatar src={value} />
+  },
+  {
+    field: 'driver', sortable: false, headerName: 'Name', flex: 1, type: 'text',
+    valueFormatter: ({ value }) => value.firstName + ' ' + value.lastName,
+    renderCell: ({ value }) => (
+      <Link to={`/drivers/${value.id}`}>
+        <Typography color='primary'>
+          {value.firstName} {value.lastName}
+        </Typography>
       </Link>
-    )},
-  { field: 'position', headerName: 'Finish position', flex:0.5, type: 'number' },
-  { field: 'grid', headerName: 'Grid position', flex:0.5, type: 'number' },
-  { field: 'positionsGained', headerName: 'Gained positions', flex: 0.5,  type: 'number',
-    cellClassName: ({value}) =>
+    )
+  },
+  { field: 'position', headerName: 'Finish position', flex: 0.5, type: 'number' },
+  { field: 'grid', headerName: 'Grid position', flex: 0.5, type: 'number' },
+  {
+    field: 'positionsGained', headerName: 'Gained positions', flex: 0.5, type: 'number',
+    cellClassName: ({ value }) =>
       clsx('super-app', {
         negative: value > 0,
         positive: value < 0,
-      }), },
+      }),
+  },
 ];
 
-const ResultTable = ({results}) =>{
+const ResultTable = ({ results }) => {
   const classes = useStyles();
 
   const data = results.map(result => {
-    return ({...result, picture: result.driver.pictureLink});
+    return ({ ...result, picture: result.driver.pictureLink });
   });
 
-  return(
+  return (
     <div style={{ height: 600, width: '100%' }}>
       <DataGrid rows={data} columns={columns} getRowId={() => Math.random()}
         components={{
@@ -62,7 +70,7 @@ const ResultTable = ({results}) =>{
         componentsProps={{
           footer: { results }
         }}
-        className={classes.root}/>
+        className={classes.root} />
     </div>
   );
 };

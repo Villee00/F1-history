@@ -2,47 +2,49 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import { GET_RACE } from '../queries';
-import { CircularProgress, Container, Typography } from '@mui/material';
+import { CircularProgress, Container, Paper, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import ResultTable from './ResultTable';
 import RaceInfoTable from './RaceInfoTable';
 
-const RaceInfo = () =>{
-  const {gp} = useParams();
-  const {data, loading} = useQuery(GET_RACE, {
-    variables:{
+const RaceInfo = () => {
+  const { gp } = useParams();
+  const { data, loading } = useQuery(GET_RACE, {
+    variables: {
       raceInfoGrandPrix: decodeURIComponent(gp)
     }
   });
-  
-  if(loading){
-    return(
+
+  if (loading) {
+    return (
       <CircularProgress />
     );
   }
 
   const raceInfo = data?.raceInfo;
-  if(!raceInfo){
-    return(
+  if (!raceInfo) {
+    return (
       <Typography>No race found with that gp</Typography>
     );
   }
-  return(
+  return (
     <Container maxWidth="lg" >
       <Box display="flex" flexDirection="column">
-        <Box textAlign="center"> 
-          <Typography variant="h2">{raceInfo.grandPrix}</Typography>
-        </Box>
-        <Box display="flex" flexDirection="row" justifyContent="center" flexWrap="wrap">
-          <Box sx={{alignSelf:'center'}}>
-            <img style={{ maxHeight: 400, maxWidth: 400 }} src={raceInfo.pictureLink}/>
+        <Paper elevation={2} sx={{margin:2}}>
+          <Box textAlign="center">
+            <Typography variant="h2">{raceInfo.grandPrix}</Typography>
           </Box>
-          <Box>
-            <RaceInfoTable race={raceInfo}/>
+          <Box display="flex" flexDirection="row" justifyContent="center" flexWrap="wrap">
+            <Box sx={{ alignSelf: 'center', padding:1 }}>
+              <img style={{ maxHeight: 400, maxWidth: 400 }} src={raceInfo.pictureLink} />
+            </Box>
+            <Box sx={{paddingBottom:2}}>
+              <RaceInfoTable race={raceInfo} />
+            </Box>
           </Box>
-        </Box>
+        </Paper>
         <Box>
-          <ResultTable results={raceInfo.results}/>
+          <ResultTable results={raceInfo.results} />
         </Box>
       </Box>
     </Container>

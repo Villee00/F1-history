@@ -29,12 +29,12 @@ const App = ({ colorContext }) => {
           bgcolor: 'background.default',
           color: 'text.primary'
         }}>
-        <Grid container spacing={3} sx={{ alignItems: 'center' }}>
+        <Grid container spacing={3} sx={{ marginTop:1 , marginBottom: 1,alignItems: 'center' }}>
           <Grid item xs={2}>
           </Grid>
           <Grid item xs={8}>
             <Link component={RouterLink} underline='hover' to="/">
-              <Typography variant="h3" color="main" sx={{textAlign:'center'}}>F1 HISTORY</Typography>
+              <Typography variant="h3" color="main" sx={{ textAlign: 'center' }}>F1 HISTORY</Typography>
             </Link>
           </Grid>
           <Grid item xs={2}>
