@@ -41,13 +41,11 @@ const DriversContainer = () => {
     }
   };
 
-  const handleOrderChange = (event) => {
-    setSortingOrder(event.target.value);
-  };
-
   useEffect(() => {
-    const pages = Math.ceil(data?.getDrivers?.driverCount / 12);
-    setPageCount(pages);
+    if (!loading) {
+      const pages = Math.ceil(data?.getDrivers?.driverCount / 12);
+      setPageCount(isNaN(pages) ? 1 : pages);
+    }
   }, [data]);
 
   useEffect(() => {
@@ -55,7 +53,6 @@ const DriversContainer = () => {
   }, [page]);
 
   const drivers = data?.getDrivers?.drivers ? data?.getDrivers?.drivers : [];
-
   return (
     <Container maxWidth="xl" >
       <Typography variant="h2" textAlign="center">
@@ -69,23 +66,26 @@ const DriversContainer = () => {
         setSearchNationality={setSearchNationality}
         sortingOrder={sortingOrder}
         setSortingOrder={setSortingOrder}
-        handleOrderChange={handleOrderChange}
         refetch={refetch} />
 
       <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center">
         {loading ? <CircularProgress /> :
-          drivers.length > 0 ? drivers.map((driver) =>
-            <Link key={driver.id} component={RouterLink} underline="none" to={`/drivers/${driver.id}`}>
-              <DriverCard driver={driver} />
-            </Link>) :
-            error ? error?.graphQLErrors.map(({message}, i) => <Typography color="red" key={i}>{message}</Typography>) :
+          drivers.length > 0 ?
+            <>
+              {drivers.map((driver) =>
+              <Link key={driver.id} component={RouterLink} underline="none" to={`/drivers/${driver.id}`}>
+                <DriverCard driver={driver} />
+              </Link>)}
+              <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center">
+                <Pagination count={pageCount} value={page ? page : ' '} color="primary" onChange={handleChange} size="large" boundaryCount={2} />
+              </Box>
+            </> :
+            error ? error?.graphQLErrors.map(({ message }, i) =>
+              <Typography color="red" key={i}>{message}</Typography>) :
               <Typography>No drivers found those filters</Typography>}
-
       </Box>
 
-      <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center">
-        <Pagination count={pageCount} value={page ? page : ' '} color="primary" onChange={handleChange} size="large" boundaryCount={2} />
-      </Box>
+
     </Container>
   );
 };

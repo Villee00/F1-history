@@ -14,7 +14,8 @@ const validationSchema = yup.object({
   team: yup
     .string('Enter a team'),
   year: yup
-    .number('Enter a season year in numbers')
+    .number()
+    .typeError('Season must be a type of number')
     .max(2020, 'Season year must be between 1950-2020')
     .min(1950, 'Season year must be between 1950-2020'),
   Nationality: yup
@@ -63,25 +64,32 @@ const DriverFilterBar = ({
         value={formik.values.name}
         label="Name"
         handleChange={formik.handleChange}
-        error={formik.touched.name && Boolean(formik.errors.name)} />
+        error={formik.touched.name && Boolean(formik.errors.name)} 
+        helpertext={formik.touched.name && formik.errors.name}/>
 
       <SearchTextField
         value={formik.values.team}
         label="Team"
         handleChange={formik.handleChange}
-        error={formik.touched.team && Boolean(formik.errors.team)} />
+        error={formik.touched.team && Boolean(formik.errors.team)} 
+        helpertext={formik.touched.team && formik.errors.team}
+        />
 
       <SearchTextField
         value={formik.values.year}
         label="Year"
         handleChange={formik.handleChange}
-        error={formik.touched.year && Boolean(formik.errors.year)} />
+        error={formik.touched.year && Boolean(formik.errors.year)} 
+        helpertext={formik.touched.year && formik.errors.year}
+        />
 
       <SearchTextField
         value={formik.values.nationality}
         label="Nationality"
         handleChange={formik.handleChange}
-        error={formik.touched.nationality && Boolean(formik.errors.nationality)} />
+        error={formik.touched.nationality && Boolean(formik.errors.nationality)} 
+        helpertext={formik.touched.nationality && formik.errors.nationality}
+        />
 
       <Select
         value={formik.values.sort}

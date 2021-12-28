@@ -1,7 +1,7 @@
 import { Divider, TextField } from '@mui/material'
 import React from 'react'
 
-function SearchTextField({ value, label, handleChange, error }) {
+function SearchTextField({ value, label, handleChange, error, helpertext }) {
   return (
     <>
       <TextField
@@ -14,6 +14,7 @@ function SearchTextField({ value, label, handleChange, error }) {
         error={error}
         type="search"
         variant="standard"
+        helperText={helpertext}
       />
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
 
