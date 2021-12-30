@@ -105,6 +105,10 @@ export const resolvers = {
         path: "races.race",
         model: "Race",
       })
+      .populate({
+        path: "teams",
+        model: "Team",
+      })
     },
     getDriverCount: async (obj, args, context, info) => {
       return await Driver.find({}).countDocuments();

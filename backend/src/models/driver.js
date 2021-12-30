@@ -21,7 +21,10 @@ const driverSchema = mongoose.Schema({
       },
     },
   ],
-  teams: [String],
+  teams: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Team",
+  }],
   wikipediaLink: String,
   seasonsDriven: [Number],
   pictureLink: String,

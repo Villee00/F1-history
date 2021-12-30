@@ -16,7 +16,7 @@ export const getRaceResults = async (race, year, round) => {
     const lastName = driverInfo.familyName;
 
     let driverInDB = await Driver.findOne({ firstName, lastName });
-    const team = await setTeam(finisher.Constructor.name);
+    const team = await getTeam(finisher.Constructor.name);
 
     if (!driverInDB) {
       const nationality = driverInfo.nationality;
@@ -68,7 +68,7 @@ const fetchJSONFromErgast = async (url) => {
   const json = await fetched.json();
   return json;
 }
-const setTeam = async (team) => {
+export const getTeam = async (team) => {
   const foundTeam = await Team.findOne({ name: team });
   if (!foundTeam) {
     const newTeam = new Team({ name: team });

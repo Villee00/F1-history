@@ -90,7 +90,9 @@ query Query($getDriverDriverId: String!) {
     positionsGainedCareer
     fullName
     seasonsDriven
-    teams
+    teams {
+      name
+    }
     nationality
     dateOfBirth
     races {
