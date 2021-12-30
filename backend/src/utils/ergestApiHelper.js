@@ -4,12 +4,7 @@ import Team from "../models/team.js";
 import { getPictureLink } from "./wikipediaApiHelper.js";
 
 export const getRaceResults = async (race, year, round) => {
-  const fetched = await fetch(
-    `http://ergast.com/api/f1/${year}/${round}/results.json`
-  );
-
-  const json = await fetched.text();
-  const data = JSON.parse(json);
+  const data = await fetchJSONFromErgast(`http://ergast.com/api/f1/${year}/${round}/results.json`);
   const result = data.MRData.RaceTable.Races;
 
   for (let index = 0; index < result[0].Results.length; index++) {
@@ -22,12 +17,12 @@ export const getRaceResults = async (race, year, round) => {
 
     let driverInDB = await Driver.findOne({ firstName, lastName });
     const team = await setTeam(finisher.Constructor.name);
+
     if (!driverInDB) {
       const nationality = driverInfo.nationality;
       const dateOfBirth = driverInfo.dateOfBirth;
       const wikipediaLink = driverInfo.url;
       const pictureLink = await getPictureLink(firstName + " " + lastName);
-
 
       driverInDB = new Driver({
         firstName,
@@ -66,12 +61,24 @@ export const getRaceResults = async (race, year, round) => {
   }
 };
 
-
-const setTeam = async (team) =>{
-  const foundTeam = await Team.findOne({name: team});
-  if(!foundTeam){ 
-    const newTeam = new Team({name: team});
+const fetchJSONFromErgast = async (url) => {
+  const fetched = await fetch(
+    url
+  );
+  const json = await fetched.json();
+  return json;
+}
+const setTeam = async (team) => {
+  const foundTeam = await Team.findOne({ name: team });
+  if (!foundTeam) {
+    const newTeam = new Team({ name: team });
     return await newTeam.save();
   }
   return foundTeam;
 }
+
+export const getSeasonFromErgast = async (year) => {
+  const data = await fetchJSONFromErgast(`http://ergast.com/api/f1/${year}.json`);
+  return data.MRData.RaceTable.Races;
+}
+

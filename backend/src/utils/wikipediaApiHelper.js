@@ -2,7 +2,7 @@ import wiki from "wikijs";
 import Circuit from "../models/circuit.js";
 import Race from "../models/race.js";
 import Season from "../models/season";
-import { getRaceResults } from "./ergestApiHelper.js";
+import { getRaceResults, getSeasonFromErgast } from "./ergestApiHelper.js";
 import ParseRaceData, { parseCircuitToDB } from "./ParseRaceData.js";
 
 const headers = {
@@ -48,53 +48,48 @@ export const addSeason = async (year) => {
     wikipediaLink: seasonPage.fullurl,
     year,
   });
+
+  //Check if races on the season was found 
   if (racesSeason) {
     for (let i = 0; i < racesSeason.length; i++) {
       try {
         const race = racesSeason[i];
-
         const round = race.round
           ? parseInt(race.round.replace(/[^0-9.]/g, ""))
           : parseInt(race.rnd.replace(/[^0-9.]/g, ""));
 
         const tooltip = race.tooltip ? race.tooltip : race.report;
         console.log(tooltip);
-
-        let raceDB = await Race.findOne({ grandPrix: tooltip });
-
-        if (!raceDB) {
-          const report = await wiki({
-            headers,
-          }).page(tooltip);
-          const raceData = await report.info();
-          const picture = await report.mainImage();
-
-          raceDB = await addRace(
-            await ParseRaceData(
-              raceData,
-              tooltip,
-              picture,
-              race,
-              seasonObj.year
-            ),
-            raceData.location[0]
-          );
-        }
+        const raceDB = await addRace(tooltip, seasonObj.year);
         seasonObj.races.push(raceDB);
-
         await getRaceResults(raceDB, seasonInfo.year, round);
-
         await raceDB.save();
+
       } catch (error) {
         console.log(error);
       }
     }
   }
-
+  else {
+    const races = await getSeasonFromErgast(year);
+    for (let index = 0; index < races.length; index++) {
+      try {
+        const race = races[index];
+        console.log(`${race.raceName} ${race.season}`)
+        const raceDB = await addRace(`${race.season} ${race.raceName}`, year);
+        seasonObj.races.push(raceDB);
+        await getRaceResults(raceDB, seasonInfo.year, parseInt(race.round));
+        await raceDB.save();
+        
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
   return await seasonObj.save();
 };
 
-export const addRace = async (race, circuitName) => {
+export const createRace = async (race, circuitName) => {
   let circuit = await Circuit.findOne({ name: circuitName });
 
   if (!circuit) {
@@ -109,7 +104,7 @@ export const getPictureLink = async (keyword) => {
   try {
     const page = await wiki({
       headers,
-    }).find(keyword + " driver");
+    }).find(keyword + " f1");
     const picture = await page.mainImage();
     return (
       picture || "https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg"
@@ -118,3 +113,27 @@ export const getPictureLink = async (keyword) => {
     console.log("Could not get picture " + error.message);
   }
 };
+
+const addRace = async (raceTitle, year) => {
+  let race = await Race.findOne({ grandPrix: raceTitle });
+  if (!race) {
+    const report = await wiki({
+      headers,
+    }).page(raceTitle);
+    const raceData = await report.info();
+    const picture = await report.mainImage();
+    
+    console.log(typeof raceData.location != 'undefined'? raceData.location[0]: raceData.circuit)
+    race = await createRace(
+      await ParseRaceData(
+        raceData,
+        raceTitle,
+        picture,
+        year
+      ),
+      typeof raceData.location != 'undefined'? raceData.location[0]: raceData.circuit
+    );
+  }
+
+  return race;
+}

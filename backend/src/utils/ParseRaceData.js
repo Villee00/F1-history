@@ -1,6 +1,6 @@
 import Circuit from "../models/circuit.js";
 
-const ParseRaceData = async (raceData, tooltip, picture, race, year) => {
+const ParseRaceData = async (raceData, tooltip, picture, year) => {
   let raceDate;
 
   if (!raceData.date) {
@@ -11,7 +11,6 @@ const ParseRaceData = async (raceData, tooltip, picture, race, year) => {
 
     if (raceData.year) raceDate.setFullYear(raceData.year);
   }
-
   return {
     date: raceDate,
     grandPrix: tooltip,

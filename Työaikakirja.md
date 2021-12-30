@@ -26,5 +26,6 @@
 | 22.12. | 3    | -Filtteri lisätty kuskien kansallisuudelle ja kaudelle<br/>  |
 | 25.12. | 4    | -Formik lisäys <br/>-Validointia haku kentille <br/>-Koodi puhdistusta <br/>  |
 | 27.12. | 3    | -Kuskien sorttaus lisätty |
-| 29.12. | 4    | -Tummatila lisätty ja tarvittavat muutokset tehty jokaiselle sivulle <br/> -Ulkonäkömuutoksia, joka sivulle  |
-| yht   | 130   | | 
+| 29.12. | 4    | -Tummatila lisätty ja tarvittavat muutokset tehty jokaiselle sivulle <br/> -Ulkonäkömuutoksia joka sivulle  |
+| 30.12. | 3    | -Jos kauden tietoja ei pystytä hakemaan wikipediasta, hataan kauden tiedot Ergast API:sta|
+| yht   | 133   | | 
