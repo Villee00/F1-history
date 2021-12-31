@@ -54,7 +54,7 @@ const DriversContainer = () => {
     if (listInnerRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
 
-      if (scrollTop + clientHeight + 1000 > scrollHeight && !bottomReached) {
+      if (scrollTop + clientHeight + 1500 > scrollHeight && !bottomReached) {
 
         setBottomReached(true);
         const newOffset = offset + 1;

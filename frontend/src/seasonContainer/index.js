@@ -1,18 +1,19 @@
 import React, { useEffect } from 'react';
-import { Container, Grid, List, ListItemButton, ListItemText, ListSubheader, Paper, Typography } from '@mui/material';
+import { Autocomplete, Grid, MenuItem, Paper, Select, TextField, Typography } from '@mui/material';
 import RacesContainer from '../racesContainer';
 import { Box } from '@mui/system';
 import { useHistory, useParams } from 'react-router-dom';
 
 const SeasonsContainer = () => {
   const { year } = useParams();
-  const [selectedYear, setSelectedYear] = React.useState(1990);
+  const [selectedYear, setSelectedYear] = React.useState("1990");
   const history = useHistory();
   const years = [];
 
   const handleChange = (event, year) => {
     setSelectedYear(year);
     history.push('/seasons/' + year);
+
   };
 
   useEffect(() => {
@@ -28,28 +29,25 @@ const SeasonsContainer = () => {
     return () => { };
   }, [year]);
   for (let year = 1950; year <= 2020; year++) {
-    years.push(year);
+    years.push(year.toString());
   }
   return (
-    <Paper maxWidth="xl" elevation={2} sx={{ alignItems: 'center', padding: 2 }}>
+    <Paper elevation={2} sx={{ alignItems: 'center', padding: 2 }}>
       <Grid container spacing={2}>
-        <Grid item xs="auto">
-          <Box display="flex" flexDirection="column">
-            <List subheader={<ListSubheader>Seasons</ListSubheader>}
-              sx={{ width: 150, position: 'relative', overflow: 'auto', height: '80vh' }}>
-              {years.map(year =>
-                <ListItemButton key={year}
-                  selected={selectedYear === year}
-                  onClick={(event) => handleChange(event, year)}>
-                  <ListItemText primary={year} />
-                </ListItemButton>)}
-            </List>
-          </Box>
-        </Grid>
         <Grid item xs sx={{ textAlign: 'center' }}>
-          <Typography variant="h3" textAlign="center">
-            {selectedYear}
-          </Typography>
+          <Paper sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+            <Typography variant="h3">Select a season: </Typography>
+            <Autocomplete
+              value={selectedYear}
+              options={years}
+              disableClearable
+              getOptionLabel={(option) => option.toString()}
+              renderInput={(params) =>
+                <TextField sx={{ minWidth: 300, justifyContent: 'center' }}
+                  {...params} label="Year" />}
+              onChange={handleChange} />
+          </Paper>
+
           <Box sx={{ position: 'relative', overflow: 'auto', height: '74vh' }}>
             <RacesContainer year={selectedYear} />
           </Box>

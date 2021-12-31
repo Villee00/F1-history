@@ -9,6 +9,7 @@ import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
+import {buildPictureURL} from '../utils/PictureChanger'
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -18,12 +19,12 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const DriverCard = ({driver}) =>{
-
+  const picture = buildPictureURL(driver.pictureLink)
   return(
     <Card sx={{ maxWidth: 270, borderRadius: 3, height: 600, margin: 2, boxShadow: 10}}>
       <CardMedia
         component="img"
-        image={driver.pictureLink}
+        image={picture?? driver.pictureLink}
         alt="Driver"
         sx={{height:400, objectFit:'contain'}}
       />

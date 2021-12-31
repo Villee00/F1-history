@@ -38,9 +38,7 @@ const RaceInfo = () => {
             <Box sx={{ alignSelf: 'center', padding:1 }}>
               <img style={{ maxHeight: 400, maxWidth: 400 }} src={raceInfo.pictureLink} />
             </Box>
-            <Box sx={{paddingBottom:2}}>
-              <RaceInfoTable race={raceInfo} />
-            </Box>
+            <RaceInfoTable race={raceInfo} />
           </Box>
         </Paper>
         <Box>

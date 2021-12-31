@@ -9,7 +9,7 @@ const RaceInfoTable = ({race}) => {
   const raceDate = new Date(race.date).toLocaleDateString('en-FI');
   
   return (
-    <TableContainer sx={{minWidth:400, maxWidth:500}} component={Paper}>
+    <TableContainer sx={{ maxWidth:500}} component={Paper}>
       <Table sx={{ minWidth: 400 }} aria-label="Race info">
         <TableBody>
           <TableRow

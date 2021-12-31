@@ -19,7 +19,7 @@ const DriverTable = ({driver}) => {
   
   return (
     <TableContainer sx={{ maxWidth:500}} component={Paper}>
-      <Table sx={{ minWidth: 400 }} aria-label="racer info">
+      <Table sx={{ minWidth: 400 }} aria-label="Driver info">
         <TableBody>
           <TableRow
             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

@@ -10,7 +10,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import DriverInfo from './driverInfo';
-import { Box, Container, Grid, IconButton, Typography } from '@mui/material';
+import { Container, Grid, IconButton, Typography } from '@mui/material';
 import { useTheme } from '@emotion/react';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
@@ -34,7 +34,7 @@ const App = ({ colorContext }) => {
           </Grid>
           <Grid item xs={8}>
             <Link component={RouterLink} underline='hover' to="/">
-              <Typography variant="h3" color="main" sx={{ textAlign: 'center' }}>F1 HISTORY</Typography>
+              <Typography variant="h2" component="h1" color="main" sx={{ textAlign: 'center' }}>F1 HISTORY</Typography>
             </Link>
           </Grid>
           <Grid item xs={2}>
