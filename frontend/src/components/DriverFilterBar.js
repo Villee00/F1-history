@@ -4,15 +4,16 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import SearchTextField from "./SearchTextField";
-import { useFormik } from 'formik';
+import { Field, useFormik } from 'formik';
 import * as yup from 'yup';
-import { MenuItem, Select } from "@mui/material";
+import { Autocomplete, MenuItem, Select, TextField } from "@mui/material";
+import { GET_DRIVER_FILTERS } from "../queries";
+import { useQuery } from "@apollo/client";
+import TeamsSelectField from "./TeamsSelectField";
 
 const validationSchema = yup.object({
   name: yup
     .string('Enter your drivers name'),
-  team: yup
-    .string('Enter a team'),
   year: yup
     .number()
     .typeError('Season must be a type of number')
@@ -22,33 +23,25 @@ const validationSchema = yup.object({
     .string('Enter a drivers nationality'),
 });
 
-const DriverFilterBar = ({
-  setSearchName,
-  setSearchTeam,
-  setSearchYears,
-  setSearchNationality,
-  setSortingOrder,
-  refetch }) => {
+const DriverFilterBar = ({ handleSearch }) => {
+  const { data, loading, error } = useQuery(GET_DRIVER_FILTERS);
+  const [teams, setTeams] = React.useState([])
 
   const formik = useFormik({
     initialValues: {
       name: "",
-      team: "",
       nationality: "",
       sort: "age:desc"
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      setSearchName(values.name);
-      setSearchTeam(values.team);
-      setSearchYears(!isNaN(parseInt(values.year)) ? parseInt(values.year) : undefined);
-      setSearchNationality(values.nationality);
-
-      const sort = values.sort.split(':');
-      setSortingOrder({field: sort[0], order: sort[1]});
-      refetch();
-    },
+    onSubmit: (values) => handleSearch({...values, teams: teams.map(team => team.id)}),
   });
+
+  if (loading) {
+    return (
+      <div>Loading...</div>
+    )
+  }
   return (
     <Paper
       component="form"
@@ -57,39 +50,42 @@ const DriverFilterBar = ({
         p: "2px 4px",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        flexWrap: "wrap"
       }}
     >
       <SearchTextField
         value={formik.values.name}
         label="Name"
         handleChange={formik.handleChange}
-        error={formik.touched.name && Boolean(formik.errors.name)} 
-        helpertext={formik.touched.name && formik.errors.name}/>
+        error={formik.touched.name && Boolean(formik.errors.name)}
+        helpertext={formik.touched.name && formik.errors.name} />
 
-      <SearchTextField
+      {/* <SearchTextField
         value={formik.values.team}
         label="Team"
         handleChange={formik.handleChange}
-        error={formik.touched.team && Boolean(formik.errors.team)} 
+        error={formik.touched.team && Boolean(formik.errors.team)}
         helpertext={formik.touched.team && formik.errors.team}
-        />
+      /> */}
+
+      <TeamsSelectField teams={data.getDriverFilters} setTeams={setTeams}/>
 
       <SearchTextField
         value={formik.values.year}
         label="Year"
         handleChange={formik.handleChange}
-        error={formik.touched.year && Boolean(formik.errors.year)} 
+        error={formik.touched.year && Boolean(formik.errors.year)}
         helpertext={formik.touched.year && formik.errors.year}
-        />
+      />
 
       <SearchTextField
         value={formik.values.nationality}
         label="Nationality"
         handleChange={formik.handleChange}
-        error={formik.touched.nationality && Boolean(formik.errors.nationality)} 
+        error={formik.touched.nationality && Boolean(formik.errors.nationality)}
         helpertext={formik.touched.nationality && formik.errors.nationality}
-        />
+      />
 
       <Select
         value={formik.values.sort}

@@ -28,5 +28,5 @@
 | 27.12. | 3    | -Kuskien sorttaus lisätty |
 | 29.12. | 4    | -Tummatila lisätty ja tarvittavat muutokset tehty jokaiselle sivulle <br/> -Ulkonäkömuutoksia joka sivulle  |
 | 30.12. | 3    | -Jos kauden tietoja ei pystytä hakemaan wikipediasta, hataan kauden tiedot Ergast API:sta|
-| 31.12. | 2    | -Tallit objectiksi tietokantaan <br/> -Frontend muutokset tallien näyttämiseksi oikein|
-| yht   | 135   | | 
+| 31.12. | 7    | -Tallit objectiksi tietokantaan <br/> -Frontend muutokset tallien näyttämiseksi oikein <br/> -Talleien nimet haetaan filtterihin, jotta pystytään täydentämään <br/> -Kuskeja ladataan nyt lisää, kun scrollataan tarpeeksi alas sivulla|
+| yht   | 140   | | 

@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { CircularProgress, Container, Pagination, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { GET_DRIVERS } from '../queries';
 import DriverCard from './DriverCard';
@@ -9,21 +9,21 @@ import Link from '@mui/material/Link';
 import DriverFilterBar from '../components/DriverFilterBar';
 
 const DriversContainer = () => {
-  const [page, setPage] = useState(1);
-  const [pageCount, setPageCount] = useState(1);
+  const [drivers, setDrivers] = useState([]);
+  const [offset, setOffset] = useState(0);
   const [searchName, setSearchName] = useState('');
-  const [searchTeam, setSearchTeam] = useState('');
+  const [searchTeam, setSearchTeam] = useState([]);
+  const [bottomReached, setBottomReached] = useState(false)
   const [searchYears, setSearchYears] = useState(NaN);
   const [sortingOrder, setSortingOrder] = useState({ field: 'age', order: 'desc' });
   const [searchNationality, setSearchNationality] = useState('');
-  const { data, loading, refetch, error } = useQuery(GET_DRIVERS, {
-    notifyOnNetworkStatusChange: true,
+  const { data, loading, refetch, fetchMore, error } = useQuery(GET_DRIVERS, {
     variables: {
-      offset: (page - 1) * 12,
+      offset: 0,
       limit: 12,
       filters: {
         name: searchName,
-        team: searchTeam,
+        teams: searchTeam,
         year: !isNaN(searchYears) ? searchYears : undefined,
         nationality: searchNationality
       },
@@ -31,35 +31,70 @@ const DriversContainer = () => {
     }
   });
 
-  const handleSearch = () => {
-    refetch();
+  const listInnerRef = useRef();
+
+  const handleSearch = ({ name, year, nationality, sort, teams }) => {
+    setSearchName(name);
+    setSearchTeam(teams);
+    setSearchYears(!isNaN(parseInt(year)) ? parseInt(year) : undefined);
+    setSearchNationality(nationality);
+
+    const sortArr = sort.split(':');
+    setSortingOrder({ field: sortArr[0], order: sortArr[1] });
+    refetch()
+      .then(
+        ({ data }) => {
+          setDrivers(data.getDrivers.drivers)
+        }, reason =>
+        console.error(reason)
+      );
   };
 
-  const handleChange = (_event, value) => {
-    if (value !== page) {
-      setPage(value);
+  const onScroll = () => {
+    if (listInnerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
+
+      if (scrollTop + clientHeight + 1000 > scrollHeight && !bottomReached) {
+
+        setBottomReached(true);
+        const newOffset = offset + 1;
+        setOffset(newOffset);
+
+        fetchMore({
+          variables: {
+            offset: newOffset * 12,
+            limit: 12,
+            filters: {
+              name: searchName,
+              teams: searchTeam,
+              year: !isNaN(searchYears) ? searchYears : undefined,
+              nationality: searchNationality
+            },
+            sort: sortingOrder
+          },
+        }).then(({ data }) => {
+          setDrivers([...drivers, ...data.getDrivers.drivers]);
+          setBottomReached(false);
+        });
+      }
     }
   };
 
   useEffect(() => {
     if (!loading) {
-      const pages = Math.ceil(data?.getDrivers?.driverCount / 12);
-      setPageCount(isNaN(pages) ? 1 : pages);
+      if (drivers.length < 1) {
+        setDrivers(data.getDrivers.drivers);
+      }
     }
-  }, [data]);
+  }, [loading])
 
-  useEffect(() => {
-    refetch();
-  }, [page]);
-
-  const drivers = data?.getDrivers?.drivers ? data?.getDrivers?.drivers : [];
   return (
     <Container maxWidth="xl" >
       <Typography variant="h2" textAlign="center">
         F1 DRIVERS
       </Typography>
       <DriverFilterBar
-        onSearchButton={handleSearch}
+        handleSearch={handleSearch}
         setSearchName={setSearchName}
         setSearchTeam={setSearchTeam}
         setSearchYears={setSearchYears}
@@ -68,24 +103,28 @@ const DriversContainer = () => {
         setSortingOrder={setSortingOrder}
         refetch={refetch} />
 
-      <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center">
+      <Box
+        onScroll={onScroll}
+        ref={listInnerRef}
+        display="flex"
+        flexDirection="row"
+        flexWrap="wrap"
+        justifyContent="center"
+        sx={{ height: 900, overflowY: 'auto' }}
+      >
+
         {loading ? <CircularProgress /> :
           drivers.length > 0 ?
             <>
               {drivers.map((driver) =>
-              <Link key={driver.id} component={RouterLink} underline="none" to={`/drivers/${driver.id}`}>
-                <DriverCard driver={driver} />
-              </Link>)}
-              <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center">
-                <Pagination count={pageCount} value={page ? page : ' '} color="primary" onChange={handleChange} size="large" boundaryCount={2} />
-              </Box>
+                <Link key={driver.id} component={RouterLink} underline="none" to={`/drivers/${driver.id}`}>
+                  <DriverCard driver={driver} />
+                </Link>)}
             </> :
             error ? error?.graphQLErrors.map(({ message }, i) =>
               <Typography color="red" key={i}>{message}</Typography>) :
               <Typography>No drivers found those filters</Typography>}
       </Box>
-
-
     </Container>
   );
 };

@@ -7,6 +7,7 @@ import {
   ApolloProvider,
 } from '@apollo/client';
 import ColorMode from './ColorMode';
+import { offsetLimitPagination } from '@apollo/client/utilities';
 
 const client = new ApolloClient({
   uri: '/graphql',
@@ -14,6 +15,10 @@ const client = new ApolloClient({
     typePolicies: {
       Query: {
         fields: {
+          getDrivers: {
+            ...offsetLimitPagination(),
+            read(existing, { args: { offset, limit } }) {}
+          }
         },
       },
     },
@@ -23,7 +28,7 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <ColorMode/>
+    <ColorMode />
   </ApolloProvider>,
   document.getElementById('root')
 );

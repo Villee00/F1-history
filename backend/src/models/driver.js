@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-// TODO: Add more info fields
 const driverSchema = mongoose.Schema({
   driverNumber: [Number],
   firstName: String,

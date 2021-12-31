@@ -1,7 +1,8 @@
 import { gql } from "apollo-server";
 import Driver from "../../models/driver.js";
+import Team from "../../models/team.js";
 import * as yup from 'yup'
-
+import mongoose from "mongoose";
 
 export const typeDefs = gql`
   type Drivers{
@@ -10,7 +11,7 @@ export const typeDefs = gql`
   }
   input Filters{
     name: String
-    team: String
+    teams: [ID]
     year: Int
     nationality: String
   }
@@ -22,7 +23,7 @@ export const typeDefs = gql`
     getDrivers(limit: Int, offset: Int, filters: Filters, sort: Sorting): Drivers!
     getDriver(driverID: String!): Driver!
     getDriverCount: Int!
-    getDriverFilters: DriverFilter!
+    getDriverFilters: [Team!]!
   }
 `;
 
@@ -31,7 +32,7 @@ const argsSchema = yup.object({
   offset: yup.number(),
   filters: yup.object().shape({
     name: yup.string(),
-    team: yup.string(),
+    teams: yup.array().of(yup.string()),
     year: yup.number()
     .min(1950, 'Season must be between 1950 and 2020')
     .max(2020, 'Season must be between 1950 and 2020'),
@@ -74,7 +75,7 @@ export const resolvers = {
 
       const {
         name,
-        team,
+        teams,
         year,
         nationality
       } = filters;
@@ -82,7 +83,7 @@ export const resolvers = {
       query = {};
 
       buildDBquery({ $or: [{ "lastName": new RegExp(name, 'i') }, { "firstName": new RegExp(name, 'i') }] }, name);
-      buildDBquery({ "teams": new RegExp(team, 'i') }, team);
+      buildDBquery({ "teams": {"$in" : teams.map(team => mongoose.Types.ObjectId(team)) }}, teams.length> 0 ? teams: false);
       buildDBquery({ "nationality": new RegExp(nationality, 'i') }, nationality);
       buildDBquery({ "seasonsDriven": parseInt(year) }, year);
 
@@ -92,6 +93,10 @@ export const resolvers = {
         .sort(sortOrder)
         .limit(limit)
         .skip(offset)
+        .populate({
+          path: "teams",
+          model: "Team",
+        })
         .exec()
 
       const driverCount = await Driver
@@ -113,8 +118,8 @@ export const resolvers = {
     getDriverCount: async (obj, args, context, info) => {
       return await Driver.find({}).countDocuments();
     },
-    getDriverFilters: () => {
-      return { teams: [] }
+    getDriverFilters: async () => {
+      return await Team.find({});;
     }
   },
 };

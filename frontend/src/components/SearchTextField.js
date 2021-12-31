@@ -8,7 +8,7 @@ function SearchTextField({ value, label, handleChange, error, helpertext }) {
         id={label.toLowerCase()}
         name={label.toLowerCase()}
         label={label}
-        sx={{ ml: 1, flex: 1 }}
+        sx={{ ml: 1, flex: 1, minWidth:150 }}
         value={value}
         onChange={handleChange}
         error={error}

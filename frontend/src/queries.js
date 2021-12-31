@@ -107,3 +107,11 @@ query Query($getDriverDriverId: String!) {
   }
 }
 `;
+
+export const GET_DRIVER_FILTERS = gql`
+query Query {
+  getDriverFilters {
+    id
+    name
+  }
+}`;
