@@ -4,9 +4,9 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import SearchTextField from "./SearchTextField";
-import { Field, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { Autocomplete, MenuItem, Select, TextField } from "@mui/material";
+import { MenuItem, Select } from "@mui/material";
 import { GET_DRIVER_FILTERS } from "../queries";
 import { useQuery } from "@apollo/client";
 import TeamsSelectField from "./TeamsSelectField";
@@ -60,14 +60,6 @@ const DriverFilterBar = ({ handleSearch }) => {
         handleChange={formik.handleChange}
         error={formik.touched.name && Boolean(formik.errors.name)}
         helpertext={formik.touched.name && formik.errors.name} />
-
-      {/* <SearchTextField
-        value={formik.values.team}
-        label="Team"
-        handleChange={formik.handleChange}
-        error={formik.touched.team && Boolean(formik.errors.team)}
-        helpertext={formik.touched.team && formik.errors.team}
-      /> */}
 
       <TeamsSelectField teams={data.getDriverFilters} setTeams={setTeams}/>
 

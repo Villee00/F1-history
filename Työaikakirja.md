@@ -30,4 +30,5 @@
 | 30.12. | 3    | -Jos kauden tietoja ei pystytä hakemaan wikipediasta, hataan kauden tiedot Ergast API:sta|
 | 31.12. | 7    | -Tallit objectiksi tietokantaan <br/> -Frontend muutokset tallien näyttämiseksi oikein <br/> -Talleien nimet haetaan filtterihin, jotta pystytään täydentämään <br/> -Kuskeja ladataan nyt lisää, kun scrollataan tarpeeksi alas sivulla|
 | 1.1. | 6    | -Sivun ulkonäkö muutoksia <br/> -Kuvat ovat nyt pienemmän laatuisia, jotta latausaika nopeutuisi <br/> -Kausi lista vaihdettu selectiksi <br/> |
-| yht   | 146   | | 
+| 3.1. | 6    | -Käyttäjän tallennus tietokantaan <br/> -Käyttäjän luonti frontendiin ja backendiin <br/> -Kirjautumislomake frontendiin|
+| yht   | 152   | | 

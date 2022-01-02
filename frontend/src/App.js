@@ -14,6 +14,7 @@ import { Container, Grid, IconButton, Typography } from '@mui/material';
 import { useTheme } from '@emotion/react';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import Login from './login';
 
 const App = ({ colorContext }) => {
   const theme = useTheme();
@@ -38,14 +39,21 @@ const App = ({ colorContext }) => {
             </Link>
           </Grid>
           <Grid item xs={2}>
+            <Link to='/login'>
+            <Typography variant="h6">LOGIN</Typography>
+            </Link>
             <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
               {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
             </IconButton>
+
           </Grid>
         </Grid>
         <AppBar />
 
         <Switch>
+          <Route path="/login" exact>
+            <Login/>
+          </Route>
           <Route path="/seasons/:year/:gp" exact>
             <RaceInfo />
           </Route>

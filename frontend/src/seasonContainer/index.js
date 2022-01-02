@@ -32,9 +32,9 @@ const SeasonsContainer = () => {
     years.push(year.toString());
   }
   return (
-    <Paper elevation={2} sx={{ alignItems: 'center', padding: 2 }}>
-      <Grid container spacing={2}>
-        <Grid item xs sx={{ textAlign: 'center' }}>
+    <Paper elevation={2}  sx={{ alignItems: 'center', padding: 2 }}>
+      <Grid container spacing={2} width='m'>
+        <Grid item sx={{ textAlign: 'center' }}>
           <Paper sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
             <Typography variant="h3">Select a season: </Typography>
             <Autocomplete

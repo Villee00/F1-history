@@ -7,7 +7,9 @@ import driver from "./queries/driver.js";
 import Driver from "./types/Driver.js";
 import DriverFilter from "./types/Filter.js";
 import Team from "./types/Team.js";
-
+import User from "./types/User.js";
+import createUser from "./mutations/createUser.js";
+import login from "./mutations/login.js";
 const rootTypeDefs = gql`
   type Query {
     root: String
@@ -27,7 +29,10 @@ const typeDefs = [
   Driver.typeDefs,
   driver.typeDefs,
   DriverFilter.typeDefs,
-  Team.typeDefs
+  Team.typeDefs,
+  User.typeDefs,
+  createUser.typeDefs,
+  login.typeDefs
 ];
 
 const resolvers = [
@@ -38,7 +43,10 @@ const resolvers = [
   Driver.resolvers,
   driver.resolvers,
   DriverFilter.resolvers,
-  Team.resolvers
+  Team.resolvers,
+  User.resolvers,
+  createUser.resolvers,
+  login.resolvers
 ];
 
 const schema = {
