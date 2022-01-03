@@ -31,8 +31,7 @@ const resolvers = {
       if (!user) {
         throw new UserInputError('Invalid username or password');
       }
-
-      const validPassword = bcrypt.compare(password, user.password);
+      const validPassword = await bcrypt.compare(password, user.passwordHash);
 
       if (!validPassword) {
         throw new UserInputError('Invalid username or password');

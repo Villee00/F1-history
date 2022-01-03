@@ -31,4 +31,5 @@
 | 31.12. | 7    | -Tallit objectiksi tietokantaan <br/> -Frontend muutokset tallien näyttämiseksi oikein <br/> -Talleien nimet haetaan filtterihin, jotta pystytään täydentämään <br/> -Kuskeja ladataan nyt lisää, kun scrollataan tarpeeksi alas sivulla|
 | 1.1. | 6    | -Sivun ulkonäkö muutoksia <br/> -Kuvat ovat nyt pienemmän laatuisia, jotta latausaika nopeutuisi <br/> -Kausi lista vaihdettu selectiksi <br/> |
 | 3.1. | 6    | -Käyttäjän tallennus tietokantaan <br/> -Käyttäjän luonti frontendiin ja backendiin <br/> -Kirjautumislomake frontendiin|
-| yht   | 152   | | 
+| 4.1. | 4    | -Frontendiin kirjutuminen toimimaan ja tokenin tallennus selaimen muistiin<br/> -Koodi jaottelua|
+| yht   | 156   | | 

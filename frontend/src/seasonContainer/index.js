@@ -13,7 +13,6 @@ const SeasonsContainer = () => {
   const handleChange = (event, year) => {
     setSelectedYear(year);
     history.push('/seasons/' + year);
-
   };
 
   useEffect(() => {

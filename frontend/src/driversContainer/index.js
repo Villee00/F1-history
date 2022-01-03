@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import { CircularProgress, Container, Pagination, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState, useEffect, useRef } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+
 import { GET_DRIVERS } from '../queries';
 import DriverCard from './DriverCard';
 import Link from '@mui/material/Link';
@@ -117,9 +117,7 @@ const DriversContainer = () => {
           drivers.length > 0 ?
             <>
               {drivers.map((driver) =>
-                <Link key={driver.id} component={RouterLink} underline="none" to={`/drivers/${driver.id}`}>
-                  <DriverCard driver={driver} />
-                </Link>)}
+                <DriverCard key={driver.id} driver={driver} />)}
             </> :
             error ? error?.graphQLErrors.map(({ message }, i) =>
               <Typography color="red" key={i}>{message}</Typography>) :

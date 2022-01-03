@@ -9,7 +9,11 @@ import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import {buildPictureURL} from '../utils/PictureChanger'
+import { buildPictureURL } from '../utils/PictureChanger'
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import { Link as RouterLink } from 'react-router-dom';
+import StarIcon from '@mui/icons-material/Star';
+import { Link } from '@mui/material';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -18,19 +22,22 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary
 }));
 
-const DriverCard = ({driver}) =>{
+const DriverCard = ({ driver }) => {
   const picture = buildPictureURL(driver.pictureLink)
-  return(
-    <Card sx={{ maxWidth: 270, borderRadius: 3, height: 600, margin: 2, boxShadow: 10}}>
-      <CardMedia
-        component="img"
-        image={picture?? driver.pictureLink}
-        alt="Driver"
-        sx={{height:400, objectFit:'contain'}}
-      />
+  return (
+    <Card sx={{ maxWidth: 270, borderRadius: 3, height: 600, margin: 2, boxShadow: 10 }}>
+      <Link component={RouterLink} underline="none" to={`/drivers/${driver.id}`}>
+        <CardMedia
+          component="img"
+          image={picture ?? driver.pictureLink}
+          alt="Driver"
+          sx={{ height: 400, objectFit: 'contain' }}
+          action
+        />
+      </Link>
       <CardContent >
         <Typography gutterBottom variant="h5" component="div">
-          {driver.fullName} 
+          {driver.fullName}
         </Typography>
         <Stack
           direction="row"
@@ -43,7 +50,8 @@ const DriverCard = ({driver}) =>{
         </Stack>
       </CardContent>
       <CardActions>
-        <Button size="large" sx={{ width: '100%' }}>Details</Button>
+        <Button size="large" sx={{ width: '100%' }} startIcon={<StarBorderIcon />}>favorite</Button>
+        <Button component={RouterLink} to={`/drivers/${driver.id}`} size="large" sx={{ width: '100%' }}>Details</Button>
       </CardActions>
     </Card>
   );

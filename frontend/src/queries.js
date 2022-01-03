@@ -115,3 +115,20 @@ query Query {
     name
   }
 }`;
+
+export const POST_NEW_USER = gql`
+mutation CreateUser($createUserInput: UserInput) {
+  createUser(input: $createUserInput) {
+    username
+    name
+  }
+}
+`
+
+export const LOGIN = gql`
+mutation Login($input: LoginInput) {
+  login(input: $input) {
+    value
+  }
+}
+`

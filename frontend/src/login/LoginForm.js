@@ -22,7 +22,7 @@ const LoginForm = ({ setLogInForm, onSubmit }) => {
   })
   return (
     <>
-    <Typography variant='h4'>SIGN UP</Typography>
+    <Typography variant='h4'>LOG IN</Typography>
     <form onSubmit={formik.handleSubmit}>
       <Stack spacing={2}>
         <TextField
