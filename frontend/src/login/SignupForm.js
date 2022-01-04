@@ -30,13 +30,13 @@ const SignupForm = ({ setLogInForm, onSubmit }) => {
 
   return (
     <>
-    <Typography variant='h4'>SIGN UP</Typography>
+    <Typography variant='h4' sx={{marginBottom: 1}}>SIGN UP</Typography>
       <form onSubmit={formik.handleSubmit}>
         <Stack spacing={2}>
           <TextField
             id='name'
             name='name'
-            label='name'
+            label='Name'
             value={formik.values.name}
             onChange={formik.handleChange}
             error={formik.touched.name && Boolean(formik.errors.name)}
@@ -45,7 +45,7 @@ const SignupForm = ({ setLogInForm, onSubmit }) => {
           <TextField
             id='username'
             name='username'
-            label='username (used to login)'
+            label='Username (used to login)'
             value={formik.values.username}
             onChange={formik.handleChange}
             error={formik.touched.username && Boolean(formik.errors.username)}
@@ -54,7 +54,7 @@ const SignupForm = ({ setLogInForm, onSubmit }) => {
           <TextField
             id='password'
             type='password'
-            label='password'
+            label='Password'
             name='password'
             value={formik.values.password}
             onChange={formik.handleChange}
@@ -63,7 +63,7 @@ const SignupForm = ({ setLogInForm, onSubmit }) => {
           />
           <TextField
             type='password'
-            label='password confirmation'
+            label='Password Confirmation'
             id='passwordConfirm'
             name='passwordConfirm'
             value={formik.values.passwordConfirm}

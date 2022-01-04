@@ -23,13 +23,13 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const DriverCard = ({ driver }) => {
-  const picture = buildPictureURL(driver.pictureLink)
+  const picture = buildPictureURL(driver.pictureLink, 400)
   return (
     <Card sx={{ maxWidth: 270, borderRadius: 3, height: 600, margin: 2, boxShadow: 10 }}>
       <Link component={RouterLink} underline="none" to={`/drivers/${driver.id}`}>
         <CardMedia
           component="img"
-          image={picture ?? driver.pictureLink}
+          image={picture}
           alt="Driver"
           sx={{ height: 400, objectFit: 'contain' }}
           action

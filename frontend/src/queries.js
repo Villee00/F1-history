@@ -116,9 +116,9 @@ query Query {
   }
 }`;
 
-export const POST_NEW_USER = gql`
-mutation CreateUser($createUserInput: UserInput) {
-  createUser(input: $createUserInput) {
+export const CREATE_USER = gql`
+mutation CreateUser($input: UserInput) {
+  createUser(input: $input) {
     username
     name
   }

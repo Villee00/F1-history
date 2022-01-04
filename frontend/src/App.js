@@ -10,34 +10,46 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import DriverInfo from './driverInfo';
 import Login from './login';
+import { Container } from '@mui/material';
+import Notification from './components/Notification';
 
 const App = ({ colorContext }) => {
   return (
     <Router>
-      <AppBar colorContext={colorContext}/>
-      <Switch>
-        <Route path="/login" exact>
-          <Login />
-        </Route>
-        <Route path="/seasons/:year/:gp" exact>
-          <RaceInfo />
-        </Route>
-        <Route path="/drivers" exact>
-          <DriversContainer />
-        </Route>
-        <Route path="/drivers/:id" exact>
-          <DriverInfo />
-        </Route>
-        <Route path="/seasons/:year" exact>
-          <SeasonsContainer />
-        </Route>
-        <Route exact path="/seasons/" exact>
-          <SeasonsContainer />
-        </Route>
-        <Route path="/" exact>
-          <SeasonsContainer />
-        </Route>
-      </Switch>
+      <Container maxWidth="l"
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          bgcolor: 'background.default',
+          color: 'text.primary'
+        }}>
+        <Notification/>
+        <AppBar colorContext={colorContext} />
+        <Switch>
+          <Route path="/login" exact>
+            <Login />
+          </Route>
+          <Route path="/seasons/:year/:gp" exact>
+            <RaceInfo />
+          </Route>
+          <Route path="/drivers" exact>
+            <DriversContainer />
+          </Route>
+          <Route path="/drivers/:id" exact>
+            <DriverInfo />
+          </Route>
+          <Route path="/seasons/:year" exact>
+            <SeasonsContainer />
+          </Route>
+          <Route exact path="/seasons/" exact>
+            <SeasonsContainer />
+          </Route>
+          <Route path="/" exact>
+            <SeasonsContainer />
+          </Route>
+        </Switch>
+      </Container>
     </Router>
   );
 };

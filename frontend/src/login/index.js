@@ -1,33 +1,47 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import useToggle from '../hooks/useToggle'
 import SignupForm from './SignupForm'
 import LoginForm from './LoginForm'
 import { useMutation } from '@apollo/client'
-import { LOGIN } from '../queries'
+import { CREATE_USER, LOGIN } from '../queries'
 import { UserTokenContext } from '../contexts/user'
 import { useHistory } from 'react-router-dom'
 import useUserToken from '../hooks/useUserToken'
+import { NotificationContext } from '../contexts/alert'
+import useNotification from '../hooks/useNotifcation'
 
 const Login = () => {
   const [isLogInForm, setLogInForm] = useToggle();
+  const { setSuccess, setError } = useNotification();
   const [login, loginResult] = useMutation(LOGIN, {
     onError: (error) => {
-      console.log(error.graphQLErrors[0].message)
+      setError(error.graphQLErrors[0].message);
     }
   });
-  const [createUser, userResult] = useMutation(LOGIN);
-  const {state:{token}, dispatch} = useUserToken();
+  const [createUser, userResult] = useMutation(CREATE_USER, {
+    onError: (error) => {
+      setError(error.graphQLErrors[0].message);
+    }
+  });
+  const { state: { token }, dispatch } = useUserToken();
   const history = useHistory();
 
   useEffect(() => {
     if (loginResult.data) {
       const newToken = loginResult.data.login.value;
-      console.log(newToken)
-      dispatch({type: 'set', token: newToken})
+      dispatch({ type: 'set', token: newToken })
       localStorage.setItem('f1history-token', newToken)
+      setSuccess('Login successful!');
       history.push('/');
     }
   }, [loginResult.data])
+
+  useEffect(() => {
+    if (userResult.data) {
+      setSuccess("User created!");
+      history.push('/login');
+    }
+  }, [userResult.data])
 
   const onSubmit = (values) => {
     if (isLogInForm) {
@@ -41,18 +55,20 @@ const Login = () => {
       })
     }
     else {
+      console.log(values)
       createUser({
-        variables:
-        {
-          name: values.name,
-          username: values.username,
-          password: values.password
+        variables: {
+          input: {
+            name: values.name,
+            username: values.username,
+            password: values.password
+          }
         }
       })
     }
   }
 
-  if(token){
+  if (token) {
     history.push('/');
   }
 

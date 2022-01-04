@@ -27,7 +27,7 @@ const resolvers = {
     login: async (root, args) => {
       const { username, password } = await argsSchema.validate(args.input);
 
-      const user = await User.findOne({username: username});
+      const user = await User.findOne({ username: username });
       if (!user) {
         throw new UserInputError('Invalid username or password');
       }
@@ -44,7 +44,6 @@ const resolvers = {
       return { value: jwt.sign(userForToken, process.env.JWT_SECRET) }
     }
   }
-
 }
 
 export default { typeDefs, resolvers };

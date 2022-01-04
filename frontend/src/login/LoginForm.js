@@ -22,13 +22,13 @@ const LoginForm = ({ setLogInForm, onSubmit }) => {
   })
   return (
     <>
-    <Typography variant='h4'>LOG IN</Typography>
+    <Typography variant='h4' sx={{marginBottom: 1}}>LOG IN</Typography>
     <form onSubmit={formik.handleSubmit}>
       <Stack spacing={2}>
         <TextField
           id='username'
           name='username'
-          label='username'
+          label='Username'
           value={formik.values.username}
           onChange={formik.handleChange}
           error={formik.touched.username && Boolean(formik.errors.username)}
@@ -37,7 +37,7 @@ const LoginForm = ({ setLogInForm, onSubmit }) => {
         <TextField
           id='password'
           type='password'
-          label='password'
+          label='Password'
           name='password'
           value={formik.values.password}
           onChange={formik.handleChange}

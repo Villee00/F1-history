@@ -9,6 +9,7 @@ import {
 import ColorMode from './ColorMode';
 import { offsetLimitPagination } from '@apollo/client/utilities';
 import { UserTokenProvider } from './contexts/user';
+import { NotificationProvider } from './contexts/alert';
 
 const client = new ApolloClient({
   uri: '/graphql',
@@ -30,7 +31,9 @@ const client = new ApolloClient({
 ReactDOM.render(
   <ApolloProvider client={client}>
     <UserTokenProvider>
-      <ColorMode />
+      <NotificationProvider>
+        <ColorMode />
+      </NotificationProvider>
     </UserTokenProvider>
   </ApolloProvider>,
   document.getElementById('root')

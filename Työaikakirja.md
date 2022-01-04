@@ -32,4 +32,5 @@
 | 1.1. | 6    | -Sivun ulkonäkö muutoksia <br/> -Kuvat ovat nyt pienemmän laatuisia, jotta latausaika nopeutuisi <br/> -Kausi lista vaihdettu selectiksi <br/> |
 | 3.1. | 6    | -Käyttäjän tallennus tietokantaan <br/> -Käyttäjän luonti frontendiin ja backendiin <br/> -Kirjautumislomake frontendiin|
 | 4.1. | 4    | -Frontendiin kirjutuminen toimimaan ja tokenin tallennus selaimen muistiin<br/> -Koodi jaottelua|
-| yht   | 156   | | 
+| 5.1. | 6    | -Käyttäjän luonti frontendiin <br/> -Ilmoitukset näkyvät nyt käyttäjälle ja ne ovat väri koodattua (error, success, info) <br/> -Kuvien kokoa yritetään muuttaa oikeaksi, jotta sivu latautuisi nopeammin |
+| yht   | 162   | | 

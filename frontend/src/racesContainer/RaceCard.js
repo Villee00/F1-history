@@ -22,13 +22,13 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const RaceCard = ({race}) =>{
   const date = new Date(race.date);
-  const picture = buildPictureURL(race.pictureLink)
+  const picture = buildPictureURL(race.pictureLink, 400)
   return(
     <Card sx={{ maxWidth: 450, borderRadius: 3, height: 300, margin: 2, boxShadow: 10}}>
       <CardMedia
         component="img"
         height="400"
-        image={picture?? race.pictureLink}
+        image={picture}
         alt="Race layout"
         sx={{height: 200, objectFit:'contain'}}
       />

@@ -21,22 +21,18 @@ const argsSchema = yup.object({
 })
 
 const resolvers = {
-  Mutation:{
-    createUser: async (root, args) =>{
-      const {name, username, password} = await argsSchema.validate(args.input);
+  Mutation: {
+    createUser: async (root, args) => {
+      const { name, username, password } = await argsSchema.validate(args.input);
 
-      const passwordHash = await bcrypt.hash(password, 10)
-      
-      const foundUser = await User.findOne({username: username});
-      if(!foundUser){
+      const foundUser = await User.findOne({ username: username });
+      if (foundUser) {
         throw new UserInputError('That username already exists, please choose another one.')
       }
-      const user = new User({ name, username, passwordHash })
-      
-      return user.save()
-    },
-    login: async (root, args) => {
 
+      const passwordHash = await bcrypt.hash(password, 10)
+      const user = new User({ name, username, passwordHash })
+      return user.save()
     }
   }
 

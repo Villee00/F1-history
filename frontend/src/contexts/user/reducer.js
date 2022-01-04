@@ -5,12 +5,11 @@ export const reducer = (state, action) =>{
         token: action.token
       }
     case "remove":
-      
       return {
         token: null
       }
     default:
-      throw Error(`No type named as ${action.type}`)
+      throw Error(`No action type in reducer of ${action.type}`)
   }
 }
 

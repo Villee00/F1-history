@@ -1,5 +1,5 @@
 
-export const buildPictureURL = (url) => {
+export const buildPictureURL = (url, size) => {
   try {
     const splitted = url.split('/')
     const splitDot = url.split('.')
@@ -11,12 +11,12 @@ export const buildPictureURL = (url) => {
       return null
 
     if (imageType !== 'png' && imageType !== 'jpg') {
-      return `https://upload.wikimedia.org/wikipedia/commons/thumb/${wikipediaStart}/400px-${picName}.png`
+      return `https://upload.wikimedia.org/wikipedia/commons/thumb/${wikipediaStart}/${size}px-${picName}.png`
     }
-    return `https://upload.wikimedia.org/wikipedia/commons/thumb/${wikipediaStart}/400px-${picName}`;
+    return `https://upload.wikimedia.org/wikipedia/commons/thumb/${wikipediaStart}/${size}px-${picName}`;
 
   } catch (error) {
     console.log(error)
-    return null;
+    return url;
   }
 }

@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { Avatar, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Link } from 'react-router-dom';
+import { buildPictureURL } from '../utils/PictureChanger';
 
 
 function CustomFooterStatusComponent(props) {
@@ -58,7 +59,8 @@ const ResultTable = ({ results }) => {
   const classes = useStyles();
 
   const data = results.map(result => {
-    return ({ ...result, picture: result.driver.pictureLink });
+    const picture = buildPictureURL(result.driver.pictureLink, 50);
+    return ({ ...result, picture});
   });
 
   return (

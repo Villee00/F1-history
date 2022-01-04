@@ -34,8 +34,8 @@ const SeasonsContainer = () => {
     <Paper elevation={2}  sx={{ alignItems: 'center', padding: 2 }}>
       <Grid container spacing={2} width='m'>
         <Grid item sx={{ textAlign: 'center' }}>
-          <Paper sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-            <Typography variant="h3">Select a season: </Typography>
+          <Paper sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginBottom:2, padding:1 }}>
+            <Typography variant="h2" component="h3">Select a season: </Typography>
             <Autocomplete
               value={selectedYear}
               options={years}
