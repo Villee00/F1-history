@@ -80,13 +80,11 @@ const AvatarMenu = ({ colorContext, onLogout, token }) => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         {token ?
-          <>
-            <MenuItem>
-              <Avatar /> Profile
+          <MenuItem>
+            <Avatar /> Profile
             </MenuItem>
-            <Divider />
-          </> : null}
-
+          : null}
+        <Divider />
         <MenuItem
           onClick={colorMode.toggleColorMode}>
           {theme.palette.mode === 'dark' ?

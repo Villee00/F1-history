@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { Avatar, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Link } from 'react-router-dom';
-import { buildPictureURL } from '../utils/PictureChanger';
+import { buildPictureURL } from '../../utils/PictureChanger';
 
 
 function CustomFooterStatusComponent(props) {

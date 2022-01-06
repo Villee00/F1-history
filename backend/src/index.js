@@ -10,6 +10,8 @@ import schema from "./graphql/schema.js";
 import http from "http";
 import dotenv from "dotenv";
 import path from "path";
+import User from './models/user'
+import jwt from 'jsonwebtoken';
 dotenv.config();
 
 const serverStart = async () => {
@@ -28,10 +30,29 @@ const serverStart = async () => {
   const app = express();
   const httpServer = http.createServer(app);
   let server;
-  if(process.env.NODE_ENV == "production"){
+  if (process.env.NODE_ENV == "production") {
     app.use(express.static("build"));
     server = new ApolloServer({
       ...schema,
+      context: async ({ req }) => {
+        const auth = req ? req.headers.authorization : null
+        if (auth && auth.toLowerCase().startsWith('bearer ')) {
+          const decodedToken = jwt.verify(
+            auth.substring(7), process.env.JWT_SECRET
+          )
+          const currentUser = await User
+            .findById(decodedToken.id)
+                        .populate({
+              path: "favorites.races",
+              model: "Race",
+            })
+            .populate({
+              path: "favorites.drivers",
+              model: "Driver",
+            })
+          return { currentUser }
+        }
+      },
       plugins: [
         ApolloServerPluginLandingPageDisabled(),
         ApolloServerPluginDrainHttpServer({ httpServer }),
@@ -43,9 +64,28 @@ const serverStart = async () => {
       res.sendFile(path.resolve(__dirname, "..", "build", "index.html"));
     });
   }
-  else{
+  else {
     server = new ApolloServer({
       ...schema,
+      context: async ({ req }) => {
+        const auth = req ? req.headers.authorization : null
+        if (auth && auth.toLowerCase().startsWith('bearer ')) {
+          const decodedToken = jwt.verify(
+            auth.substring(7), process.env.JWT_SECRET
+          )
+          const currentUser = await User
+            .findById(decodedToken.id)
+            .populate({
+              path: "favorites.races",
+              model: "Race",
+            })
+            .populate({
+              path: "favorites.drivers",
+              model: "Driver",
+            });
+          return { currentUser }
+        }
+      },
       plugins: [
         ApolloServerPluginDrainHttpServer({ httpServer }),
       ],

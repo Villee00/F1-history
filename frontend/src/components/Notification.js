@@ -15,6 +15,8 @@ const Notification = () => {
     return () => clearTimeout(timer);
   }, [message])
 
+  if(!severity || !message)
+    return null
   return (
     <Fade in={isShown} sx={{ position: 'absolute', margin: 1 }}>
       <Alert variant="filled" severity={severity}>{message}</Alert>

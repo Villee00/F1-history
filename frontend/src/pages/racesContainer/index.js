@@ -2,9 +2,9 @@ import { useQuery } from '@apollo/client';
 import { CircularProgress, Container, Paper, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+
 import Link from '@mui/material/Link';
-import { GET_SEASON_RACES_BASIC } from '../queries';
+import { GET_SEASON_RACES_BASIC } from '../../queries';
 import RaceCard from './RaceCard';
 
 const RacesContainer = ({ year }) => {
@@ -66,9 +66,7 @@ const RacesContainer = ({ year }) => {
       </Box>
       <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center">
         {races.map(race =>
-          <Link key={race.id} underline="none" component={RouterLink} to={`/seasons/${year}/${encodeURIComponent(race.grandPrix)}`}>
-            <RaceCard race={race} />
-          </Link>)}
+            <RaceCard key={race.id} race={race} year={year}/>)}
       </Box>
     </Container>
   );

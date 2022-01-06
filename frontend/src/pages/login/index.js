@@ -1,14 +1,14 @@
 import React, { useContext, useEffect } from 'react'
-import useToggle from '../hooks/useToggle'
+import useToggle from '../../hooks/useToggle'
 import SignupForm from './SignupForm'
 import LoginForm from './LoginForm'
 import { useMutation } from '@apollo/client'
-import { CREATE_USER, LOGIN } from '../queries'
-import { UserTokenContext } from '../contexts/user'
+import { CREATE_USER, LOGIN } from '../../queries'
+import { UserTokenContext } from '../../contexts/user'
 import { useHistory } from 'react-router-dom'
-import useUserToken from '../hooks/useUserToken'
-import { NotificationContext } from '../contexts/alert'
-import useNotification from '../hooks/useNotifcation'
+import useUserToken from '../../hooks/useUserToken'
+import { NotificationContext } from '../../contexts/alert'
+import useNotification from '../../hooks/useNotifcation'
 
 const Login = () => {
   const [isLogInForm, setLogInForm] = useToggle();

@@ -9,7 +9,7 @@ import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import { buildPictureURL } from '../utils/PictureChanger'
+import { buildPictureURL } from '../../utils/PictureChanger'
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { Link as RouterLink } from 'react-router-dom';
 import StarIcon from '@mui/icons-material/Star';
@@ -32,7 +32,6 @@ const DriverCard = ({ driver }) => {
           image={picture}
           alt="Driver"
           sx={{ height: 400, objectFit: 'contain' }}
-          action
         />
       </Link>
       <CardContent >

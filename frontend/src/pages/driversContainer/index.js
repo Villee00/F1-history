@@ -2,11 +2,9 @@ import { useQuery } from '@apollo/client';
 import { CircularProgress, Container, Pagination, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState, useEffect, useRef } from 'react';
-
-import { GET_DRIVERS } from '../queries';
+import { GET_DRIVERS } from '../../queries';
 import DriverCard from './DriverCard';
-import Link from '@mui/material/Link';
-import DriverFilterBar from '../components/DriverFilterBar';
+import DriverFilterBar from '../../components/DriverFilterBar';
 
 const DriversContainer = () => {
   const [drivers, setDrivers] = useState([]);

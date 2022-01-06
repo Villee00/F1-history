@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
-import { GET_DRIVER } from '../queries';
+import { GET_DRIVER } from '../../queries';
 import { CircularProgress, Container, Paper, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import DriverTable from './DriverTable';
