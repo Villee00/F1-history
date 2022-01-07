@@ -78,9 +78,10 @@ export const addSeason = async (year) => {
         console.log(`${race.raceName} ${race.season}`)
         const raceDB = await addRace(`${race.season} ${race.raceName}`, year);
         seasonObj.races.push(raceDB);
+        console.log(race.round + ": " + index);
+        if(!isNaN(parseInt(race.round)))
         await getRaceResults(raceDB, seasonInfo.year, parseInt(race.round));
         await raceDB.save();
-        
       } catch (error) {
         console.log(error);
       }
@@ -125,24 +126,27 @@ export const getPictureLink = async (title) => {
 
 const addRace = async (raceTitle, year) => {
   let race = await Race.findOne({ grandPrix: raceTitle });
-  if (!race) {
-    const report = await wiki({
-      headers,
-    }).page(raceTitle);
-    const raceData = await report.info();
-    const picture = await report.mainImage();
-    
-    console.log(typeof raceData.location != 'undefined'? raceData.location[0]: raceData.circuit)
-    race = await createRace(
-      await ParseRaceData(
-        raceData,
-        raceTitle,
-        picture,
-        year
-      ),
-      typeof raceData.location != 'undefined'? raceData.location[0]: raceData.circuit
-    );
+  try {
+    if (!race) {
+      const report = await wiki({
+        headers,
+      }).page(raceTitle);
+      const raceData = await report.info();
+      const picture = await report.mainImage();
+      
+      console.log(typeof raceData.location != 'undefined'? raceData.location[0]: raceData.circuit)
+      race = await createRace(
+        await ParseRaceData(
+          raceData,
+          raceTitle,
+          picture,
+          year
+        ),
+        typeof raceData.location != 'undefined'? raceData.location[0]: raceData.circuit
+      );
+    }
+    return race;
+  } catch (error) {
+    console.log(error);
   }
-
-  return race;
 }

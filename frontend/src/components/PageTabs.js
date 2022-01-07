@@ -8,7 +8,7 @@ import { useLocation } from 'react-router-dom';
 
 const PageTabs = () =>{
   const location = useLocation();
-  const [value, setValue] = React.useState('seasons');
+  const [value, setValue] = React.useState(location.pathname.split('/')[1] == ''? 'seasons': location.pathname.split('/')[1]);
   
   const handleChange = (event, newValue) => {
     setValue(newValue);

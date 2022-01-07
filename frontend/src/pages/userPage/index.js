@@ -34,7 +34,7 @@ const UserPage = () => {
       <Paper>
         <Box flexDirection="row" display="flex" padding={2} justifyContent="center">
           <Box>
-            <Avatar sx={{ width: 70, height: 70 }} />
+            <Avatar sx={{ width: 70, height: 70 }} >{username.charAt(0).toUpperCase()}</Avatar>
           </Box>
           <Box paddingLeft={2}>
             <Typography variant="h5">{name}</Typography>
@@ -45,12 +45,12 @@ const UserPage = () => {
           <Paper elevation={6} sx={{margin: 2}}>
             <Typography variant="h4">Favorite races</Typography>
             <Box
-              sx={{ display: "flex", placeContent: 'center', minHeight: 200, flexDirection: 'row', overflowX: "auto" }}
+              sx={{ display: "flex", minHeight: 200, flexDirection: 'row', overflowX: "auto" }}
             >
               {favorites.races.length == 0 ?
-                <Typography variant="h6" sx={{ textAlign: 'center', alignSelf: 'center' }}>{name} dosen't have any favorite races :(</Typography> :
+                <Typography variant="h6" sx={{ textAlign: 'center', alignSelf: 'center', pl:2 }}>{name} dosen't have any favorite races :(</Typography> :
                 favorites.races.map(race =>
-                  <RaceCard key={race.id} race={race} />)}              {}
+                  <RaceCard key={race.id} race={race} />)}
             </Box>
           </Paper>
           <Paper elevation={6}>
@@ -59,7 +59,7 @@ const UserPage = () => {
               sx={{ display: "flex", minHeight: 200, flexDirection: 'row', overflowX: "auto" }}
             >
               {favorites.drivers.length == 0 ?
-                <Typography variant="h6" sx={{ textAlign: 'center', alignSelf: 'center' }}>{name} dosen't have any favorite drivers</Typography> :
+                <Typography variant="h6" sx={{ textAlign: 'center', alignSelf: 'center', pl:2 }}>{name} dosen't have any favorite drivers</Typography> :
                 favorites.drivers.map(driver =>
                   <DriverCard key={driver.id} driver={driver} />)}
             </Box>

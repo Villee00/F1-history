@@ -9,9 +9,11 @@ import { useHistory } from 'react-router-dom'
 import useUserToken from '../../hooks/useUserToken'
 import { NotificationContext } from '../../contexts/alert'
 import useNotification from '../../hooks/useNotifcation'
+import { Box, Button, Collapse, Typography } from '@mui/material'
 
 const Login = () => {
   const [isLogInForm, setLogInForm] = useToggle();
+  const [openInfo, setOpenInfo] = useToggle(false);
   const { setSuccess, setError } = useNotification();
   const [login, loginResult] = useMutation(LOGIN, {
     onError: (error) => {
@@ -23,7 +25,7 @@ const Login = () => {
       setError(error.graphQLErrors[0].message);
     }
   });
-  const {token, dispatch } = useUserToken();
+  const { token, dispatch } = useUserToken();
   const history = useHistory();
 
   useEffect(() => {
@@ -31,7 +33,7 @@ const Login = () => {
       const newToken = loginResult.data.login.value;
       const favorites = JSON.stringify(loginResult.data.login.user.favorites);
       const username = loginResult.data.login.user.username;
-      dispatch({ type: 'set', token: newToken, favorites, username})
+      dispatch({ type: 'set', token: newToken, favorites, username })
       localStorage.setItem('f1history-token', newToken);
       localStorage.setItem('f1history-favorites', favorites);
       localStorage.setItem('f1history-username', username);
@@ -59,7 +61,6 @@ const Login = () => {
       })
     }
     else {
-      console.log(values)
       createUser({
         variables: {
           input: {
@@ -76,16 +77,22 @@ const Login = () => {
     history.push('/');
   }
 
-  if (isLogInForm) {
-    return (
-      <LoginForm setLogInForm={setLogInForm} onSubmit={onSubmit} />
-    )
-  }
-  else {
-    return (
-      <SignupForm setLogInForm={setLogInForm} onSubmit={onSubmit} />
-    )
-  }
+  return (
+    <>
+      {isLogInForm ?
+        <LoginForm setLogInForm={setLogInForm} onSubmit={onSubmit} /> :
+        <SignupForm setLogInForm={setLogInForm} onSubmit={onSubmit} />
+      }
+      <Box sx={{width:250, textAlign:'center', mt: 4}}>
+      <Button onClick={setOpenInfo} variant="contained" sx={{width:'100%', p:2}}>
+        <Typography>Why make an account?</Typography>
+      </Button>
+       <Collapse in={openInfo} sx={{bgcolor:'info.main'}}>
+         <Typography color="black" sx={{p:1}}>With account you can save your favorite races and drivers. You can share a link to your page to others and show them who you support and what races were worth watching!</Typography>
+       </Collapse>
+       </Box>
+    </>
+  )
 }
 
 export default Login

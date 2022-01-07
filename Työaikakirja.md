@@ -33,4 +33,7 @@
 | 3.1. | 6    | -Käyttäjän tallennus tietokantaan <br/> -Käyttäjän luonti frontendiin ja backendiin <br/> -Kirjautumislomake frontendiin|
 | 4.1. | 4    | -Frontendiin kirjutuminen toimimaan ja tokenin tallennus selaimen muistiin<br/> -Koodi jaottelua|
 | 5.1. | 6    | -Käyttäjän luonti frontendiin <br/> -Ilmoitukset näkyvät nyt käyttäjälle ja ne ovat väri koodattua (error, success, info) <br/> -Kuvien kokoa yritetään muuttaa oikeaksi, jotta sivu latautuisi nopeammin |
-| yht   | 162   | | 
+| 6.1. | 5    | -Käyttäjä suosikki kuskien ja kisojen lisäys toimimaan backendiin  <br/> -Jokaisella käyttäjällä on oma sivustonsa, jonka pystyy jakaamaan muille <br/> -Tiedostojen paikka muutoksia|
+| 7.1. | 7    | -Jokaisella kuskilla ja kisalla näkyy suosikkinappi, jos käyttäjä on kirjutunut sisään  <br/> -Käyttäjän tiedot tallennetaan localstorageen ja kirjautumalla ulos kaikki poistetaan <br/> |
+| 8.1. | 4    | -Bugi korjauksia  <br/> -Token vanhentuu tunnissa ja frontend poistaa localstoragesta tiedot, jos token on vanhentunut. |
+| yht   | 178   | | 

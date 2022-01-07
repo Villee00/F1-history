@@ -3,7 +3,7 @@ import AppBar from './components/AppBar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import RaceInfo from './pages/raceInfo';
 import DriversContainer from './pages/driversContainer';
-import SeasonsContainer from './pages/seasonContainer';
+import SeasonsContainer from './pages/seasonSelectionField';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -13,6 +13,7 @@ import Login from './pages/login';
 import { Container } from '@mui/material';
 import Notification from './components/Notification';
 import UserPage from './pages/userPage';
+import Footer from './components/Footer';
 
 const App = ({ colorContext }) => {
   return (
@@ -54,6 +55,7 @@ const App = ({ colorContext }) => {
           </Route>
         </Switch>
       </Container>
+      <Footer/>
     </Router>
   );
 };

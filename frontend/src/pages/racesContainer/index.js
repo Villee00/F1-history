@@ -6,11 +6,21 @@ import React from 'react';
 import Link from '@mui/material/Link';
 import { GET_SEASON_RACES_BASIC } from '../../queries';
 import RaceCard from './RaceCard';
+import useNotification from '../../hooks/useNotifcation';
 
 const RacesContainer = ({ year }) => {
+  const { setError } = useNotification();
   const { data, loading } = useQuery(GET_SEASON_RACES_BASIC, {
     variables: {
       SeasonYear: parseInt(year)
+    },
+    onError: ({ graphQLErrors, networkError }) => {
+      if (graphQLErrors[0]?.message) {
+        setError(graphQLErrors[0].message);
+      }
+      else if (networkError.result.errors) {
+        setError(networkError.result.errors[0].message);
+      }
     }
   });
 
@@ -27,7 +37,7 @@ const RacesContainer = ({ year }) => {
   if (!races) {
     return (
       <Box>
-        <Typography>Error loading data</Typography>
+        <Typography variant="h5">No races found</Typography>
       </Box>
 
     );
@@ -47,10 +57,12 @@ const RacesContainer = ({ year }) => {
   }
   return (
     <Container maxWidth="xl" >
-      <Box display='flex' flexDirection='row' justifyContent='space-between'>
-        <Typography variant="h3" textAlign="center">
-          {year}
-        </Typography>
+      <Box sx={{ alignItems: 'center', display: 'flex', justifyContent: 'space-between', flexDirection: 'row', flexWrap: 'wrap' }}>
+        <Paper elevation={5} sx={{ padding: 1, margin: 1 }}>
+          <Typography variant="h3" textAlign="center">
+            {year}
+          </Typography>
+        </Paper>
         <Paper elevation={5} sx={{ padding: 1, marginTop: 1 }}>
           <Typography variant="h4" textAlign="center">
             Races: {races.length}
@@ -66,7 +78,7 @@ const RacesContainer = ({ year }) => {
       </Box>
       <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center">
         {races.map(race =>
-            <RaceCard key={race.id} race={race} year={year}/>)}
+          <RaceCard key={race.id} race={race} year={year} />)}
       </Box>
     </Container>
   );

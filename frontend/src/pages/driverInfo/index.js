@@ -29,7 +29,6 @@ const DriverInfo = () => {
     );
   }
 
-
   return (
     <Container maxWidth="lg" >
       <Box display="flex" flexDirection="column">

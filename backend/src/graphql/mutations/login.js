@@ -50,7 +50,7 @@ const resolvers = {
         username: user.username,
         id: user._id,
       }
-      return { value: jwt.sign(userForToken, process.env.JWT_SECRET), user}
+      return { value: jwt.sign(userForToken, process.env.JWT_SECRET,  { expiresIn: 60 * 60 }), user}
     }
   }
 }

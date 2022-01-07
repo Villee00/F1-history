@@ -2,17 +2,21 @@ import { Alert, Fade } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react'
 import useNotification from '../hooks/useNotifcation';
 
-//TODO: ei näytä jos message ei vaihu
 const Notification = () => {
-  const { severity, message } = useNotification();
+  const { severity, clear, message } = useNotification();
   const [isShown, setIsShown] = useState(false);
 
   useEffect(() => {
     setIsShown(true);
     const timer = setTimeout(() => {
       setIsShown(false);
+      setTimeout(() =>{
+        clear();
+      }, 500);
     }, 3000);
-    return () => clearTimeout(timer);
+
+    return () => {
+      clearTimeout(timer);};
   }, [message])
 
   if(!severity || !message)

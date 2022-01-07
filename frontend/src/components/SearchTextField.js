@@ -8,7 +8,7 @@ function SearchTextField({ value, label, handleChange, error, helpertext }) {
         id={label.toLowerCase()}
         name={label.toLowerCase()}
         label={label}
-        sx={{ ml: 1, flex: 1, minWidth:150 }}
+        sx={{ ml: 1, flex: 1, minWidth: 150 }}
         value={value}
         onChange={handleChange}
         error={error}
@@ -17,7 +17,6 @@ function SearchTextField({ value, label, handleChange, error, helpertext }) {
         helperText={helpertext}
       />
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-
     </>
   )
 }

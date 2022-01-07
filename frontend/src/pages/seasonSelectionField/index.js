@@ -19,15 +19,15 @@ const SeasonsContainer = () => {
     if (year < 1950) {
       setSelectedYear(1950);
     }
-    else if (year > 2020) {
-      setSelectedYear(2020);
+    else if (year > 2021) {
+      setSelectedYear(2021);
     }
     else if (year != null) {
       setSelectedYear(year);
     }
     return () => { };
   }, [year]);
-  for (let year = 1950; year <= 2020; year++) {
+  for (let year = 1950; year <= 2021; year++) {
     years.push(year.toString());
   }
   return (

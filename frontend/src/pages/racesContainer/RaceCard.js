@@ -27,19 +27,16 @@ const RaceCard = ({ race, year, info = true }) => {
   const picture = buildPictureURL(race.pictureLink, 400)
   return (
 
-    <Card sx={{ display: "flex", minWidth: 400, minHeight: 300, width: 400, height: 350, borderRadius: 3, margin: 2, boxShadow: 10 }}>
-      <CardActionArea>
-        <Link underline="none" component={RouterLink} to={`/seasons/${year}/${encodeURIComponent(race.grandPrix)}`}>
-          <Box sx={{ height: 200 }}>
-            <CardMedia
-              component="img"
-              sx={{ height: 200, objectFit: "contain" }}
-              image={picture}
-              alt="Circuit layout"
-            />
-
-          </Box>
-        </Link>
+    <Card sx={{ minHeight: 300, maxWidth: 300, minWidth: 300, borderRadius: 3, margin: 2, boxShadow: 10, display:'flex', flexDirection:'column', justifyContent:'flex-end'}}>
+      <CardActionArea component={RouterLink} to={`/seasons/${year}/${encodeURIComponent(race.grandPrix)}`}>
+        <Box>
+          <CardMedia
+            component="img"
+            sx={{ height: 200, objectFit: "contain" }}
+            image={picture}
+            alt="Circuit layout"
+          />
+        </Box>
         <CardContent >
           <Typography gutterBottom variant="h5" component="div">
             {race.grandPrix}
@@ -54,9 +51,12 @@ const RaceCard = ({ race, year, info = true }) => {
             <Item>{race.weather}</Item>
           </Stack> : null}
 
-          <FavoriteButton raceId={race.id} />
+
         </CardContent>
       </CardActionArea>
+      <CardActions>
+        <FavoriteButton raceId={race.id} />
+      </CardActions>
     </Card>
 
   );

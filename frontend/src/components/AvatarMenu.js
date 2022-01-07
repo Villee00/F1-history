@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
+import MenuIcon from '@mui/icons-material/Menu';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { useTheme } from '@emotion/react';
@@ -41,13 +42,16 @@ const AvatarMenu = ({ colorContext, onLogout, token, username }) => {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+            {token?
+            <Avatar sx={{ width: 32, height: 32 }}>{username.charAt(0).toUpperCase()}</Avatar>:
+            <MenuIcon sx={{ width: 32, height: 32 }}/>
+          }
           </IconButton>
         </Tooltip>
       </Box>
       <Menu
         anchorEl={anchorEl}
-        id="account-menu"
+        id="menu"
         open={open}
         onClose={handleClose}
         PaperProps={{
@@ -61,19 +65,7 @@ const AvatarMenu = ({ colorContext, onLogout, token, username }) => {
               height: 32,
               ml: -0.5,
               mr: 1,
-            },
-            '&:before': {
-              content: '""',
-              display: 'block',
-              position: 'absolute',
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: 'background.paper',
-              transform: 'translateY(-50%) rotate(45deg)',
-              zIndex: 0,
-            },
+            }
           },
         }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
@@ -81,8 +73,13 @@ const AvatarMenu = ({ colorContext, onLogout, token, username }) => {
       >
         {token ?
           <MenuItem component={RouterLink} to={`/${username}`}>
-            <Avatar /> Profile
-            </MenuItem>
+            <ListItemIcon>
+              <Avatar />
+            </ListItemIcon>
+            <Typography variant="inherit" noWrap>
+              My Profile
+            </Typography>
+          </MenuItem>
           : null}
         <Divider />
         <MenuItem

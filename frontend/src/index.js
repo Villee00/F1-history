@@ -9,12 +9,28 @@ import {
   HttpLink,
 } from '@apollo/client';
 import ColorMode from './ColorMode';
+import { onError } from "@apollo/client/link/error";
 import { offsetLimitPagination } from '@apollo/client/utilities';
 import { UserTokenProvider } from './contexts/user';
 import { NotificationProvider } from './contexts/alert';
 
 const httpLink = new HttpLink({
   uri: '/graphql',
+});
+
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors)
+    graphQLErrors.forEach(({ message }) => {
+      if (message === "Context creation failed: jwt expired") {
+        localStorage.clear();
+        console.log(
+          `[GraphQL error]: Message: ${message}`
+        )
+        window.location.reload();
+      }
+    }
+    );
+  if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -27,8 +43,9 @@ const authLink = setContext((_, { headers }) => {
   }
 });
 
+
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: errorLink.concat(authLink.concat(httpLink)),
   cache: new InMemoryCache({
     typePolicies: {
       Query: {
@@ -48,7 +65,7 @@ ReactDOM.render(
   <ApolloProvider client={client}>
     <UserTokenProvider>
       <NotificationProvider>
-          <ColorMode />
+        <ColorMode />
       </NotificationProvider>
     </UserTokenProvider>
   </ApolloProvider>,

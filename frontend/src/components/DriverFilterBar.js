@@ -10,6 +10,7 @@ import { MenuItem, Select } from "@mui/material";
 import { GET_DRIVER_FILTERS } from "../queries";
 import { useQuery } from "@apollo/client";
 import TeamsSelectField from "./TeamsSelectField";
+import useNotification from "../hooks/useNotifcation";
 
 const validationSchema = yup.object({
   name: yup
@@ -24,7 +25,12 @@ const validationSchema = yup.object({
 });
 
 const DriverFilterBar = ({ handleSearch }) => {
-  const { data, loading, error } = useQuery(GET_DRIVER_FILTERS);
+  const {setError} = useNotification();
+  const { data, loading, error } = useQuery(GET_DRIVER_FILTERS, {
+    onError: (error) => {
+      setError(error.graphQLErrors[0].message);
+    }
+  });
   const [teams, setTeams] = React.useState([])
 
   const formik = useFormik({
@@ -34,7 +40,7 @@ const DriverFilterBar = ({ handleSearch }) => {
       sort: "age:desc"
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => handleSearch({...values, teams: teams.map(team => team.id)}),
+    onSubmit: (values) => handleSearch({ ...values, teams: teams.map(team => team.id) }),
   });
 
   if (loading) {
@@ -61,7 +67,7 @@ const DriverFilterBar = ({ handleSearch }) => {
         error={formik.touched.name && Boolean(formik.errors.name)}
         helpertext={formik.touched.name && formik.errors.name} />
 
-      <TeamsSelectField teams={data.getDriverFilters} setTeams={setTeams}/>
+      <TeamsSelectField teams={data.getDriverFilters ?? []} setTeams={setTeams} />
 
       <SearchTextField
         value={formik.values.year}

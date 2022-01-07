@@ -11,7 +11,7 @@ import { LoadingButton } from '@mui/lab';
 
 const FavoriteButton = ({driverId=null, raceId=null}) => {
   const { setSuccess, setError } = useNotification();
-  const { favorites, dispatch } = useUserToken();
+  const { favorites, token, dispatch } = useUserToken();
   const [buttonLoading, setButtonLoading] = useState(false);
   const [favorite, {data, loading}] = useMutation(ADD_FAVORITE, {
     onError: (error) => {
@@ -33,7 +33,8 @@ const FavoriteButton = ({driverId=null, raceId=null}) => {
     if(!loading && data){
       try {
         const newFavorites = JSON.stringify(data.addFavorite.favorites);
-        dispatch({ type: 'set', favorites: newFavorites})
+        dispatch({ type: 'set', favorites: newFavorites});
+        localStorage.setItem('f1history-favorites', newFavorites);
         setSuccess("Added to favorites");
         setButtonLoading(false);
       } catch (error) {
@@ -41,6 +42,9 @@ const FavoriteButton = ({driverId=null, raceId=null}) => {
       }
     }
   }, [loading])
+
+  if(!token)
+    return null
 
   if(favorites.drivers.some(d => d.id === driverId) || favorites.races.some(r => r.id === raceId)){
     return (

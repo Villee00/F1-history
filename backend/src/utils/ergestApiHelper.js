@@ -15,7 +15,10 @@ export const getRaceResults = async (race, year, round) => {
     const firstName = driverInfo.givenName;
     const lastName = driverInfo.familyName;
 
-    let driverInDB = await Driver.findOne({ firstName, lastName });
+    let driverInDB = await Driver.findOne({ firstName, lastName }).populate({
+      path: "teams",
+      model: "Team",
+    });
     const team = await getTeam(finisher.Constructor.name);
 
     if (!driverInDB) {
@@ -41,7 +44,7 @@ export const getRaceResults = async (race, year, round) => {
         driverInDB.driverNumber.push(finisher.number);
       }
 
-      if (!driverInDB.teams.includes(team)) {
+      if (!driverInDB.teams.some(DBteam => DBteam.id === team.id)) {
         driverInDB.teams.push(team);
       }
     }
