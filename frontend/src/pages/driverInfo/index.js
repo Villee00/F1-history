@@ -6,6 +6,7 @@ import { CircularProgress, Container, Paper, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import DriverTable from './DriverTable';
 import DriverRacesTable from './DriverRacesTable';
+import FavoriteButton from '../../components/FavoriteButton';
 
 const DriverInfo = () => {
   const { id } = useParams();
@@ -41,6 +42,7 @@ const DriverInfo = () => {
               <img style={{ maxHeight: 400, maxWidth: 350 }} src={driverInfo.pictureLink} />
             </Paper>
             <DriverTable driver={driverInfo} />
+            <FavoriteButton driverId={driverInfo.id}/>
           </Box>
         </Paper>
         <Box>

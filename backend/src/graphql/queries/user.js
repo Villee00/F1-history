@@ -1,10 +1,13 @@
 import { gql, UserInputError } from "apollo-server";
 import User from '../../models/user';
 import * as yup from 'yup';
+import { getPictureLink } from "../../utils/wikipediaApiHelper";
 
 export const typeDefs = gql`
   extend type Query {
     getUser(username: String!): User!
+    me: User
+    test: String
   }
 `;
 
@@ -29,6 +32,13 @@ export const resolvers = {
         throw new UserInputError("No user found");
       }
       return user;
+    },
+    me: (root, args, context) => {
+      return context.currentUser
+    },
+    test: async (root, args, context) =>{
+      const link = "https://en.wikipedia.org/wiki/Sergio_P%C3%A9rez"
+      return await getPictureLink(link.split('en.wikipedia.org/wiki/')[1])
     }
   },
 };

@@ -14,8 +14,8 @@ extend type Mutation {
 } `
 
 const argsSchema = yup.object({
-  driverID: yup.string(),
-  raceID: yup.string()
+  driverID: yup.string().nullable(true),
+  raceID: yup.string().nullable(true)
 })
 const resolvers = {
   Mutation: {
@@ -26,30 +26,28 @@ const resolvers = {
         throw new UserInputError("Token validation failed");
       }
       if (driverID) {
-        const driver = await Driver.findById(driverID).exec();
+        const driver = await Driver.findById(driverID);
         if (!driver)
           throw new UserInputError("No driver found with that id");
         if (currentUser.favorites.drivers.some(d => d.id === driver.id))
-          currentUser.favorites.drivers = currentUser.favorites.drivers.map(favoriteDriver => favoriteDriver.id === driver.id ? null : favoriteDriver);
+          currentUser.favorites.drivers = currentUser.favorites.drivers.filter(favoriteDriver => favoriteDriver.id !== driver.id );
         else
           currentUser.favorites.drivers = currentUser.favorites.drivers.concat(driver);
 
         return await currentUser.save();
       }
-      else if (raceID) {
+      if (raceID) {
         const race = await Race.findById(raceID)
         if (!race)
           throw new UserInputError("No race found with that id");
 
         if (currentUser.favorites.races.some(r => r.id === race.id))
-          currentUser.favorites.races = currentUser.favorites.races.map(favoriteRace => favoriteRace.id === race.id ? null : favoriteRace);
+          currentUser.favorites.races = currentUser.favorites.races.filter(favoriteRace => favoriteRace.id !== race.id);
         else
           currentUser.favorites.races = currentUser.favorites.races.concat(race);
         return await currentUser.save();
       }
-      else {
-        throw new UserInputError("Failed to add to favorites");
-      }
+      return currentUser;
     }
   }
 }

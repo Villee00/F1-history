@@ -13,6 +13,7 @@ input LoginInput{
 }
 type Token {
   value: String!
+  user: User!
 }
 extend type Mutation {
   login(input: LoginInput): Token
@@ -27,7 +28,15 @@ const resolvers = {
     login: async (root, args) => {
       const { username, password } = await argsSchema.validate(args.input);
 
-      const user = await User.findOne({ username: username });
+      const user = await User.findOne({ username: username })
+        .populate({
+          path: "favorites.races",
+          model: "Race",
+        })
+        .populate({
+          path: "favorites.drivers",
+          model: "Driver",
+        });;
       if (!user) {
         throw new UserInputError('Invalid username or password');
       }
@@ -41,7 +50,7 @@ const resolvers = {
         username: user.username,
         id: user._id,
       }
-      return { value: jwt.sign(userForToken, process.env.JWT_SECRET) }
+      return { value: jwt.sign(userForToken, process.env.JWT_SECRET), user}
     }
   }
 }

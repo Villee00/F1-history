@@ -100,17 +100,26 @@ export const createRace = async (race, circuitName) => {
   return newRace;
 };
 
-export const getPictureLink = async (keyword) => {
+export const getPictureLink = async (title) => {
+  let picture = "https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg";
   try {
+    console.log(title)
     const page = await wiki({
       headers,
-    }).find(keyword + " f1");
-    const picture = await page.mainImage();
-    return (
-      picture || "https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg"
-    );
+    }).api({
+      action: 'query',
+      titles: decodeURI(title),
+      prop:"pageimages",
+      piprop:"original"
+    });
+    for (const [key, value] of Object.entries(page.query.pages)) {
+      picture = value.original.source;
+      break;
+    }
+    return picture;
   } catch (error) {
     console.log("Could not get picture " + error.message);
+    return picture;
   }
 };
 

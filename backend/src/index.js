@@ -42,7 +42,7 @@ const serverStart = async () => {
           )
           const currentUser = await User
             .findById(decodedToken.id)
-                        .populate({
+            .populate({
               path: "favorites.races",
               model: "Race",
             })

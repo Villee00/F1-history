@@ -22,7 +22,7 @@ export const getRaceResults = async (race, year, round) => {
       const nationality = driverInfo.nationality;
       const dateOfBirth = driverInfo.dateOfBirth;
       const wikipediaLink = driverInfo.url;
-      const pictureLink = await getPictureLink(firstName + " " + lastName);
+      const pictureLink = await getPictureLink(driverInfo.url.split('en.wikipedia.org/wiki/')[1]);
 
       driverInDB = new Driver({
         firstName,

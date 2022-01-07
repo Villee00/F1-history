@@ -9,6 +9,7 @@ import DriverCard from '../driversContainer/DriverCard'
 const UserPage = () => {
   const { username } = useParams();
   const { data, loading, error } = useQuery(GET_USER, {
+    fetchPolicy: 'no-cache',
     variables: {
       username
     }
@@ -55,7 +56,7 @@ const UserPage = () => {
           <Paper elevation={6}>
             <Typography variant="h4">Favorite Drivers</Typography>
             <Box
-              sx={{ display: "flex", placeContent: 'center', minHeight: 200, flexDirection: 'row', overflowX: "auto" }}
+              sx={{ display: "flex", minHeight: 200, flexDirection: 'row', overflowX: "auto" }}
             >
               {favorites.drivers.length == 0 ?
                 <Typography variant="h6" sx={{ textAlign: 'center', alignSelf: 'center' }}>{name} dosen't have any favorite drivers</Typography> :
@@ -67,12 +68,5 @@ const UserPage = () => {
       </Paper>
     </Container>
   )
-}
-
-const dummyRaceData = {
-  date: new Date(),
-  pictureLink: "https://upload.wikimedia.org/wikipedia/commons/5/53/Phoenix_Grand_Prix_Route_-_1989%2C_1990.svg",
-  grandPrix: "Test",
-  weather: "Sunny"
 }
 export default UserPage

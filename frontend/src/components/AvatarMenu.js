@@ -17,7 +17,7 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { Link as RouterLink } from 'react-router-dom';
 import LoginIcon from '@mui/icons-material/Login';
 
-const AvatarMenu = ({ colorContext, onLogout, token }) => {
+const AvatarMenu = ({ colorContext, onLogout, token, username }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const theme = useTheme();
@@ -80,7 +80,7 @@ const AvatarMenu = ({ colorContext, onLogout, token }) => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         {token ?
-          <MenuItem>
+          <MenuItem component={RouterLink} to={`/${username}`}>
             <Avatar /> Profile
             </MenuItem>
           : null}

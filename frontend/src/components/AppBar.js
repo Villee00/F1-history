@@ -8,12 +8,12 @@ import AvatarMenu from './AvatarMenu';
 import useNotification from '../hooks/useNotifcation';
 
 const AppBar = ({ colorContext }) => {
-  const { state: { token }, dispatch } = useUserToken();
+  const { token, username , dispatch } = useUserToken();
   const {setSuccess} = useNotification();
   const onLogout = () => {
     dispatch({ type: "remove" });
-    localStorage.removeItem('f1history-token');
-    setSuccess("Logout successully!");
+    localStorage.clear();
+    setSuccess("Logout successfully!");
   }
 
   return (
@@ -34,7 +34,7 @@ const AppBar = ({ colorContext }) => {
             </Link>
           </Grid>
           <Grid item xs={2}>
-            <AvatarMenu colorContext={colorContext} onLogout={onLogout} token={token}/>
+            <AvatarMenu colorContext={colorContext} username={username} onLogout={onLogout} token={token}/>
           </Grid>
         </Grid>
         <PageTabs />

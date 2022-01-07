@@ -6,6 +6,7 @@ import { CircularProgress, Container, Paper, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import ResultTable from './ResultTable';
 import RaceInfoTable from './RaceInfoTable';
+import FavoriteButton from '../../components/FavoriteButton';
 
 const RaceInfo = () => {
   const { gp } = useParams();
@@ -39,6 +40,7 @@ const RaceInfo = () => {
               <img style={{ maxHeight: 400, maxWidth: 400 }} src={raceInfo.pictureLink} />
             </Box>
             <RaceInfoTable race={raceInfo} />
+            <FavoriteButton raceId={raceInfo.id}/>
           </Box>
         </Paper>
         <Box>

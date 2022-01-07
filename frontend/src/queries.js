@@ -2,6 +2,7 @@ import {gql} from '@apollo/client';
 
 const RACE_DETAILS = gql`
   fragment RaceDetails on Race {
+    id
     date
     circuit {
       location
@@ -95,6 +96,7 @@ ${DRIVER_SMALL_DETAILS}
 export const GET_DRIVER = gql`
 query Query($getDriverDriverId: String!) {
   getDriver(driverID: $getDriverDriverId) {
+    id
     pictureLink
     racesDriven
     positionsGainedCareer
@@ -139,6 +141,17 @@ export const LOGIN = gql`
 mutation Login($input: LoginInput) {
   login(input: $input) {
     value
+    user {
+      username
+      favorites {
+        races {
+          id
+        }
+        drivers {
+          id
+        }
+      }
+    }
   }
 }
 `
@@ -159,4 +172,35 @@ query GetUser($username: String!) {
 }
 ${DRIVER_SMALL_DETAILS}
 ${RACE_SMALL_DETAILS}
+`
+
+export const ADD_FAVORITE = gql`
+mutation AddFavorite($raceId: String, $driverId: String) {
+  addFavorite(raceID: $raceId, driverID: $driverId) {
+    name
+    favorites {
+      drivers {
+        id
+      }
+      races {
+        id
+      }
+    }
+  }
+}
+`
+
+export const GET_CURRENT_USER = gql`
+query Me {
+  me {
+    favorites {
+      races {
+        id
+      }
+      drivers {
+        id
+      }
+    }
+  }
+}
 `

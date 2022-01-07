@@ -5,6 +5,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { GET_DRIVERS } from '../../queries';
 import DriverCard from './DriverCard';
 import DriverFilterBar from '../../components/DriverFilterBar';
+import useUserToken from '../../hooks/useUserToken';
 
 const DriversContainer = () => {
   const [drivers, setDrivers] = useState([]);
@@ -12,6 +13,7 @@ const DriversContainer = () => {
   const [searchName, setSearchName] = useState('');
   const [searchTeam, setSearchTeam] = useState([]);
   const [bottomReached, setBottomReached] = useState(false)
+  const {favorites, token} = useUserToken();
   const [searchYears, setSearchYears] = useState(NaN);
   const [sortingOrder, setSortingOrder] = useState({ field: 'age', order: 'desc' });
   const [searchNationality, setSearchNationality] = useState('');
@@ -28,7 +30,6 @@ const DriversContainer = () => {
       sort: sortingOrder
     }
   });
-
   const listInnerRef = useRef();
 
   const handleSearch = ({ name, year, nationality, sort, teams }) => {
@@ -115,7 +116,7 @@ const DriversContainer = () => {
           drivers.length > 0 ?
             <>
               {drivers.map((driver) =>
-                <DriverCard key={driver.id} driver={driver} />)}
+                <DriverCard favorites={favorites} key={driver.id} driver={driver} />)}
             </> :
             error ? error?.graphQLErrors.map(({ message }, i) =>
               <Typography color="red" key={i}>{message}</Typography>) :

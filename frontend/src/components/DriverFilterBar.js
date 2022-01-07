@@ -39,7 +39,7 @@ const DriverFilterBar = ({ handleSearch }) => {
 
   if (loading) {
     return (
-      <div>Loading...</div>
+      null
     )
   }
   return (

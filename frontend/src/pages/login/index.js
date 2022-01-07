@@ -23,14 +23,18 @@ const Login = () => {
       setError(error.graphQLErrors[0].message);
     }
   });
-  const { state: { token }, dispatch } = useUserToken();
+  const {token, dispatch } = useUserToken();
   const history = useHistory();
 
   useEffect(() => {
     if (loginResult.data) {
       const newToken = loginResult.data.login.value;
-      dispatch({ type: 'set', token: newToken })
-      localStorage.setItem('f1history-token', newToken)
+      const favorites = JSON.stringify(loginResult.data.login.user.favorites);
+      const username = loginResult.data.login.user.username;
+      dispatch({ type: 'set', token: newToken, favorites, username})
+      localStorage.setItem('f1history-token', newToken);
+      localStorage.setItem('f1history-favorites', favorites);
+      localStorage.setItem('f1history-username', username);
       setSuccess('Login successful!');
       history.push('/');
     }
