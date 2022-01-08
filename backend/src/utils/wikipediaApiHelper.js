@@ -49,7 +49,7 @@ export const addSeason = async (year) => {
     year,
   });
 
-  //Check if races on the season was found 
+  // Check if races were found on wikipedia article
   if (racesSeason) {
     for (let i = 0; i < racesSeason.length; i++) {
       try {
@@ -59,28 +59,28 @@ export const addSeason = async (year) => {
           : parseInt(race.rnd.replace(/[^0-9.]/g, ""));
 
         const tooltip = race.tooltip ? race.tooltip : race.report;
-        console.log(tooltip);
-        const raceDB = await addRace(tooltip, seasonObj.year);
-        seasonObj.races.push(raceDB);
-        await getRaceResults(raceDB, seasonInfo.year, round);
-        await raceDB.save();
-
+        console.log(tooltip + " : wikipedia");
+        if (tooltip) {
+          const raceDB = await addRace(tooltip, seasonObj.year);
+          seasonObj.races.push(raceDB);
+          await getRaceResults(raceDB, seasonInfo.year, round);
+          await raceDB.save();
+        }
       } catch (error) {
         console.log(error);
       }
     }
-  }
-  else {
+  } else {
     const races = await getSeasonFromErgast(year);
     for (let index = 0; index < races.length; index++) {
       try {
         const race = races[index];
-        console.log(`${race.raceName} ${race.season}`)
+        console.log(`${race.raceName} ${race.season}`);
         const raceDB = await addRace(`${race.season} ${race.raceName}`, year);
         seasonObj.races.push(raceDB);
         console.log(race.round + ": " + index);
-        if(!isNaN(parseInt(race.round)))
-        await getRaceResults(raceDB, seasonInfo.year, parseInt(race.round));
+        if (!isNaN(parseInt(race.round)))
+          await getRaceResults(raceDB, seasonInfo.year, parseInt(race.round));
         await raceDB.save();
       } catch (error) {
         console.log(error);
@@ -104,14 +104,14 @@ export const createRace = async (race, circuitName) => {
 export const getPictureLink = async (title) => {
   let picture = "https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg";
   try {
-    console.log(title)
+    console.log(title);
     const page = await wiki({
       headers,
     }).api({
-      action: 'query',
+      action: "query",
       titles: decodeURI(title),
-      prop:"pageimages",
-      piprop:"original"
+      prop: "pageimages",
+      piprop: "original",
     });
     for (const [key, value] of Object.entries(page.query.pages)) {
       picture = value.original.source;
@@ -133,20 +133,21 @@ const addRace = async (raceTitle, year) => {
       }).page(raceTitle);
       const raceData = await report.info();
       const picture = await report.mainImage();
-      
-      console.log(typeof raceData.location != 'undefined'? raceData.location[0]: raceData.circuit)
+
+      console.log(
+        typeof raceData.location !== "undefined"
+          ? raceData.location[0]
+          : raceData.circuit
+      );
       race = await createRace(
-        await ParseRaceData(
-          raceData,
-          raceTitle,
-          picture,
-          year
-        ),
-        typeof raceData.location != 'undefined'? raceData.location[0]: raceData.circuit
+        await ParseRaceData(raceData, raceTitle, picture, year),
+        typeof raceData.location !== "undefined"
+          ? raceData.location[0]
+          : raceData.circuit
       );
     }
     return race;
   } catch (error) {
     console.log(error);
   }
-}
+};

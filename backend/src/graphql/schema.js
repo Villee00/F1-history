@@ -36,7 +36,7 @@ const typeDefs = [
   createUser.typeDefs,
   login.typeDefs,
   user.typeDefs,
-  addFavorite.typeDefs
+  addFavorite.typeDefs,
 ];
 
 const resolvers = [
@@ -52,7 +52,7 @@ const resolvers = [
   createUser.resolvers,
   login.resolvers,
   user.resolvers,
-  addFavorite.resolvers
+  addFavorite.resolvers,
 ];
 
 const schema = {

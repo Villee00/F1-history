@@ -8,6 +8,7 @@ export const typeDefs = gql`
     allRaces(seasonYear: Int!): Season
     raceInfo(grandPrix: String!): Race
     filterRaces(weather: String): [Race]!
+    loadData: String
   }
 `;
 
@@ -47,6 +48,15 @@ export const resolvers = {
         weather: { $regex: regexFilter },
       });
       return races;
+    },
+    loadData: async (root, args) => {
+      for (let year = 1950; year < 2021; year++) {
+        const season = await Season.findOne({
+          year,
+        });
+        if (!season) await addSeason(year);
+      }
+      return "valmis!";
     },
   },
 };

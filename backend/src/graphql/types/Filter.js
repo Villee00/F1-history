@@ -7,8 +7,7 @@ const typeDefs = gql`
 `;
 
 const resolvers = {
-  DriverFilter:{
-  }
+  DriverFilter: {},
 };
 
 export default { typeDefs, resolvers };

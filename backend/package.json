@@ -4,12 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=production node -r esm ./src/index.js",
     "start:windows": "cross-env NODE_ENV=production node -r esm ./src/index.js",
     "dev": "NODE_ENV=development nodemon -r esm ./src/index.js",
     "dev:windows": "cross-env NODE_ENV=development nodemon -r esm ./src/index.js",
-    "build:ui": "rm build && cd ../frontend && npm run build && cp -r build ../backend"
+    "build:ui": "rm -rf build && cd ../frontend && npm run build && cp -r build ../backend"
   },
   "repository": {
     "type": "git",
