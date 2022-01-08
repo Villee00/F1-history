@@ -4,14 +4,13 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import { buildPictureURL } from '../../utils/PictureChanger'
-import { Box, CardActionArea, Link } from '@mui/material';
+import { buildPictureURL } from '../../utils/PictureChanger';
+import { Box, CardActionArea } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import FavoriteButton from '../../components/FavoriteButton';
 
@@ -24,7 +23,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const RaceCard = ({ race, year, info = true }) => {
   const date = new Date(race.date);
-  const picture = buildPictureURL(race.pictureLink, 400)
+  const picture = buildPictureURL(race.pictureLink, 400);
   return (
 
     <Card sx={{ minHeight: 300, maxWidth: 300, minWidth: 300, borderRadius: 3, margin: 2, boxShadow: 10, display:'flex', flexDirection:'column', justifyContent:'flex-end'}}>
@@ -32,7 +31,7 @@ const RaceCard = ({ race, year, info = true }) => {
         <Box>
           <CardMedia
             component="img"
-            sx={{ height: 200, objectFit: "contain" }}
+            sx={{ height: 200, objectFit: 'contain' }}
             image={picture}
             alt="Circuit layout"
           />

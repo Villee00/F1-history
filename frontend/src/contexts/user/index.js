@@ -1,5 +1,5 @@
-import React, { createContext, useReducer } from "react"
-import { reducer, initialState } from "./reducer"
+import React, { createContext, useReducer } from 'react';
+import { reducer } from './reducer';
 
 export const UserTokenContext = createContext({
   state: {
@@ -8,19 +8,19 @@ export const UserTokenContext = createContext({
     username: null
   },
   dispatch: () => null
-})
+});
 
 export const UserTokenProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, {
     token: localStorage.getItem('f1history-token'),
     favorites: localStorage.getItem('f1history-favorites'),
     username: localStorage.getItem('f1history-username')
-  })
+  });
   let favorites;
   try {
     favorites = JSON.parse(state.favorites);
   } catch (error) {
-    favorites = state.favorites
+    favorites = state.favorites;
   }
   const value = { 
     token: state.token,
@@ -31,5 +31,5 @@ export const UserTokenProvider = ({ children }) => {
     <UserTokenContext.Provider value={value}>
       { children}
     </UserTokenContext.Provider>
-  )
-}
+  );
+};

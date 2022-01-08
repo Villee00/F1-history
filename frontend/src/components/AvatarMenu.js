@@ -8,9 +8,7 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
-import PersonAdd from '@mui/icons-material/PersonAdd';
 import MenuIcon from '@mui/icons-material/Menu';
-import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { useTheme } from '@emotion/react';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
@@ -43,9 +41,9 @@ const AvatarMenu = ({ colorContext, onLogout, token, username }) => {
             aria-expanded={open ? 'true' : undefined}
           >
             {token?
-            <Avatar sx={{ width: 32, height: 32 }}>{username.charAt(0).toUpperCase()}</Avatar>:
-            <MenuIcon sx={{ width: 32, height: 32 }}/>
-          }
+              <Avatar sx={{ width: 32, height: 32 }}>{username.charAt(0).toUpperCase()}</Avatar>:
+              <MenuIcon sx={{ width: 32, height: 32 }}/>
+            }
           </IconButton>
         </Tooltip>
       </Box>
@@ -74,7 +72,7 @@ const AvatarMenu = ({ colorContext, onLogout, token, username }) => {
         {token ?
           <MenuItem component={RouterLink} to={`/${username}`}>
             <ListItemIcon>
-              <Avatar />
+              <Avatar>{username.charAt(0).toUpperCase()}</Avatar>
             </ListItemIcon>
             <Typography variant="inherit" noWrap>
               My Profile
@@ -102,7 +100,7 @@ const AvatarMenu = ({ colorContext, onLogout, token, username }) => {
               <Logout fontSize="small" />
             </ListItemIcon>
           Logout
-        </MenuItem> :
+          </MenuItem> :
           <MenuItem component={RouterLink} to='/login'>
             <ListItemIcon>
               <LoginIcon fontSize="small" />
@@ -113,6 +111,6 @@ const AvatarMenu = ({ colorContext, onLogout, token, username }) => {
       </Menu>
     </>
   );
-}
+};
 
 export default AvatarMenu;

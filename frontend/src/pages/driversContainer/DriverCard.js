@@ -9,10 +9,8 @@ import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import { buildPictureURL } from '../../utils/PictureChanger'
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import { buildPictureURL } from '../../utils/PictureChanger';
 import { Link as RouterLink } from 'react-router-dom';
-import StarIcon from '@mui/icons-material/Star';
 import { Link } from '@mui/material';
 import FavoriteButton from '../../components/FavoriteButton';
 import useUserToken from '../../hooks/useUserToken';
@@ -26,7 +24,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const DriverCard = ({ driver }) => {
   const {favorites, token} = useUserToken();
-  const picture = buildPictureURL(driver.pictureLink, 400)
+  const picture = buildPictureURL(driver.pictureLink, 400);
   return (
     <Card sx={{ maxWidth: 270, borderRadius: 3, minWidth: 250, height: 600, margin: 2, boxShadow: 10 }}>
       <Link component={RouterLink} underline="none" to={`/drivers/${driver.id}`}>
@@ -53,7 +51,7 @@ const DriverCard = ({ driver }) => {
       </CardContent>
       <CardActions>
         {token?
-        <FavoriteButton favorites={favorites} driverId={driver.id}/>: null}
+          <FavoriteButton favorites={favorites} driverId={driver.id}/>: null}
         <Button component={RouterLink} to={`/drivers/${driver.id}`} size="large" sx={{ width: '100%' }}>Details</Button>
       </CardActions>
     </Card>

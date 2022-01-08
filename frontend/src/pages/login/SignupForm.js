@@ -1,7 +1,7 @@
-import { Button, Stack, TextField, Typography } from '@mui/material'
-import { useFormik } from 'formik'
-import React from 'react'
-import * as yup from 'yup'
+import { Button, Stack, TextField, Typography } from '@mui/material';
+import { useFormik } from 'formik';
+import React from 'react';
+import * as yup from 'yup';
 
 const validationSchema = yup.object({
   name: yup.string('Enter your name')
@@ -13,7 +13,7 @@ const validationSchema = yup.object({
   passwordConfirm: yup.string('enter password again')
     .required('Password confirmation is required')
     .oneOf([yup.ref('password'), null], 'Passwords must match')
-})
+});
 
 const SignupForm = ({ setLogInForm, onSubmit }) => {
   const formik = useFormik({
@@ -26,11 +26,11 @@ const SignupForm = ({ setLogInForm, onSubmit }) => {
     validateOnChange: false,
     validationSchema: validationSchema,
     onSubmit: (values) => onSubmit(values)
-  })
+  });
 
   return (
     <>
-    <Typography variant='h4' sx={{marginBottom: 1}}>SIGN UP</Typography>
+      <Typography variant='h4' sx={{ marginBottom: 1 }}>SIGN UP</Typography>
       <form onSubmit={formik.handleSubmit}>
         <Stack spacing={2}>
           <TextField
@@ -71,18 +71,18 @@ const SignupForm = ({ setLogInForm, onSubmit }) => {
             error={formik.touched.passwordConfirm && Boolean(formik.errors.passwordConfirm)}
             helperText={formik.touched.passwordConfirm && formik.errors.passwordConfirm}
           />
-          <Stack direction='row'>
-            <Button onClick={setLogInForm}>
-              Log in
-          </Button>
+          <Stack flexDirection='column' >
             <Button type="submit" variant="contained" color="success" size="large">
               Sign up
-          </Button>
+            </Button>
+            <Button onClick={setLogInForm} sx={{mt:2}}>
+              Log in
+            </Button>
           </Stack>
         </Stack>
       </form>
     </>
-  )
-}
+  );
+};
 
-export default SignupForm
+export default SignupForm;

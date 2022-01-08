@@ -72,7 +72,7 @@ const RacesContainer = ({ year }) => {
           <Link href={data?.allRaces.wikipediaLink} underline='hover'>
             <Typography variant="h4" textAlign="center">
               Wikipedia
-          </Typography>
+            </Typography>
           </Link>
         </Paper>
       </Box>

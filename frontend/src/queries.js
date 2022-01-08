@@ -135,7 +135,7 @@ mutation CreateUser($input: UserInput) {
     name
   }
 }
-`
+`;
 
 export const LOGIN = gql`
 mutation Login($input: LoginInput) {
@@ -154,7 +154,7 @@ mutation Login($input: LoginInput) {
     }
   }
 }
-`
+`;
 export const GET_USER = gql`
 query GetUser($username: String!) {
   getUser(username: $username) {
@@ -172,7 +172,7 @@ query GetUser($username: String!) {
 }
 ${DRIVER_SMALL_DETAILS}
 ${RACE_SMALL_DETAILS}
-`
+`;
 
 export const ADD_FAVORITE = gql`
 mutation AddFavorite($raceId: String, $driverId: String) {
@@ -188,7 +188,7 @@ mutation AddFavorite($raceId: String, $driverId: String) {
     }
   }
 }
-`
+`;
 
 export const GET_CURRENT_USER = gql`
 query Me {
@@ -203,4 +203,4 @@ query Me {
     }
   }
 }
-`
+`;

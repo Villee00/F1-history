@@ -1,6 +1,6 @@
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import React from 'react'
+import React from 'react';
 import App from './App';
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
@@ -34,6 +34,6 @@ const ColorMode = () => {
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
-}
+};
 
-export default ColorMode
+export default ColorMode;

@@ -1,5 +1,5 @@
 import { Alert, Fade } from '@mui/material';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import useNotification from '../hooks/useNotifcation';
 
 const Notification = () => {
@@ -17,15 +17,15 @@ const Notification = () => {
 
     return () => {
       clearTimeout(timer);};
-  }, [message])
+  }, [message]);
 
   if(!severity || !message)
-    return null
+    return null;
   return (
     <Fade in={isShown} sx={{ position: 'absolute', margin: 1 }}>
       <Alert variant="filled" severity={severity}>{message}</Alert>
     </Fade>
-  )
-}
+  );
+};
 
-export default Notification
+export default Notification;

@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import { Autocomplete, Grid, MenuItem, Paper, Select, TextField, Typography } from '@mui/material';
+import { Autocomplete, Grid, Paper, TextField, Typography } from '@mui/material';
 import RacesContainer from '../racesContainer';
 import { Box } from '@mui/system';
 import { useHistory, useParams } from 'react-router-dom';
 
 const SeasonsContainer = () => {
   const { year } = useParams();
-  const [selectedYear, setSelectedYear] = React.useState("1990");
+  const [selectedYear, setSelectedYear] = React.useState('1990');
   const history = useHistory();
   const years = [];
 

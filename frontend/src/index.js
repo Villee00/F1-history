@@ -1,5 +1,5 @@
 import React from 'react';
-import { setContext } from "@apollo/client/link/context";
+import { setContext } from '@apollo/client/link/context';
 import ReactDOM from 'react-dom';
 import './index.css';
 import {
@@ -9,7 +9,7 @@ import {
   HttpLink,
 } from '@apollo/client';
 import ColorMode from './ColorMode';
-import { onError } from "@apollo/client/link/error";
+import { onError } from '@apollo/client/link/error';
 import { offsetLimitPagination } from '@apollo/client/utilities';
 import { UserTokenProvider } from './contexts/user';
 import { NotificationProvider } from './contexts/alert';
@@ -21,11 +21,11 @@ const httpLink = new HttpLink({
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
     graphQLErrors.forEach(({ message }) => {
-      if (message === "Context creation failed: jwt expired") {
+      if (message === 'Context creation failed: jwt expired') {
         localStorage.clear();
         console.log(
           `[GraphQL error]: Message: ${message}`
-        )
+        );
         window.location.reload();
       }
     }
@@ -38,9 +38,9 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
+      authorization: token ? `Bearer ${token}` : '',
     }
-  }
+  };
 });
 
 
@@ -52,7 +52,7 @@ const client = new ApolloClient({
         fields: {
           getDrivers: {
             ...offsetLimitPagination(),
-            read(existing, { args: { offset, limit } }) { }
+            read( ) { }
           }
         },
       },

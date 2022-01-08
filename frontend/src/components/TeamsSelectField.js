@@ -1,5 +1,5 @@
-import { Autocomplete, Divider, TextField } from '@mui/material'
-import React from 'react'
+import { Autocomplete, Divider, TextField } from '@mui/material';
+import React from 'react';
 
 function TeamsSelectField({
   teams,
@@ -27,7 +27,7 @@ function TeamsSelectField({
       />
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
     </>
-  )
+  );
 }
 
-export default TeamsSelectField
+export default TeamsSelectField;

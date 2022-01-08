@@ -1,5 +1,5 @@
-import { Box, Divider, Link } from '@mui/material'
-import React from 'react'
+import { Box, Divider, Link } from '@mui/material';
+import React from 'react';
 
 const Footer = () => {
   return (
@@ -9,7 +9,7 @@ const Footer = () => {
         Site created by Me :) - <Link href='https://github.com/Villee00'>Github</Link>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import AppBar from './components/AppBar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import RaceInfo from './pages/raceInfo';

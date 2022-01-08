@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { CircularProgress, Container, Pagination, Typography } from '@mui/material';
+import { CircularProgress, Container, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState, useEffect, useRef } from 'react';
 import { GET_DRIVERS } from '../../queries';
@@ -12,8 +12,8 @@ const DriversContainer = () => {
   const [offset, setOffset] = useState(0);
   const [searchName, setSearchName] = useState('');
   const [searchTeam, setSearchTeam] = useState([]);
-  const [bottomReached, setBottomReached] = useState(false)
-  const {favorites, token} = useUserToken();
+  const [bottomReached, setBottomReached] = useState(false);
+  const {favorites} = useUserToken();
   const [searchYears, setSearchYears] = useState(NaN);
   const [sortingOrder, setSortingOrder] = useState({ field: 'age', order: 'desc' });
   const [searchNationality, setSearchNationality] = useState('');
@@ -37,15 +37,16 @@ const DriversContainer = () => {
     setSearchTeam(teams);
     setSearchYears(!isNaN(parseInt(year)) ? parseInt(year) : undefined);
     setSearchNationality(nationality);
-
+    setBottomReached(true);
     const sortArr = sort.split(':');
     setSortingOrder({ field: sortArr[0], order: sortArr[1] });
     refetch()
       .then(
         ({ data }) => {
-          setDrivers(data.getDrivers.drivers)
+          setDrivers(data.getDrivers.drivers);
+          setBottomReached(false);
         }, reason =>
-        console.error(reason)
+          console.error(reason)
       );
   };
 
@@ -53,7 +54,7 @@ const DriversContainer = () => {
     if (listInnerRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
 
-      if (scrollTop + clientHeight + 1500 > scrollHeight && !bottomReached) {
+      if ((scrollTop + clientHeight + 1500 > scrollHeight) && !bottomReached) {
 
         setBottomReached(true);
         const newOffset = offset + 1;
@@ -85,7 +86,7 @@ const DriversContainer = () => {
         setDrivers(data.getDrivers.drivers);
       }
     }
-  }, [loading])
+  }, [loading]);
 
   return (
     <Container maxWidth="xl" >

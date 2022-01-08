@@ -1,34 +1,34 @@
-import React, { createContext, useReducer } from "react"
-import { reducer } from "./reducer"
+import React, { useReducer } from 'react';
+import { reducer } from './reducer';
 
 export const NotificationContext = React.createContext({
-  state: {severity: "", message:""},
+  state: { severity: '', message: '' },
   dispatch: () => null
 });
 
 
 export const NotificationProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, {severity: "", message:""})
+  const [state, dispatch] = useReducer(reducer, { severity: '', message: '' });
 
   const value = {
     severity: state.severity,
     message: state.message,
-    setError: (message)=>{
-      dispatch({type: 'error', message})
+    setError: (message) => {
+      dispatch({ type: 'error', message });
     },
-    setInfo: (message)=>{
-      dispatch({type: 'info', message})
+    setInfo: (message) => {
+      dispatch({ type: 'info', message });
     },
-    setSuccess: (message)=>{
-      dispatch({type: 'success', message})
+    setSuccess: (message) => {
+      dispatch({ type: 'success', message });
     },
-    clear: ()=>{
-      dispatch({type: 'clear'})
+    clear: () => {
+      dispatch({ type: 'clear' });
     }
   };
   return (
     <NotificationContext.Provider value={value}>
-    	{ children }
+      { children}
     </NotificationContext.Provider>
-  )
-}
+  );
+};
