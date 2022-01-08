@@ -15,7 +15,7 @@ import { UserTokenProvider } from './contexts/user';
 import { NotificationProvider } from './contexts/alert';
 
 const httpLink = new HttpLink({
-  uri: '/graphql',
+  uri: process.env.REACT_APP_GRAPHQL_URI ?? '/graphql',
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {

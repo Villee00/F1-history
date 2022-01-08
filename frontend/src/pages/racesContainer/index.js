@@ -15,10 +15,10 @@ const RacesContainer = ({ year }) => {
       SeasonYear: parseInt(year)
     },
     onError: ({ graphQLErrors, networkError }) => {
-      if (graphQLErrors[0]?.message) {
+      if (graphQLErrors.length > 0) {
         setError(graphQLErrors[0].message);
       }
-      else if (networkError.result.errors) {
+      else if (networkError.result) {
         setError(networkError.result.errors[0].message);
       }
     }
