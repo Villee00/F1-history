@@ -2,6 +2,8 @@ import { gql } from "apollo-server";
 import Race from "../../models/race.js";
 import Season from "../../models/season.js";
 import { addSeason } from "../../utils/wikipediaApiHelper.js";
+import fetch from 'cross-fetch';
+import { XMLParser } from 'fast-xml-parser';
 
 export const typeDefs = gql`
   extend type Query {
@@ -9,6 +11,7 @@ export const typeDefs = gql`
     raceInfo(grandPrix: String!): Race
     filterRaces(weather: String): [Race]!
     loadData: String
+    getPictureData: String
   }
 `;
 
@@ -58,7 +61,34 @@ export const resolvers = {
       }
       return "valmis!";
     },
-  },
+
+    getPictureData: async (root, args) => {
+      const races = await Race.find({});
+      for (let index = 0; index < races.length; index++) {
+        const race = races[index];
+        const pictureSplitted = race.pictureLink.split('/');
+
+        const link = `https://magnus-toolserver.toolforge.org/commonsapi.php?image=${pictureSplitted[pictureSplitted.length - 1]}&thumbwidth=150&thumbheight=150&versions&meta`
+
+        const XMLdata = await fetch(link);
+        const data = await XMLdata.text();
+        const parser = new XMLParser();
+        let metaPicture = parser.parse(data);
+
+        let licence = metaPicture.response.licenses.license;
+        if(!licence)
+          licence = metaPicture.file.licenses[0].license;
+        race.picture.licenseInfo = licence.license_info_url ? licence.license_info_url: null;
+        race.picture.license = licence.name;
+        race.picture.author = metaPicture.response.file.author ? metaPicture.response.file.author: 'Unknown';
+        race.picture.source = metaPicture.response.file.source ? metaPicture.response.file.author: 'Unknown';
+        race.picture.description = metaPicture.response.file.urls.description;
+        race.picture.link = race.pictureLink;
+        console.log(race.grandPrix);
+        await race.save();
+      }
+    }
+  }
 };
 
 export default {

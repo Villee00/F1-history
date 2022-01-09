@@ -27,6 +27,26 @@ const driverSchema = mongoose.Schema({
   wikipediaLink: String,
   seasonsDriven: [Number],
   pictureLink: String,
+  picture: {
+    link: {
+      type: String
+    },
+    author: {
+      type: String
+    },
+    source: {
+      type: String
+    },
+    description:{
+      type: String
+    },
+    license: {
+      type: String
+    },
+    licenseInfo: {
+      type: String
+    }
+  }
 });
 
 export default mongoose.model("Driver", driverSchema);

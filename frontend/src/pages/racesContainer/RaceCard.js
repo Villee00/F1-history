@@ -23,7 +23,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const RaceCard = ({ race, year, info = true }) => {
   const date = new Date(race.date);
-  const picture = buildPictureURL(race.pictureLink, 400);
+  const picture = buildPictureURL(race.picture.link, 400);
   return (
 
     <Card sx={{ minHeight: 300, maxWidth: 300, minWidth: 300, borderRadius: 3, margin: 2, boxShadow: 10, display:'flex', flexDirection:'column', justifyContent:'flex-end'}}>

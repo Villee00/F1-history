@@ -14,6 +14,7 @@ const typeDefs = gql`
     circuit: Circuit
     grandPrix: String!
     pictureLink: String
+    picture: Picture
     weather: String!
     laps: Int!
     results: [Results!]

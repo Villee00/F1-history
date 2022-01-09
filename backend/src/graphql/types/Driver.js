@@ -8,6 +8,13 @@ const typeDefs = gql`
     grid: Int
     positionsGained: Int
   }
+  type Picture {
+    link: String
+    author: String
+    source: String
+    description: String
+    license: String
+  }
   type Driver {
     id: ID!
     driverNumber: [Int]
@@ -19,7 +26,7 @@ const typeDefs = gql`
     dateOfBirth: String
     races: [Races!]
     wikipediaLink: String!
-    pictureLink: String
+    picture: Picture
     racesDriven: Int
     positionsGainedCareer: Int
     fullName: String!

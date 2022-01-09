@@ -17,6 +17,26 @@ const raceSchema = mongoose.Schema({
   pictureLink: {
     type: String,
   },
+  picture: {
+    link: {
+      type: String
+    },
+    author: {
+      type: String
+    },
+    source: {
+      type: String
+    },
+    description: {
+      type: String
+    },
+    license: {
+      type: String
+    },
+    licenseInfo: {
+      type: String
+    }
+  },
   weather: {
     type: String,
     required: true,

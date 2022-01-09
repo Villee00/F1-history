@@ -59,7 +59,7 @@ const ResultTable = ({ results }) => {
   const classes = useStyles();
 
   const data = results.map(result => {
-    const picture = buildPictureURL(result.driver.pictureLink, 50);
+    const picture = buildPictureURL(result.driver.picture.link, 50);
     return ({ ...result, picture});
   });
 

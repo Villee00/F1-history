@@ -11,7 +11,13 @@ const RACE_DETAILS = gql`
       capacity
     }
     grandPrix
-    pictureLink
+    picture {
+      link
+      author
+      source
+      description
+      license
+    }
     weather
     laps
   }
@@ -22,7 +28,13 @@ const DRIVER_SMALL_DETAILS = gql`
     fullName
     positionsGainedCareer
     racesDriven
-    pictureLink
+    picture {
+      link
+      author
+      source
+      description
+      license
+    }
   }
 `;
 const RACE_SMALL_DETAILS = gql`
@@ -31,7 +43,13 @@ const RACE_SMALL_DETAILS = gql`
     date
     grandPrix
     weather
-    pictureLink
+    picture {
+      link
+      author
+      source
+      description
+      license
+    }
   }
 `;
 
@@ -58,7 +76,9 @@ query Query($raceInfoGrandPrix: String!) {
         id
         firstName
         lastName
-        pictureLink
+        picture {
+          link
+        }
       }
       position
       grid
@@ -97,8 +117,15 @@ export const GET_DRIVER = gql`
 query Query($getDriverDriverId: String!) {
   getDriver(driverID: $getDriverDriverId) {
     id
-    pictureLink
+    picture {
+      link
+      author
+      source
+      description
+      license
+    }
     racesDriven
+    wikipediaLink
     positionsGainedCareer
     fullName
     seasonsDriven

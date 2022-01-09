@@ -36,4 +36,6 @@
 | 6.1. | 5    | -Käyttäjä suosikki kuskien ja kisojen lisäys toimimaan backendiin  <br/> -Jokaisella käyttäjällä on oma sivustonsa, jonka pystyy jakaamaan muille <br/> -Tiedostojen paikka muutoksia|
 | 7.1. | 7    | -Jokaisella kuskilla ja kisalla näkyy suosikkinappi, jos käyttäjä on kirjutunut sisään  <br/> -Käyttäjän tiedot tallennetaan localstorageen ja kirjautumalla ulos kaikki poistetaan <br/> |
 | 8.1. | 4    | -Bugi korjauksia  <br/> -Token vanhentuu tunnissa ja frontend poistaa localstoragesta tiedot, jos token on vanhentunut. |
+| 9.1. | 4    | -Kuvien creditit näkyviin  <br/> -Token vanhentuu tunnissa ja frontend poistaa localstoragesta tiedot, jos token on vanhentunut. |
+
 | yht   | 178   | | 

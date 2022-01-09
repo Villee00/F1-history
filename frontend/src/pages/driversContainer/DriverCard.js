@@ -24,7 +24,9 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const DriverCard = ({ driver }) => {
   const {favorites, token} = useUserToken();
-  const picture = buildPictureURL(driver.pictureLink, 400);
+  let picture = driver.picture.link;
+  if(picture !== 'https://cdn.pixabay.com/photo/2014/04/03/10/07/checkered-flag-309862_960_720.png')
+    picture = buildPictureURL(picture, 400);
   return (
     <Card sx={{ maxWidth: 270, borderRadius: 3, minWidth: 250, height: 600, margin: 2, boxShadow: 10 }}>
       <Link component={RouterLink} underline="none" to={`/drivers/${driver.id}`}>
