@@ -3,8 +3,6 @@ import Driver from "../../models/driver.js";
 import Team from "../../models/team.js";
 import * as yup from "yup";
 import mongoose from "mongoose";
-import fetch from 'cross-fetch';
-import { XMLParser, XMLBuilder, XMLValidator } from 'fast-xml-parser';
 
 export const typeDefs = gql`
   type Drivers {
@@ -126,7 +124,7 @@ export const resolvers = {
     },
     getDriverFilters: async () => {
       return await Team.find({});
-    }
+    },
   },
 };
 
