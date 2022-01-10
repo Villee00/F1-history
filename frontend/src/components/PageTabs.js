@@ -18,9 +18,9 @@ const PageTabs = () =>{
 
   useEffect(() =>{
     const value = location.pathname.split('/')[1] == ''? 'seasons': location.pathname.split('/')[1];
-    if(tabs.some(tab => value !== tab))
-      return;
-    setValue(value);
+    if(tabs.some(tab => value === tab))
+      setValue(value);
+    
   },[location]);
 
   useEffect(() =>{
