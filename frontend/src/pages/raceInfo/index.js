@@ -31,7 +31,6 @@ const RaceInfo = () => {
     );
   }
   const picture = buildPictureURL(raceInfo.picture.link, 400);
-
   return (
     <Container maxWidth="lg" >
       <Box display="flex" flexDirection="column">
@@ -46,8 +45,8 @@ const RaceInfo = () => {
               </Link>
               <Typography sx={{ maxWidth: 250, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} variant="caption">Picture Author: {ReactHtmlParser(raceInfo.picture.author)} </Typography>
               <Typography sx={{ maxWidth: 250, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} variant="caption" >Source: {ReactHtmlParser(raceInfo.picture.source)}</Typography>
-              <Typography sx={{ maxWidth: 250, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} variant="caption"> <Link href={ReactHtmlParser(raceInfo.picture.description)}>Wikimedia</Link></Typography>
-              <Typography sx={{ maxWidth: 250, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} variant="caption">License: <Link href={ReactHtmlParser(raceInfo.picture.description)+'#Licensing'}>{ReactHtmlParser(raceInfo.picture.license)}</Link></Typography>
+              <Typography sx={{ maxWidth: 250, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} variant="caption">Via: <Link href={ReactHtmlParser(raceInfo.picture.description)}>Wikimedia Commons</Link></Typography>
+              <Typography sx={{ maxWidth: 250, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} variant="caption">License: <Link href={raceInfo.picture.licenseInfo}>{ReactHtmlParser(raceInfo.picture.license)}</Link></Typography>
 
             </Paper>
             <RaceInfoTable race={raceInfo} />

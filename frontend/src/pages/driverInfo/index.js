@@ -56,8 +56,8 @@ const DriverInfo = () => {
                 <>
                   <Typography sx={{ maxWidth: 250, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} variant="caption">Picture Author: {ReactHtmlParser(driverInfo.picture.author)} </Typography>
                   <Typography sx={{ maxWidth: 250, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} variant="caption" >Source: {ReactHtmlParser(driverInfo.picture.source)}</Typography>
-                  <Typography sx={{ maxWidth: 250, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} variant="caption"> <Link href={ReactHtmlParser(driverInfo.picture.description)}>Wikimedia</Link></Typography>
-                  <Typography sx={{ maxWidth: 250, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} variant="caption">License: <Link href={ReactHtmlParser(driverInfo.picture.description)+'#Licensing'}>{ReactHtmlParser(driverInfo.picture.license)}</Link></Typography>
+                  <Typography sx={{ maxWidth: 250, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} variant="caption">via: <Link href={ReactHtmlParser(driverInfo.picture.description)}>Wikimedia Commons</Link></Typography>
+                  <Typography sx={{ maxWidth: 250, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} variant="caption">License: <Link href={driverInfo.picture.licenseInfo}>{ReactHtmlParser(driverInfo.picture.license)}</Link></Typography>
                 </> : null
               }
 

@@ -17,6 +17,7 @@ const RACE_DETAILS = gql`
       source
       description
       license
+      licenseInfo
     }
     weather
     laps
@@ -34,6 +35,7 @@ const DRIVER_SMALL_DETAILS = gql`
       source
       description
       license
+      licenseInfo
     }
   }
 `;
@@ -49,6 +51,7 @@ const RACE_SMALL_DETAILS = gql`
       source
       description
       license
+      licenseInfo
     }
   }
 `;
@@ -123,6 +126,7 @@ query Query($getDriverDriverId: String!) {
       source
       description
       license
+      licenseInfo
     }
     racesDriven
     wikipediaLink

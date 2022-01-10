@@ -14,6 +14,7 @@ const typeDefs = gql`
     source: String
     description: String
     license: String
+    licenseInfo: String
   }
   type Driver {
     id: ID!
