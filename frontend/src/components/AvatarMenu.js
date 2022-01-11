@@ -34,6 +34,7 @@ const AvatarMenu = ({ colorContext, onLogout, token, username }) => {
         <Tooltip title="Menu">
           <IconButton
             onClick={handleClick}
+            id="menuBtn"
             size="small"
             sx={{ ml: 2 }}
             aria-controls={open ? 'account-menu' : undefined}
@@ -70,7 +71,7 @@ const AvatarMenu = ({ colorContext, onLogout, token, username }) => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         {token ?
-          <MenuItem component={RouterLink} to={`/${username}`}>
+          <MenuItem component={RouterLink} to={`/${username}`} id="profileUserBtn">
             <ListItemIcon>
               <Avatar>{username.charAt(0).toUpperCase()}</Avatar>
             </ListItemIcon>
@@ -95,7 +96,7 @@ const AvatarMenu = ({ colorContext, onLogout, token, username }) => {
             Darkmode</>}
         </MenuItem>
         {token ?
-          <MenuItem onClick={() => onLogout()}>
+          <MenuItem onClick={() => onLogout()} id="logoutBtn">
             <ListItemIcon>
               <Logout fontSize="small" />
             </ListItemIcon>

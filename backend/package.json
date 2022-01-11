@@ -8,7 +8,8 @@
     "start:windows": "cross-env NODE_ENV=production node -r esm ./src/index.js",
     "dev": "NODE_ENV=development nodemon -r esm ./src/index.js",
     "dev:windows": "cross-env NODE_ENV=development nodemon -r esm ./src/index.js",
-    "build:ui": "rm -rf build && cd ../frontend && npm run build && cp -r build ../backend"
+    "build:ui": "rm -rf build && cd ../frontend && npm run build && cp -r build ../backend",
+    "cypress:open": "cross-env NODE_ENV=test node -r esm ./src/index.js"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,7 @@
   "devDependencies": {
     "babel-eslint": "^10.1.0",
     "cross-env": "^7.0.3",
+    "cypress": "^9.2.1",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",

@@ -5,7 +5,9 @@ import * as yup from 'yup';
 
 const validationSchema = yup.object({
   name: yup.string('Enter your name')
-    .required('Name is required'),
+    .required('Name is required')
+    .min(3, 'Username must 3 to 10 letters.')
+    .max(10, 'Username must 3 to 10 letters.'),
   username: yup.string('Enter your username')
     .required('Username is required'),
   password: yup.string()

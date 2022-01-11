@@ -16,7 +16,7 @@ dotenv.config();
 
 const serverStart = async () => {
   mongoose
-    .connect(process.env.MONGO_URI, {
+    .connect(process.env.NODE_ENV !== "test"? process.env.MONGO_URI : process.env.MONGO_TEST_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })

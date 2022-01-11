@@ -37,5 +37,5 @@
 | 7.1. | 7    | -Jokaisella kuskilla ja kisalla näkyy suosikkinappi, jos käyttäjä on kirjutunut sisään  <br/> -Käyttäjän tiedot tallennetaan localstorageen ja kirjautumalla ulos kaikki poistetaan <br/> |
 | 8.1. | 4    | -Bugi korjauksia  <br/> -Token vanhentuu tunnissa ja frontend poistaa localstoragesta tiedot, jos token on vanhentunut. |
 | 9.1. | 4    | -Kuvien creditit näkyviin  <br/> -Token vanhentuu tunnissa ja frontend poistaa localstoragesta tiedot, jos token on vanhentunut. |
-
-| yht   | 178   | | 
+| 11.1. | 3    | -Testejä  <br/> -Muutoksia testeillä löydetyistä virheistä |
+| yht   | 184   | | 

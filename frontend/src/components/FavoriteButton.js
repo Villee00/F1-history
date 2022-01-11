@@ -47,11 +47,11 @@ const FavoriteButton = ({driverId=null, raceId=null}) => {
 
   if(favorites.drivers.some(d => d.id === driverId) || favorites.races.some(r => r.id === raceId)){
     return (
-      <LoadingButton loadingPosition="start" loading={buttonLoading} onClick={onClick} size="large" sx={{ width: '100%' }} startIcon={<StarIcon />}>favorite</LoadingButton>
+      <LoadingButton id="favoriteBtn" loadingPosition="start" loading={buttonLoading} onClick={onClick} size="large" sx={{ width: '100%' }} startIcon={<StarIcon />}>unfavorite</LoadingButton>
     );
   }
   return (
-    <LoadingButton loadingPosition="start" loading={buttonLoading} onClick={onClick} size="large" sx={{ width: '100%' }} startIcon={<StarBorderIcon />}>favorite</LoadingButton>
+    <LoadingButton id="favoriteBtn" loadingPosition="start" loading={buttonLoading} onClick={onClick} size="large" sx={{ width: '100%' }} startIcon={<StarBorderIcon />}>favorite</LoadingButton>
   );
 };
 

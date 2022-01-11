@@ -34,7 +34,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint ./src/ ",
-    "lint:fix": "eslint ./src/ --fix"
+    "lint:fix": "eslint ./src/ --fix",
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -56,8 +57,10 @@
   },
   "devDependencies": {
     "autoprefixer": "^9.8.6",
+    "cypress": "^9.2.1",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "^2.24.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",

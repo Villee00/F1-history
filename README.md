@@ -5,7 +5,7 @@ Työaikakirja: https://github.com/Villee00/F1-history/blob/main/Ty%C3%B6aikakirj
 
 Database: MongoDB<br/>
 Backend: Express + Apollo + nodejs<br/>
-Frontend: React<br/>
+Frontend: React + cypress<br/>
 
 # Käyttö
 Sivun ideana on helpottaa F1 kausien vanhojen kisojen etsimistä ja ratojen katsomista. Kisojen kortissa näkyy perustiedot (Päivä + sää) ja klikkaamalla pääsee tarkemmin katsomaan. Kisojen sivulla näkyy lopputulos ja kuinka monta paikkaa kuski on onnistunut saamaan/häviämään kisassa.<br/>
