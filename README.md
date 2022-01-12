@@ -1,19 +1,22 @@
 # F1-history
 
-Sivu: https://formula1history.herokuapp.com/</br>
-Työaikakirja: https://github.com/Villee00/F1-history/blob/main/Ty%C3%B6aikakirja.md</br>
+Sivu: https://formula1history.herokuapp.com/
+Työaikakirja: https://github.com/Villee00/F1-history/blob/main/Ty%C3%B6aikakirja.md
 
-Database: MongoDB<br/>
-Backend: Express + Apollo + nodejs<br/>
-Frontend: React + cypress<br/>
+Database: MongoDB
+Backend: Express + Apollo + nodejs
+Frontend: React
 
-# Käyttö
-Sivun ideana on helpottaa F1 kausien vanhojen kisojen etsimistä ja ratojen katsomista. Kisojen kortissa näkyy perustiedot (Päivä + sää) ja klikkaamalla pääsee tarkemmin katsomaan. Kisojen sivulla näkyy lopputulos ja kuinka monta paikkaa kuski on onnistunut saamaan/häviämään kisassa.<br/>
+# Käyttö tarkoitus
+Sivuston ideana on yksinkertaistaa vanhojen F1 kisojen ja kuskien etsimistä. Lempi kisojen ja kuskien tallentaminen käy helposti käyttäjällä.
 
-Drivers tabilla pystyy mennä katsomaan jokaisesta kuskista erikseen tietoa. Perustietona näkyy kuskin koko uran yhteenlaskettu paikkojen saaminen kisassa + kisojen määrä, joita on pystytty hakemaan Wikipediasta. Kuskit ovat ikä järjestyksessä.<br/>
+Season tabille voidaan valita haluttu kausi ja selata kauden kisoja. 
+Drivers tabilla pystyy etsimään ja filtteriömään kuskeja nimen, tallin, ajaneen kauden ja kansallisuuden perusteella. Näyttämis järjestystä voi myös muuttaa.
 
-Jos haluaa saada enemmän tietoa kisasta, jossa kuski ajoi voi kisan nimeä painaa ja kisan sivu avautuu. Kisan sivulta pääsee myös kuskin sivuille painamalla kuskin nimeä.<br/>
+Oikeassa yläkulmassa on valikko, josta voidaan vaihtaa tummatila sivun teemaksi. Valikossa pääsee myös kirjautumaan ja jos käyttäjä on kirjutunut sisään voidaan kirjautua ulos tai mennä katsomaan omaa profiiliaan. 
 
+Käyttäjällä pystyy lisäämään lempi kuskeja ja kisoja omaan profiiliin. Oman profiilinsa voi jakaa muille ihmisille, jotka pystyvät näkemään lempi kuskisi ja kisat, vaikka heillä ei olisi käyttäjää.
 
-Kauden kisat ja ratojen tiedot yritetään hakea Wikipediasta. Joitain kausia ei pysty hakea, sillä jokainen Wikipedian sivu on vähän erilainen ja kisa listaa ei pystytty löytämään sivuilta. Näissä tilanteissa annetaan sivulle Wikipedia artikkeli, jos haluaa lukea lisää kyseiseistä kaudesta.
-<br/> Kisojen tuloksien saamiseen käytin sivua: http://ergast.com/mrd/ <br/>
+Esimerkiksi: [Oma profiilini](https://formula1history.herokuapp.com/ville "Oma profiilini")
+
+Kisojen ja tuloksien tiedot saatiin Wikipediasta ja [Ergast apista](https://ergast.com/mrd/ "Ergast apista")

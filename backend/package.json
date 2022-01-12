@@ -9,7 +9,7 @@
     "dev": "NODE_ENV=development nodemon -r esm ./src/index.js",
     "dev:windows": "cross-env NODE_ENV=development nodemon -r esm ./src/index.js",
     "build:ui": "rm -rf build && cd ../frontend && npm run build && cp -r build ../backend",
-    "cypress:open": "cross-env NODE_ENV=test node -r esm ./src/index.js"
+    "dev:test": "cross-env NODE_ENV=test node -r esm ./src/index.js"
   },
   "repository": {
     "type": "git",

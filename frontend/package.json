@@ -31,11 +31,11 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint ./src/ ",
     "lint:fix": "eslint ./src/ --fix",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "test": "cypress run"
   },
   "eslintConfig": {
     "extends": [
