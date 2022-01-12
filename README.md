@@ -1,11 +1,11 @@
 # F1-history
 
-Sivu: https://formula1history.herokuapp.com/
-Työaikakirja: https://github.com/Villee00/F1-history/blob/main/Ty%C3%B6aikakirja.md
+Sivu: https://formula1history.herokuapp.com/ <br/>
+Työaikakirja: https://github.com/Villee00/F1-history/blob/main/Ty%C3%B6aikakirja.md 
 
-Database: MongoDB
-Backend: Express + Apollo + nodejs
-Frontend: React
+Database: MongoDB <br/>
+Backend: Express + Apollo + nodejs <br/>
+Frontend: React <br/>
 
 # Käyttö tarkoitus
 Sivuston ideana on yksinkertaistaa vanhojen F1 kisojen ja kuskien etsimistä. Lempi kisojen ja kuskien tallentaminen käy helposti käyttäjällä.
