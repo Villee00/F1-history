@@ -71,7 +71,7 @@ const MainMenu = ({ colorContext, onLogout, token, username }) => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         {token ?
-          <MenuItem component={RouterLink} to={`/${username}`} id="profileUserBtn">
+          <MenuItem onClick={handleClose} component={RouterLink} to={`/${username}`} id="profileUserBtn">
             <ListItemIcon>
               <Avatar>{username.charAt(0).toUpperCase()}</Avatar>
             </ListItemIcon>
@@ -102,7 +102,7 @@ const MainMenu = ({ colorContext, onLogout, token, username }) => {
             </ListItemIcon>
           Logout
           </MenuItem> :
-          <MenuItem component={RouterLink} to='/login'>
+          <MenuItem component={RouterLink} onClick={handleClose} to='/login'>
             <ListItemIcon>
               <LoginIcon fontSize="small" />
             </ListItemIcon>

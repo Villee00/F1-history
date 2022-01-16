@@ -5,6 +5,7 @@ import useUserToken from '../hooks/useUserToken';
 import PageTabs from './PageTabs';
 import MainMenu from './MainMenu';
 import useNotification from '../hooks/useNotifcation';
+import Notification from './Notification';
 
 const NavBar = ({ colorContext }) => {
   const { token, username, dispatch } = useUserToken();
@@ -25,6 +26,7 @@ const NavBar = ({ colorContext }) => {
         bgcolor: 'background.default',
         color: 'text.primary'
       }}>
+      <Notification />
 
       <Grid container spacing={3} sx={{ marginTop: 1, marginBottom: 1, alignItems: 'center' }}>
         <Grid item xs={2}>

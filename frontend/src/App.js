@@ -11,7 +11,6 @@ import '@fontsource/roboto/700.css';
 import DriverInfo from './pages/driverInfo';
 import Login from './pages/login';
 import { Container } from '@mui/material';
-import Notification from './components/Notification';
 import UserPage from './pages/userPage';
 import Footer from './components/Footer';
 
@@ -27,7 +26,7 @@ const App = ({ colorContext }) => {
           bgcolor: 'background.default',
           color: 'text.primary'
         }}>
-        <Notification />
+
 
         <Switch>
           <Route path="/login" exact>
