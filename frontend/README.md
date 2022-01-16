@@ -1,5 +1,5 @@
 # F1 history frontend
 
-React
-Tyyli kirjasto: MUI
-Testit: Cypress
+React<br/>
+Tyyli kirjasto: MUI<br/>
+Testit: Cypress<br/>
