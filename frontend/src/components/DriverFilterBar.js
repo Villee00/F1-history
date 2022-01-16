@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Paper from '@mui/material/Paper';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -31,7 +31,7 @@ const DriverFilterBar = ({ handleSearch }) => {
       setError(error.graphQLErrors[0].message);
     }
   });
-  const [teams, setTeams] = React.useState([]);
+  const [teams, setTeams] = useState([]);
 
   const formik = useFormik({
     initialValues: {

@@ -3,12 +3,12 @@ import { Link as RouterLink } from 'react-router-dom';
 import React from 'react';
 import useUserToken from '../hooks/useUserToken';
 import PageTabs from './PageTabs';
-import AvatarMenu from './AvatarMenu';
+import MainMenu from './MainMenu';
 import useNotification from '../hooks/useNotifcation';
 
-const AppBar = ({ colorContext }) => {
-  const { token, username , dispatch } = useUserToken();
-  const {setSuccess} = useNotification();
+const NavBar = ({ colorContext }) => {
+  const { token, username, dispatch } = useUserToken();
+  const { setSuccess } = useNotification();
   const onLogout = () => {
     dispatch({ type: 'remove' });
     localStorage.clear();
@@ -17,6 +17,7 @@ const AppBar = ({ colorContext }) => {
 
   return (
     <Container maxWidth="l"
+      component="nav"
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -24,6 +25,7 @@ const AppBar = ({ colorContext }) => {
         bgcolor: 'background.default',
         color: 'text.primary'
       }}>
+
       <Grid container spacing={3} sx={{ marginTop: 1, marginBottom: 1, alignItems: 'center' }}>
         <Grid item xs={2}>
         </Grid>
@@ -33,7 +35,7 @@ const AppBar = ({ colorContext }) => {
           </Link>
         </Grid>
         <Grid item xs={2}>
-          <AvatarMenu colorContext={colorContext} username={username} onLogout={onLogout} token={token}/>
+          <MainMenu colorContext={colorContext} username={username} onLogout={onLogout} token={token} />
         </Grid>
       </Grid>
       <PageTabs />
@@ -41,4 +43,4 @@ const AppBar = ({ colorContext }) => {
   );
 };
 
-export default AppBar;
+export default NavBar;

@@ -1,5 +1,5 @@
 import React from 'react';
-import AppBar from './components/AppBar';
+import NavBar from './components/NavBar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import RaceInfo from './pages/raceInfo';
 import DriversContainer from './pages/driversContainer';
@@ -18,6 +18,7 @@ import Footer from './components/Footer';
 const App = ({ colorContext }) => {
   return (
     <Router>
+      <NavBar colorContext={colorContext} />
       <Container maxWidth="l"
         sx={{
           display: 'flex',
@@ -26,8 +27,8 @@ const App = ({ colorContext }) => {
           bgcolor: 'background.default',
           color: 'text.primary'
         }}>
-        <Notification/>
-        <AppBar colorContext={colorContext} />
+        <Notification />
+
         <Switch>
           <Route path="/login" exact>
             <Login />
@@ -48,14 +49,14 @@ const App = ({ colorContext }) => {
             <SeasonsContainer />
           </Route>
           <Route path="/:username" exact>
-            <UserPage/>
+            <UserPage />
           </Route>
           <Route path="/" exact>
             <SeasonsContainer />
           </Route>
         </Switch>
       </Container>
-      <Footer/>
+      <Footer />
     </Router>
   );
 };

@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import clsx from 'clsx';
@@ -9,7 +8,6 @@ import { buildPictureURL } from '../../utils/PictureChanger';
 
 
 function CustomFooterStatusComponent(props) {
-
   return <div> {props.results.length} drivers in race</div>;
 }
 
@@ -30,18 +28,22 @@ const useStyles = makeStyles({
 const columns = [
   {
     field: 'picture', headerName: '', sortable: false, width: 50,
-    renderCell: ({ value }) => <Avatar src={value} />
+    renderCell: function Picture({ value }) {
+      return <Avatar src={value} />;
+    }
   },
   {
     field: 'driver', sortable: false, headerName: 'Name', flex: 1, type: 'text',
     valueFormatter: ({ value }) => value.firstName + ' ' + value.lastName,
-    renderCell: ({ value }) => (
-      <Link to={`/drivers/${value.id}`}>
-        <Typography color='primary'>
-          {value.firstName} {value.lastName}
-        </Typography>
-      </Link>
-    )
+    renderCell: function Driver({ value }) {
+      return (
+        <Link to={`/drivers/${value.id}`}>
+          <Typography color='primary'>
+            {value.firstName} {value.lastName}
+          </Typography>
+        </Link>
+      );
+    }
   },
   { field: 'position', headerName: 'Finish position', flex: 0.5, type: 'number' },
   { field: 'grid', headerName: 'Grid position', flex: 0.5, type: 'number' },
@@ -60,7 +62,7 @@ const ResultTable = ({ results }) => {
 
   const data = results.map(result => {
     const picture = buildPictureURL(result.driver.picture.link, 50);
-    return ({ ...result, picture});
+    return ({ ...result, picture });
   });
 
   return (

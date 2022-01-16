@@ -1,7 +1,7 @@
-import React, { useReducer } from 'react';
+import React, { createContext, useReducer } from 'react';
 import { reducer } from './reducer';
 
-export const NotificationContext = React.createContext({
+export const NotificationContext = createContext({
   state: { severity: '', message: '' },
   dispatch: () => null
 });

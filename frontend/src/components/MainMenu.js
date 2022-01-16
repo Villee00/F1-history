@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext, useState } from 'react';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
@@ -16,12 +16,12 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { Link as RouterLink } from 'react-router-dom';
 import LoginIcon from '@mui/icons-material/Login';
 
-const AvatarMenu = ({ colorContext, onLogout, token, username }) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+const MainMenu = ({ colorContext, onLogout, token, username }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const theme = useTheme();
   const open = Boolean(anchorEl);
-  const colorMode = React.useContext(colorContext);
+  const colorMode = useContext(colorContext);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -41,9 +41,9 @@ const AvatarMenu = ({ colorContext, onLogout, token, username }) => {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            {token?
-              <Avatar sx={{ width: 32, height: 32 }}>{username.charAt(0).toUpperCase()}</Avatar>:
-              <MenuIcon sx={{ width: 32, height: 32 }}/>
+            {token ?
+              <Avatar sx={{ width: 32, height: 32 }}>{username.charAt(0).toUpperCase()}</Avatar> :
+              <MenuIcon sx={{ width: 32, height: 32 }} />
             }
           </IconButton>
         </Tooltip>
@@ -114,4 +114,4 @@ const AvatarMenu = ({ colorContext, onLogout, token, username }) => {
   );
 };
 
-export default AvatarMenu;
+export default MainMenu;

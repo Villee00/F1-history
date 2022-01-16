@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -92,7 +92,7 @@ const DriverTable = ({driver}) => {
 
 
 const CollapseRow = ({header, data}) =>{
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   return(
     <>

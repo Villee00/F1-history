@@ -2,8 +2,8 @@ import wiki from "wikijs";
 import Circuit from "../models/circuit.js";
 import Race from "../models/race.js";
 import Season from "../models/season";
-import { getRaceResults, getSeasonFromErgast } from "./ergestApiHelper.js";
-import ParseRaceData, { parseCircuitToDB } from "./ParseRaceData.js";
+import { getRaceResults, getSeasonFromErgast } from "./ergastApiHelper.js";
+import ParseRaceData, { parseCircuitToDB } from "./parseRaceData.js";
 
 const headers = {
   "User-Agent":
