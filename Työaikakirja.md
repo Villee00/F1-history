@@ -38,4 +38,4 @@
 | 8.1. | 4    | -Bugi korjauksia  <br/> -Token vanhentuu tunnissa ja frontend poistaa localstoragesta tiedot, jos token on vanhentunut. |
 | 9.1. | 4    | -Kuvien creditit näkyviin  <br/> -Token vanhentuu tunnissa ja frontend poistaa localstoragesta tiedot, jos token on vanhentunut. |
 | 11.1. | 3    | -Testejä  <br/> -Muutoksia testeillä löydetyistä virheistä |
-| yht   | 186   | | 
+| yht   | 185   | | 
