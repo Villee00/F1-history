@@ -19,4 +19,16 @@ Käyttäjällä pystyy lisäämään lempi kuskeja ja kisoja omaan profiiliin. O
 
 Esimerkiksi: [Oma profiilini](https://formula1history.herokuapp.com/ville "Oma profiilini")
 
+# Uudet ominaisuudet 5op palautuksesta
+- Käyttäjän luonti/kirjautuminen
+- Käyttäjä profiilit
+- Käyttäjät voivat lisätä kuskeja tai kisoja suosikkeihinsa
+- Kaikki kisat ja kuskit löytyvät
+- Sivun teemaa voi vaihtaa tumman ja valkean välillä
+- Kuskeja pystyy suodattamaan ja vaihtamaan näyttöjärjestystä
+- Kuskit käyttää nyt "Infinite scrolling" tekniikkaa
+- Kuvat haetaan oikean kokoisena Wikipediasta, jonka takia sivu latautuu nopeammin
+- Ilmoitukset, jos jotain meni väärin tai onnistui (Esim. kirjautuminen onnistui)
+
+
 Kisojen ja tuloksien tiedot saatiin Wikipediasta ja [Ergast apista](https://ergast.com/mrd/ "Ergast apista")
