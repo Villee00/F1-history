@@ -7,7 +7,7 @@ Database: MongoDB <br/>
 Backend: Express + Apollo + nodejs <br/>
 Frontend: React <br/>
 
-# Käyttö tarkoitus
+## Käyttö tarkoitus
 Sivuston ideana on yksinkertaistaa vanhojen F1 kisojen ja kuskien etsimistä. Lempi kisojen ja kuskien tallentaminen käy helposti käyttäjällä.
 
 Season tabille voidaan valita haluttu kausi ja selata kauden kisoja. 
@@ -19,7 +19,7 @@ Käyttäjällä pystyy lisäämään suosikki kuskeja ja kisoja omaan profiiliin
 
 Esimerkiksi: [Oma profiilini](https://formula1history.herokuapp.com/ville "Oma profiilini")
 
-# Uudet ominaisuudet 5op palautuksesta
+## Uudet ominaisuudet 5op palautuksesta
 - Käyttäjän luonti/kirjautuminen
 - Käyttäjä profiilit
 - Käyttäjät voivat lisätä kuskeja tai kisoja suosikkeihinsa
