@@ -11,11 +11,11 @@ Frontend: React <br/>
 Sivuston ideana on yksinkertaistaa vanhojen F1 kisojen ja kuskien etsimistä. Lempi kisojen ja kuskien tallentaminen käy helposti käyttäjällä.
 
 Season tabille voidaan valita haluttu kausi ja selata kauden kisoja. 
-Drivers tabilla pystyy etsimään ja filtteriömään kuskeja nimen, tallin, ajaneen kauden ja kansallisuuden perusteella. Näyttämis järjestystä voi myös muuttaa.
+Drivers tabilla pystyy etsimään ja suodattamaan kuskeja nimen, tallin, ajaneen kauden ja kansallisuuden perusteella. Näyttöjärjestystä voi myös muuttaa.
 
-Oikeassa yläkulmassa on valikko, josta voidaan vaihtaa tummatila sivun teemaksi. Valikossa pääsee myös kirjautumaan ja jos käyttäjä on kirjutunut sisään voidaan kirjautua ulos tai mennä katsomaan omaa profiiliaan. 
+Oikeassa yläkulmassa on valikko, josta voidaan vaihtaa sivun teemaa tumman ja vaalean välillä. Valikossa pääsee myös kirjautumaan ja jos käyttäjä on kirjautunut sisään voidaan kirjautua ulos tai mennä katsomaan omaa profiiliaan. 
 
-Käyttäjällä pystyy lisäämään lempi kuskeja ja kisoja omaan profiiliin. Oman profiilinsa voi jakaa muille ihmisille, jotka pystyvät näkemään lempi kuskisi ja kisat, vaikka heillä ei olisi käyttäjää.
+Käyttäjällä pystyy lisäämään suosikki kuskeja ja kisoja omaan profiiliin. Oman profiilinsa voi jakaa muille ihmisille, jotka näkevät suosikki kuskit ja kisat, vaikka heillä ei olisi käyttäjää.
 
 Esimerkiksi: [Oma profiilini](https://formula1history.herokuapp.com/ville "Oma profiilini")
 
