@@ -23,13 +23,10 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     graphQLErrors.forEach(({ message }) => {
       if (message === 'Context creation failed: jwt expired') {
         localStorage.clear();
-        console.log(
-          `[GraphQL error]: Message: ${message}`
-        );
+        console.log(`[GraphQL error]: Message: ${message}`);
         window.location.reload();
       }
-    }
-    );
+    });
   if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
@@ -39,10 +36,9 @@ const authLink = setContext((_, { headers }) => {
     headers: {
       ...headers,
       authorization: token ? `Bearer ${token}` : '',
-    }
+    },
   };
 });
-
 
 const client = new ApolloClient({
   link: errorLink.concat(authLink.concat(httpLink)),
@@ -52,14 +48,13 @@ const client = new ApolloClient({
         fields: {
           getDrivers: {
             ...offsetLimitPagination(),
-            read( ) { }
-          }
+            read() {},
+          },
         },
       },
     },
-  })
+  }),
 });
-
 
 ReactDOM.render(
   <ApolloProvider client={client}>

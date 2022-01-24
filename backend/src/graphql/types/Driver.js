@@ -1,5 +1,5 @@
-import { gql } from "apollo-server";
-import Driver from "../../models/driver.js";
+import { gql } from 'apollo-server';
+import Driver from '../../models/driver.js';
 
 const typeDefs = gql`
   type Races {
@@ -51,7 +51,7 @@ const resolvers = {
       return positions;
     },
     async fullName(obj, args, context, info) {
-      return obj.firstName + " " + obj.lastName;
+      return obj.firstName + ' ' + obj.lastName;
     },
   },
   Races: {

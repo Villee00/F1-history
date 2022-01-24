@@ -1,7 +1,7 @@
-import { gql } from "apollo-server";
-import Race from "../../models/race.js";
-import Season from "../../models/season.js";
-import { addSeason } from "../../utils/wikipediaApiHelper.js";
+import { gql } from 'apollo-server';
+import Race from '../../models/race.js';
+import Season from '../../models/season.js';
+import { addSeason } from '../../utils/wikipediaApiHelper.js';
 
 export const typeDefs = gql`
   extend type Query {
@@ -18,13 +18,13 @@ export const resolvers = {
     allRaces: async (root, args) => {
       let season = await Season.findOne({
         year: args.seasonYear,
-      }).populate("races");
+      }).populate('races');
 
       if (!season) {
         season = await addSeason(args.seasonYear);
       }
       season.races.forEach((race) => {
-        race.populate("circuit");
+        race.populate('circuit');
       });
 
       return season;
@@ -34,17 +34,17 @@ export const resolvers = {
         grandPrix: args.grandPrix,
       })
         .populate({
-          path: "circuit",
-          model: "Circuit",
+          path: 'circuit',
+          model: 'Circuit',
         })
         .populate({
-          path: "results.driver",
-          model: "Driver",
+          path: 'results.driver',
+          model: 'Driver',
         });
       return race;
     },
     filterRaces: async (root, args) => {
-      const regexFilter = new RegExp(`${args.weather}*`, "i");
+      const regexFilter = new RegExp(`${args.weather}*`, 'i');
       const races = await Race.find({
         weather: { $regex: regexFilter },
       });
@@ -57,14 +57,14 @@ export const resolvers = {
         });
         if (!season) await addSeason(year);
       }
-      return "valmis!";
+      return 'valmis!';
     },
 
     getPictureData: async (root, args) => {
       const races = await Race.find({});
       for (let index = 0; index < races.length; index++) {
         const race = races[index];
-        const pictureSplitted = race.pictureLink.split("/");
+        const pictureSplitted = race.pictureLink.split('/');
 
         const link = `https://magnus-toolserver.toolforge.org/commonsapi.php?image=${
           pictureSplitted[pictureSplitted.length - 1]
@@ -83,10 +83,10 @@ export const resolvers = {
         race.picture.license = licence.name;
         race.picture.author = metaPicture.response.file.author
           ? metaPicture.response.file.author
-          : "Unknown";
+          : 'Unknown';
         race.picture.source = metaPicture.response.file.source
           ? metaPicture.response.file.author
-          : "Unknown";
+          : 'Unknown';
         race.picture.description = metaPicture.response.file.urls.description;
         race.picture.link = race.pictureLink;
         console.log(race.grandPrix);

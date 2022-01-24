@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const raceSchema = mongoose.Schema({
   date: {
@@ -7,7 +7,7 @@ const raceSchema = mongoose.Schema({
   },
   circuit: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Circuit",
+    ref: 'Circuit',
   },
   grandPrix: {
     type: String,
@@ -19,23 +19,23 @@ const raceSchema = mongoose.Schema({
   },
   picture: {
     link: {
-      type: String
+      type: String,
     },
     author: {
-      type: String
+      type: String,
     },
     source: {
-      type: String
+      type: String,
     },
     description: {
-      type: String
+      type: String,
     },
     license: {
-      type: String
+      type: String,
     },
     licenseInfo: {
-      type: String
-    }
+      type: String,
+    },
   },
   weather: {
     type: String,
@@ -51,7 +51,7 @@ const raceSchema = mongoose.Schema({
     {
       driver: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Driver",
+        ref: 'Driver',
         required: true,
       },
       position: {
@@ -66,4 +66,4 @@ const raceSchema = mongoose.Schema({
   ],
 });
 
-export default mongoose.model("Race", raceSchema);
+export default mongoose.model('Race', raceSchema);

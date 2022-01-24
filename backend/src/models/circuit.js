@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const circuitSchema = mongoose.Schema({
   name: String,
@@ -7,4 +7,4 @@ const circuitSchema = mongoose.Schema({
   capacity: Number,
 });
 
-export default mongoose.model("Circuit", circuitSchema);
+export default mongoose.model('Circuit', circuitSchema);

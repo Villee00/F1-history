@@ -1,4 +1,4 @@
-import {gql} from '@apollo/client';
+import { gql } from '@apollo/client';
 
 const RACE_DETAILS = gql`
   fragment RaceDetails on Race {
@@ -56,124 +56,174 @@ const RACE_SMALL_DETAILS = gql`
   }
 `;
 
-
 export const GET_SEASON_RACES_BASIC = gql`
-query Query($SeasonYear: Int!) {
-  allRaces(seasonYear: $SeasonYear) {
-    races {
-      ...RaceSmallDetails
+  query Query($SeasonYear: Int!) {
+    allRaces(seasonYear: $SeasonYear) {
+      races {
+        ...RaceSmallDetails
+      }
+      wikipediaLink
+      year
     }
-    wikipediaLink
-    year
   }
-}
-${RACE_SMALL_DETAILS}
+  ${RACE_SMALL_DETAILS}
 `;
 
 export const GET_RACE = gql`
-query Query($raceInfoGrandPrix: String!) {
-  raceInfo(grandPrix: $raceInfoGrandPrix) {
-    ...RaceDetails
-    results {
-      driver {
-        id
-        firstName
-        lastName
-        picture {
-          link
+  query Query($raceInfoGrandPrix: String!) {
+    raceInfo(grandPrix: $raceInfoGrandPrix) {
+      ...RaceDetails
+      results {
+        driver {
+          id
+          firstName
+          lastName
+          picture {
+            link
+          }
         }
+        position
+        grid
+        positionsGained
       }
-      position
-      grid
-      positionsGained
     }
   }
-}
-${RACE_DETAILS}
+  ${RACE_DETAILS}
 `;
 
 export const GET_RACE_WEATHER = gql`
-query Query($RaceWeather: String) {
-  filterRaces(weather: $RaceWeather) {
-    id
-    date
-    grandPrix
-    weather
-    pictureLink
+  query Query($RaceWeather: String) {
+    filterRaces(weather: $RaceWeather) {
+      id
+      date
+      grandPrix
+      weather
+      pictureLink
+    }
   }
-}
 `;
 
 export const GET_DRIVERS = gql`
-query Query($limit: Int, $offset: Int, $filters: Filters, $sort: Sorting) {
-  getDrivers(limit: $limit, offset: $offset, filters: $filters, sort: $sort) {
-    drivers {
-      ...DriverSmallDetails
+  query Query($limit: Int, $offset: Int, $filters: Filters, $sort: Sorting) {
+    getDrivers(limit: $limit, offset: $offset, filters: $filters, sort: $sort) {
+      drivers {
+        ...DriverSmallDetails
+      }
+      driverCount
     }
-    driverCount
   }
-}
-${DRIVER_SMALL_DETAILS}
+  ${DRIVER_SMALL_DETAILS}
 `;
 
 export const GET_DRIVER = gql`
-query Query($getDriverDriverId: String!) {
-  getDriver(driverID: $getDriverDriverId) {
-    id
-    picture {
-      link
-      author
-      source
-      description
-      license
-      licenseInfo
-    }
-    racesDriven
-    wikipediaLink
-    positionsGainedCareer
-    fullName
-    seasonsDriven
-    teams {
-      name
-    }
-    nationality
-    dateOfBirth
-    races {
-      race {
-        grandPrix
-        weather
+  query Query($getDriverDriverId: String!) {
+    getDriver(driverID: $getDriverDriverId) {
+      id
+      picture {
+        link
+        author
+        source
+        description
+        license
+        licenseInfo
       }
-      position
-      grid
-      positionsGained
+      racesDriven
+      wikipediaLink
+      positionsGainedCareer
+      fullName
+      seasonsDriven
+      teams {
+        name
+      }
+      nationality
+      dateOfBirth
+      races {
+        race {
+          grandPrix
+          weather
+        }
+        position
+        grid
+        positionsGained
+      }
     }
   }
-}
 `;
 
 export const GET_DRIVER_FILTERS = gql`
-query Query {
-  getDriverFilters {
-    id
-    name
+  query Query {
+    getDriverFilters {
+      id
+      name
+    }
   }
-}`;
+`;
 
 export const CREATE_USER = gql`
-mutation CreateUser($input: UserInput) {
-  createUser(input: $input) {
-    username
-    name
+  mutation CreateUser($input: UserInput) {
+    createUser(input: $input) {
+      username
+      name
+    }
   }
-}
 `;
 
 export const LOGIN = gql`
-mutation Login($input: LoginInput) {
-  login(input: $input) {
-    value
-    user {
+  mutation Login($input: LoginInput) {
+    login(input: $input) {
+      value
+      user {
+        username
+        favorites {
+          races {
+            id
+          }
+          drivers {
+            id
+          }
+        }
+      }
+    }
+  }
+`;
+export const GET_USER = gql`
+  query GetUser($username: String!) {
+    getUser(username: $username) {
       username
+      name
+      favorites {
+        races {
+          ...RaceSmallDetails
+        }
+        drivers {
+          ...DriverSmallDetails
+        }
+      }
+    }
+  }
+  ${DRIVER_SMALL_DETAILS}
+  ${RACE_SMALL_DETAILS}
+`;
+
+export const ADD_FAVORITE = gql`
+  mutation AddFavorite($raceId: String, $driverId: String) {
+    addFavorite(raceID: $raceId, driverID: $driverId) {
+      name
+      favorites {
+        drivers {
+          id
+        }
+        races {
+          id
+        }
+      }
+    }
+  }
+`;
+
+export const GET_CURRENT_USER = gql`
+  query Me {
+    me {
       favorites {
         races {
           id
@@ -184,54 +234,4 @@ mutation Login($input: LoginInput) {
       }
     }
   }
-}
-`;
-export const GET_USER = gql`
-query GetUser($username: String!) {
-  getUser(username: $username) {
-    username
-    name
-    favorites {
-      races {
-        ...RaceSmallDetails
-      }
-      drivers {
-        ...DriverSmallDetails
-      }
-    }
-  }
-}
-${DRIVER_SMALL_DETAILS}
-${RACE_SMALL_DETAILS}
-`;
-
-export const ADD_FAVORITE = gql`
-mutation AddFavorite($raceId: String, $driverId: String) {
-  addFavorite(raceID: $raceId, driverID: $driverId) {
-    name
-    favorites {
-      drivers {
-        id
-      }
-      races {
-        id
-      }
-    }
-  }
-}
-`;
-
-export const GET_CURRENT_USER = gql`
-query Me {
-  me {
-    favorites {
-      races {
-        id
-      }
-      drivers {
-        id
-      }
-    }
-  }
-}
 `;

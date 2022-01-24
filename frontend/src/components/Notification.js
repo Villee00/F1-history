@@ -10,20 +10,22 @@ const Notification = () => {
     setIsShown(true);
     const timer = setTimeout(() => {
       setIsShown(false);
-      setTimeout(() =>{
+      setTimeout(() => {
         clear();
       }, 500);
     }, 3000);
 
     return () => {
-      clearTimeout(timer);};
+      clearTimeout(timer);
+    };
   }, [message]);
 
-  if(!severity || !message)
-    return null;
+  if (!severity || !message) return null;
   return (
     <Fade in={isShown} sx={{ position: 'absolute', margin: 1 }}>
-      <Alert variant="filled" severity={severity}>{message}</Alert>
+      <Alert variant="filled" severity={severity}>
+        {message}
+      </Alert>
     </Fade>
   );
 };

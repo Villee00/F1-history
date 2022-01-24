@@ -1,7 +1,7 @@
-import { gql, UserInputError } from "apollo-server";
-import User from "../../models/user.js";
-import bcrypt from "bcrypt";
-import * as yup from "yup";
+import { gql, UserInputError } from 'apollo-server';
+import User from '../../models/user.js';
+import bcrypt from 'bcrypt';
+import * as yup from 'yup';
 
 const typeDefs = gql`
   input UserInput {
@@ -31,7 +31,7 @@ const resolvers = {
       const foundUser = await User.findOne({ username: username });
       if (foundUser) {
         throw new UserInputError(
-          "That username already exists, please choose another one."
+          'That username already exists, please choose another one.'
         );
       }
 

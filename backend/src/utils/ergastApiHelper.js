@@ -1,7 +1,7 @@
-import fetch from "cross-fetch";
-import Driver from "../models/driver.js";
-import Team from "../models/team.js";
-import { getPictureLink } from "./wikipediaApiHelper.js";
+import fetch from 'cross-fetch';
+import Driver from '../models/driver.js';
+import Team from '../models/team.js';
+import { getPictureLink } from './wikipediaApiHelper.js';
 
 export const getRaceResults = async (race, year, round) => {
   const data = await fetchJSONFromErgast(
@@ -18,8 +18,8 @@ export const getRaceResults = async (race, year, round) => {
     const lastName = driverInfo.familyName;
 
     let driverInDB = await Driver.findOne({ firstName, lastName }).populate({
-      path: "teams",
-      model: "Team",
+      path: 'teams',
+      model: 'Team',
     });
     const team = await getTeam(finisher.Constructor.name);
 
@@ -28,7 +28,7 @@ export const getRaceResults = async (race, year, round) => {
       const dateOfBirth = driverInfo.dateOfBirth;
       const wikipediaLink = driverInfo.url;
       const pictureLink = await getPictureLink(
-        driverInfo.url.split("en.wikipedia.org/wiki/")[1]
+        driverInfo.url.split('en.wikipedia.org/wiki/')[1]
       );
 
       driverInDB = new Driver({

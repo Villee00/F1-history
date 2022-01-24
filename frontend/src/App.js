@@ -18,16 +18,16 @@ const App = ({ colorContext }) => {
   return (
     <Router>
       <NavBar colorContext={colorContext} />
-      <Container maxWidth="l"
+      <Container
+        maxWidth="l"
         sx={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           bgcolor: 'background.default',
-          color: 'text.primary'
-        }}>
-
-
+          color: 'text.primary',
+        }}
+      >
         <Switch>
           <Route path="/login" exact>
             <Login />

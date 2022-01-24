@@ -19,17 +19,33 @@ const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: 'center',
-  color: theme.palette.text.secondary
+  color: theme.palette.text.secondary,
 }));
 
 const DriverCard = ({ driver }) => {
-  const {favorites, token} = useUserToken();
+  const { favorites, token } = useUserToken();
   let picture = driver.picture.link;
-  if(picture !== 'https://cdn.pixabay.com/photo/2014/04/03/10/07/checkered-flag-309862_960_720.png')
+  if (
+    picture !==
+    'https://cdn.pixabay.com/photo/2014/04/03/10/07/checkered-flag-309862_960_720.png'
+  )
     picture = buildPictureURL(picture, 400);
   return (
-    <Card sx={{ maxWidth: 270, borderRadius: 3, minWidth: 250, height: 600, margin: 2, boxShadow: 10 }}>
-      <Link component={RouterLink} underline="none" to={`/drivers/${driver.id}`}>
+    <Card
+      sx={{
+        maxWidth: 270,
+        borderRadius: 3,
+        minWidth: 250,
+        height: 600,
+        margin: 2,
+        boxShadow: 10,
+      }}
+    >
+      <Link
+        component={RouterLink}
+        underline="none"
+        to={`/drivers/${driver.id}`}
+      >
         <CardMedia
           component="img"
           image={picture}
@@ -37,7 +53,7 @@ const DriverCard = ({ driver }) => {
           sx={{ height: 400, objectFit: 'contain' }}
         />
       </Link>
-      <CardContent >
+      <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {driver.fullName}
         </Typography>
@@ -52,9 +68,17 @@ const DriverCard = ({ driver }) => {
         </Stack>
       </CardContent>
       <CardActions>
-        {token?
-          <FavoriteButton favorites={favorites} driverId={driver.id}/>: null}
-        <Button component={RouterLink} to={`/drivers/${driver.id}`} size="large" sx={{ width: '100%' }}>Details</Button>
+        {token ? (
+          <FavoriteButton favorites={favorites} driverId={driver.id} />
+        ) : null}
+        <Button
+          component={RouterLink}
+          to={`/drivers/${driver.id}`}
+          size="large"
+          sx={{ width: '100%' }}
+        >
+          Details
+        </Button>
       </CardActions>
     </Card>
   );

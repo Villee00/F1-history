@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const seasonSchema = mongoose.Schema({
   wikipediaLink: {
@@ -12,15 +12,15 @@ const seasonSchema = mongoose.Schema({
   races: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Race",
+      ref: 'Race',
     },
   ],
   drivers: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Driver",
+      ref: 'Driver',
     },
   ],
 });
 
-export default mongoose.model("Season", seasonSchema);
+export default mongoose.model('Season', seasonSchema);

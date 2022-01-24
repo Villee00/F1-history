@@ -17,31 +17,48 @@ const NavBar = ({ colorContext }) => {
   };
 
   return (
-    <Container maxWidth="l"
+    <Container
+      maxWidth="l"
       component="nav"
       sx={{
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         bgcolor: 'background.default',
-        color: 'text.primary'
-      }}>
+        color: 'text.primary',
+      }}
+    >
       <Notification />
 
-      <Grid container spacing={3} sx={{ marginTop: 1, marginBottom: 1, alignItems: 'center' }}>
-        <Grid item xs={2}>
-        </Grid>
+      <Grid
+        container
+        spacing={3}
+        sx={{ marginTop: 1, marginBottom: 1, alignItems: 'center' }}
+      >
+        <Grid item xs={2}></Grid>
         <Grid item xs={8}>
-          <Link component={RouterLink} underline='hover' to="/">
-            <Typography variant="h2" component="h1" color="main" sx={{ textAlign: 'center' }}>F1 HISTORY</Typography>
+          <Link component={RouterLink} underline="hover" to="/">
+            <Typography
+              variant="h2"
+              component="h1"
+              color="main"
+              sx={{ textAlign: 'center' }}
+            >
+              F1 HISTORY
+            </Typography>
           </Link>
         </Grid>
         <Grid item xs={2}>
-          <MainMenu colorContext={colorContext} username={username} onLogout={onLogout} token={token} />
+          <MainMenu
+            colorContext={colorContext}
+            username={username}
+            onLogout={onLogout}
+            token={token}
+          />
         </Grid>
       </Grid>
       <PageTabs />
-    </Container >
+    </Container>
   );
 };
 

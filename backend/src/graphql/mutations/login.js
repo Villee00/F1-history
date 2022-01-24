@@ -1,9 +1,9 @@
-import { gql, UserInputError } from "apollo-server";
-import User from "../../models/user.js";
-import bcrypt from "bcrypt";
-import * as yup from "yup";
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
+import { gql, UserInputError } from 'apollo-server';
+import User from '../../models/user.js';
+import bcrypt from 'bcrypt';
+import * as yup from 'yup';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 dotenv.config();
 
 const typeDefs = gql`
@@ -31,20 +31,20 @@ const resolvers = {
 
       const user = await User.findOne({ username: username })
         .populate({
-          path: "favorites.races",
-          model: "Race",
+          path: 'favorites.races',
+          model: 'Race',
         })
         .populate({
-          path: "favorites.drivers",
-          model: "Driver",
+          path: 'favorites.drivers',
+          model: 'Driver',
         });
       if (!user) {
-        throw new UserInputError("Invalid username or password");
+        throw new UserInputError('Invalid username or password');
       }
       const validPassword = await bcrypt.compare(password, user.passwordHash);
 
       if (!validPassword) {
-        throw new UserInputError("Invalid username or password");
+        throw new UserInputError('Invalid username or password');
       }
 
       const userForToken = {

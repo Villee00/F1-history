@@ -6,7 +6,6 @@ import { makeStyles } from '@mui/styles';
 import { Link } from 'react-router-dom';
 import { Typography } from '@mui/material';
 
-
 function CustomFooterStatusComponent(props) {
   return <div> {props.races.length} races</div>;
 }
@@ -24,20 +23,24 @@ const useStyles = makeStyles({
   },
 });
 
-
 const columns = [
   {
-    field: 'grandPrix', headerName: 'Grand Prix', flex: 1, width: 300, renderCell: (params) => (
-      <Link to={`/seasons/drivers/${encodeURIComponent(params.value)}`} >
-        <Typography color='primary'>
-          {params.value}
-        </Typography>
+    field: 'grandPrix',
+    headerName: 'Grand Prix',
+    flex: 1,
+    width: 300,
+    renderCell: (params) => (
+      <Link to={`/seasons/drivers/${encodeURIComponent(params.value)}`}>
+        <Typography color="primary">{params.value}</Typography>
       </Link>
-    )
+    ),
   },
   { field: 'weather', headerName: 'Weather', flex: 0.7, width: 200 },
   {
-    field: 'positionsGained', headerName: 'Gained positions', flex: 0.3, type: 'number',
+    field: 'positionsGained',
+    headerName: 'Gained positions',
+    flex: 0.3,
+    type: 'number',
     cellClassName: ({ value }) =>
       clsx('super-app', {
         negative: value > 0,
@@ -49,20 +52,30 @@ const columns = [
 const DriverRacesTable = ({ races }) => {
   const classes = useStyles();
 
-  const data = races.map(result => {
-    return result.race?.grandPrix ? ({ ...result, grandPrix: result.race.grandPrix, weather: result.race.weather }) : null;
+  const data = races.map((result) => {
+    return result.race?.grandPrix
+      ? {
+          ...result,
+          grandPrix: result.race.grandPrix,
+          weather: result.race.weather,
+        }
+      : null;
   });
 
   return (
     <div style={{ height: 600, width: '100%' }}>
-      <DataGrid rows={data} columns={columns} getRowId={() => Math.random()}
+      <DataGrid
+        rows={data}
+        columns={columns}
+        getRowId={() => Math.random()}
         components={{
-          Footer: CustomFooterStatusComponent
+          Footer: CustomFooterStatusComponent,
         }}
         componentsProps={{
-          footer: { races }
+          footer: { races },
         }}
-        className={classes.root} />
+        className={classes.root}
+      />
     </div>
   );
 };

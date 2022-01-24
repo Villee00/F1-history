@@ -16,12 +16,12 @@ const Login = () => {
   const [login, loginResult] = useMutation(LOGIN, {
     onError: (error) => {
       setError(error.graphQLErrors[0].message);
-    }
+    },
   });
   const [createUser, userResult] = useMutation(CREATE_USER, {
     onError: (error) => {
       setError(error.graphQLErrors[0].message);
-    }
+    },
   });
   const { token, dispatch } = useUserToken();
   const history = useHistory();
@@ -53,20 +53,19 @@ const Login = () => {
         variables: {
           input: {
             username: values.username,
-            password: values.password
-          }
-        }
+            password: values.password,
+          },
+        },
       });
-    }
-    else {
+    } else {
       createUser({
         variables: {
           input: {
             name: values.name,
             username: values.username,
-            password: values.password
-          }
-        }
+            password: values.password,
+          },
+        },
       });
     }
   };
@@ -77,16 +76,25 @@ const Login = () => {
 
   return (
     <>
-      {isLogInForm ?
-        <LoginForm setLogInForm={setLogInForm} onSubmit={onSubmit} /> :
+      {isLogInForm ? (
+        <LoginForm setLogInForm={setLogInForm} onSubmit={onSubmit} />
+      ) : (
         <SignupForm setLogInForm={setLogInForm} onSubmit={onSubmit} />
-      }
-      <Box sx={{width:250, textAlign:'center', mt: 4}}>
-        <Button onClick={setOpenInfo} variant="contained" sx={{width:'100%', p:2}}>
+      )}
+      <Box sx={{ width: 250, textAlign: 'center', mt: 4 }}>
+        <Button
+          onClick={setOpenInfo}
+          variant="contained"
+          sx={{ width: '100%', p: 2 }}
+        >
           <Typography>Why make an account?</Typography>
         </Button>
-        <Collapse in={openInfo} sx={{bgcolor:'info.main'}}>
-          <Typography color="black" sx={{p:1}}>With an account, you can save your favorite races and drivers. You can share a link to your page with others and show them who you support and what races were worth watching!</Typography>
+        <Collapse in={openInfo} sx={{ bgcolor: 'info.main' }}>
+          <Typography color="black" sx={{ p: 1 }}>
+            With an account, you can save your favorite races and drivers. You
+            can share a link to your page with others and show them who you
+            support and what races were worth watching!
+          </Typography>
         </Collapse>
       </Box>
     </>

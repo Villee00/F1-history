@@ -13,23 +13,21 @@ import TeamsSelectField from './TeamsSelectField';
 import useNotification from '../hooks/useNotifcation';
 
 const validationSchema = yup.object({
-  name: yup
-    .string('Enter your drivers name'),
+  name: yup.string('Enter your drivers name'),
   year: yup
     .number()
     .typeError('Season must be a type of number')
     .max(2021, 'Season year must be between 1950-2020')
     .min(1950, 'Season year must be between 1950-2020'),
-  Nationality: yup
-    .string('Enter a drivers nationality'),
+  Nationality: yup.string('Enter a drivers nationality'),
 });
 
 const DriverFilterBar = ({ handleSearch }) => {
-  const {setError} = useNotification();
+  const { setError } = useNotification();
   const { data, loading } = useQuery(GET_DRIVER_FILTERS, {
     onError: (error) => {
       setError(error.graphQLErrors[0].message);
-    }
+    },
   });
   const [teams, setTeams] = useState([]);
 
@@ -37,16 +35,15 @@ const DriverFilterBar = ({ handleSearch }) => {
     initialValues: {
       name: '',
       nationality: '',
-      sort: 'age:desc'
+      sort: 'age:desc',
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => handleSearch({ ...values, teams: teams.map(team => team.id) }),
+    onSubmit: (values) =>
+      handleSearch({ ...values, teams: teams.map((team) => team.id) }),
   });
 
   if (loading) {
-    return (
-      null
-    );
+    return null;
   }
   return (
     <Paper
@@ -54,11 +51,11 @@ const DriverFilterBar = ({ handleSearch }) => {
       onSubmit={formik.handleSubmit}
       sx={{
         p: 1,
-        m:1,
+        m: 1,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
       }}
     >
       <SearchTextField
@@ -66,9 +63,13 @@ const DriverFilterBar = ({ handleSearch }) => {
         label="Name"
         handleChange={formik.handleChange}
         error={formik.touched.name && Boolean(formik.errors.name)}
-        helpertext={formik.touched.name && formik.errors.name} />
+        helpertext={formik.touched.name && formik.errors.name}
+      />
 
-      <TeamsSelectField teams={data.getDriverFilters ?? []} setTeams={setTeams} />
+      <TeamsSelectField
+        teams={data.getDriverFilters ?? []}
+        setTeams={setTeams}
+      />
 
       <SearchTextField
         value={formik.values.year}
@@ -105,5 +106,3 @@ const DriverFilterBar = ({ handleSearch }) => {
 };
 
 export default DriverFilterBar;
-
-

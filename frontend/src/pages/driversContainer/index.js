@@ -13,9 +13,12 @@ const DriversContainer = () => {
   const [searchName, setSearchName] = useState('');
   const [searchTeam, setSearchTeam] = useState([]);
   const [bottomReached, setBottomReached] = useState(false);
-  const {favorites} = useUserToken();
+  const { favorites } = useUserToken();
   const [searchYears, setSearchYears] = useState(NaN);
-  const [sortingOrder, setSortingOrder] = useState({ field: 'age', order: 'desc' });
+  const [sortingOrder, setSortingOrder] = useState({
+    field: 'age',
+    order: 'desc',
+  });
   const [searchNationality, setSearchNationality] = useState('');
   const { data, loading, refetch, fetchMore, error } = useQuery(GET_DRIVERS, {
     variables: {
@@ -25,10 +28,10 @@ const DriversContainer = () => {
         name: searchName,
         teams: searchTeam,
         year: !isNaN(searchYears) ? searchYears : undefined,
-        nationality: searchNationality
+        nationality: searchNationality,
       },
-      sort: sortingOrder
-    }
+      sort: sortingOrder,
+    },
   });
   const listInnerRef = useRef();
 
@@ -40,22 +43,20 @@ const DriversContainer = () => {
     setBottomReached(true);
     const sortArr = sort.split(':');
     setSortingOrder({ field: sortArr[0], order: sortArr[1] });
-    refetch()
-      .then(
-        ({ data }) => {
-          setDrivers(data.getDrivers.drivers);
-          setBottomReached(false);
-        }, reason =>
-          console.error(reason)
-      );
+    refetch().then(
+      ({ data }) => {
+        setDrivers(data.getDrivers.drivers);
+        setBottomReached(false);
+      },
+      (reason) => console.error(reason)
+    );
   };
 
   const onScroll = () => {
     if (listInnerRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
 
-      if ((scrollTop + clientHeight + 1500 > scrollHeight) && !bottomReached) {
-
+      if (scrollTop + clientHeight + 1500 > scrollHeight && !bottomReached) {
         setBottomReached(true);
         const newOffset = offset + 1;
         setOffset(newOffset);
@@ -68,9 +69,9 @@ const DriversContainer = () => {
               name: searchName,
               teams: searchTeam,
               year: !isNaN(searchYears) ? searchYears : undefined,
-              nationality: searchNationality
+              nationality: searchNationality,
             },
-            sort: sortingOrder
+            sort: sortingOrder,
           },
         }).then(({ data }) => {
           setDrivers([...drivers, ...data.getDrivers.drivers]);
@@ -89,7 +90,7 @@ const DriversContainer = () => {
   }, [loading]);
 
   return (
-    <Container maxWidth="xl" >
+    <Container maxWidth="xl">
       <Typography variant="h2" textAlign="center">
         F1 DRIVERS
       </Typography>
@@ -101,7 +102,8 @@ const DriversContainer = () => {
         setSearchNationality={setSearchNationality}
         sortingOrder={sortingOrder}
         setSortingOrder={setSortingOrder}
-        refetch={refetch} />
+        refetch={refetch}
+      />
 
       <Box
         onScroll={onScroll}
@@ -112,16 +114,27 @@ const DriversContainer = () => {
         justifyContent="center"
         sx={{ height: 900, overflowY: 'auto' }}
       >
-
-        {loading ? <CircularProgress /> :
-          drivers.length > 0 ?
-            <>
-              {drivers.map((driver) =>
-                <DriverCard favorites={favorites} key={driver.id} driver={driver} />)}
-            </> :
-            error ? error?.graphQLErrors.map(({ message }, i) =>
-              <Typography color="red" key={i}>{message}</Typography>) :
-              <Typography>No drivers found those filters</Typography>}
+        {loading ? (
+          <CircularProgress />
+        ) : drivers.length > 0 ? (
+          <>
+            {drivers.map((driver) => (
+              <DriverCard
+                favorites={favorites}
+                key={driver.id}
+                driver={driver}
+              />
+            ))}
+          </>
+        ) : error ? (
+          error?.graphQLErrors.map(({ message }, i) => (
+            <Typography color="red" key={i}>
+              {message}
+            </Typography>
+          ))
+        ) : (
+          <Typography>No drivers found those filters</Typography>
+        )}
       </Box>
     </Container>
   );

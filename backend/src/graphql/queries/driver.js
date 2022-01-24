@@ -1,8 +1,8 @@
-import { gql } from "apollo-server";
-import Driver from "../../models/driver.js";
-import Team from "../../models/team.js";
-import * as yup from "yup";
-import mongoose from "mongoose";
+import { gql } from 'apollo-server';
+import Driver from '../../models/driver.js';
+import Team from '../../models/team.js';
+import * as yup from 'yup';
+import mongoose from 'mongoose';
 
 export const typeDefs = gql`
   type Drivers {
@@ -40,8 +40,8 @@ const argsSchema = yup.object({
     teams: yup.array().of(yup.string()),
     year: yup
       .number()
-      .min(1950, "Season must be between 1950 and 2021")
-      .max(2021, "Season must be between 1950 and 2021"),
+      .min(1950, 'Season must be between 1950 and 2021')
+      .max(2021, 'Season must be between 1950 and 2021'),
     nationality: yup.string(),
   }),
   sort: yup.object().shape({
@@ -53,16 +53,16 @@ const argsSchema = yup.object({
 let query = {};
 const buildDBquery = (mongoQuery, filter) => {
   if (filter) {
-    if (!("$and" in query)) query = { $and: [] };
+    if (!('$and' in query)) query = { $and: [] };
     query.$and.push(mongoQuery);
   }
 };
 
 const sortOrderQuery = (field, order) => {
   switch (field) {
-    case "age":
+    case 'age':
       return { dateOfBirth: order };
-    case "races":
+    case 'races':
       return { __v: order };
   }
 };
@@ -80,8 +80,8 @@ export const resolvers = {
       buildDBquery(
         {
           $or: [
-            { lastName: new RegExp(name, "i") },
-            { firstName: new RegExp(name, "i") },
+            { lastName: new RegExp(name, 'i') },
+            { firstName: new RegExp(name, 'i') },
           ],
         },
         name
@@ -90,7 +90,7 @@ export const resolvers = {
         { teams: { $in: teams.map((team) => mongoose.Types.ObjectId(team)) } },
         teams.length > 0 ? teams : false
       );
-      buildDBquery({ nationality: new RegExp(nationality, "i") }, nationality);
+      buildDBquery({ nationality: new RegExp(nationality, 'i') }, nationality);
       buildDBquery({ seasonsDriven: parseInt(year) }, year);
 
       const sortOrder = sortOrderQuery(sort.field, sort.order);
@@ -99,8 +99,8 @@ export const resolvers = {
         .limit(limit)
         .skip(offset)
         .populate({
-          path: "teams",
-          model: "Team",
+          path: 'teams',
+          model: 'Team',
         })
         .exec();
 
@@ -111,12 +111,12 @@ export const resolvers = {
     getDriver: async (obj, args, context, info) => {
       return await Driver.findById(args.driverID)
         .populate({
-          path: "races.race",
-          model: "Race",
+          path: 'races.race',
+          model: 'Race',
         })
         .populate({
-          path: "teams",
-          model: "Team",
+          path: 'teams',
+          model: 'Team',
         });
     },
     getDriverCount: async (obj, args, context, info) => {

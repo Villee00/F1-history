@@ -14,119 +14,106 @@ import DriveEtaIcon from '@mui/icons-material/DriveEta';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 
-const DriverTable = ({driver}) => {
+const DriverTable = ({ driver }) => {
   const birthDay = new Date(driver.dateOfBirth).toLocaleDateString('en-FI');
-  
+
   return (
-    <TableContainer sx={{ maxWidth:500}} component={Paper}>
+    <TableContainer sx={{ maxWidth: 500 }} component={Paper}>
       <Table sx={{ minWidth: 400 }} aria-label="Driver info">
         <TableBody>
-          <TableRow
-            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-          >
+          <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
             <TableCell component="th" scope="row">
               Date of birth
             </TableCell>
             <TableCell align="right">{birthDay}</TableCell>
             <TableCell align="right">
-              <Icon
-                size="small"
-              >
-                <CakeIcon/>
+              <Icon size="small">
+                <CakeIcon />
               </Icon>
             </TableCell>
           </TableRow>
-          <TableRow
-            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-          >
+          <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
             <TableCell component="th" scope="row">
               Nationality
             </TableCell>
             <TableCell align="right">{driver.nationality}</TableCell>
             <TableCell align="right">
-              <Icon
-                size="small"
-              >
-                <FlagIcon/>
+              <Icon size="small">
+                <FlagIcon />
               </Icon>
             </TableCell>
           </TableRow>
-          <TableRow
-            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-          >
+          <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
             <TableCell component="th" scope="row">
               Races driven
             </TableCell>
             <TableCell align="right">{driver.races.length}</TableCell>
             <TableCell align="right">
-              <Icon
-                size="small"
-              >
-                <DriveEtaIcon/>
+              <Icon size="small">
+                <DriveEtaIcon />
               </Icon>
             </TableCell>
           </TableRow>
-          <TableRow
-            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-          >
+          <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
             <TableCell component="th" scope="row">
               Positions gained on race
             </TableCell>
             <TableCell align="right">{driver.positionsGainedCareer}</TableCell>
             <TableCell align="right">
-              <Icon
-                size="small"
-              >
-                {driver.positionsGainedCareer < 0 ? <TrendingDownIcon/> :<TrendingUpIcon/> }
+              <Icon size="small">
+                {driver.positionsGainedCareer < 0 ? (
+                  <TrendingDownIcon />
+                ) : (
+                  <TrendingUpIcon />
+                )}
               </Icon>
             </TableCell>
           </TableRow>
 
-          <CollapseRow header="Seasons driven in" data={driver.seasonsDriven}/>
-          <CollapseRow header="Teams raced in" data={driver.teams.map((team) => team.name)}/>
+          <CollapseRow header="Seasons driven in" data={driver.seasonsDriven} />
+          <CollapseRow
+            header="Teams raced in"
+            data={driver.teams.map((team) => team.name)}
+          />
         </TableBody>
       </Table>
     </TableContainer>
   );
 };
 
-
-const CollapseRow = ({header, data}) =>{
+const CollapseRow = ({ header, data }) => {
   const [open, setOpen] = useState(false);
 
-  return(
+  return (
     <>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }} onClick={() => setOpen(!open)}>
+      <TableRow
+        sx={{ '& > *': { borderBottom: 'unset' } }}
+        onClick={() => setOpen(!open)}
+      >
         <TableCell component="th" scope="row">
           {header}
         </TableCell>
+        <TableCell align="right">{data.length}</TableCell>
         <TableCell align="right">
-          {data.length}
-        </TableCell>
-        <TableCell align="right">
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            align="right"
-          >
-            {open ? <KeyboardArrowUpIcon/> :<KeyboardArrowDownIcon/> }
+          <IconButton aria-label="expand row" size="small" align="right">
+            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
       </TableRow>
-      <TableRow
-        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-      >
+      <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
         <TableCell colSpan={6} style={{ paddingBottom: 0, paddingTop: 0 }}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Stack spaceing={2} textAlign="center">
-              {data.map(object => 
+              {data.map((object) => (
                 <Typography key={object} margin={2}>
                   {object}
-                </Typography>)}
+                </Typography>
+              ))}
             </Stack>
           </Collapse>
         </TableCell>
-      </TableRow></>
+      </TableRow>
+    </>
   );
 };
 

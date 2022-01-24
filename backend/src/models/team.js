@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const teamSchema = mongoose.Schema({
   name: {
     type: String,
@@ -6,4 +6,4 @@ const teamSchema = mongoose.Schema({
     unique: true,
   },
 });
-export default mongoose.model("Team", teamSchema);
+export default mongoose.model('Team', teamSchema);

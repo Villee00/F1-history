@@ -1,4 +1,3 @@
-
 export const buildPictureURL = (url, size) => {
   try {
     const splitted = url.split('/');
@@ -6,15 +5,20 @@ export const buildPictureURL = (url, size) => {
 
     const picName = splitted[splitted.length - 1];
     const imageType = splitDot[splitDot.length - 1];
-    const wikipediaStart = url.split('https://upload.wikimedia.org/wikipedia/commons/')[1];
-    if (imageType == undefined || picName == undefined || wikipediaStart == undefined)
+    const wikipediaStart = url.split(
+      'https://upload.wikimedia.org/wikipedia/commons/'
+    )[1];
+    if (
+      imageType == undefined ||
+      picName == undefined ||
+      wikipediaStart == undefined
+    )
       return null;
 
     if (imageType !== 'png' && imageType !== 'jpg') {
       return `https://upload.wikimedia.org/wikipedia/commons/thumb/${wikipediaStart}/${size}px-${picName}.png`;
     }
     return `https://upload.wikimedia.org/wikipedia/commons/thumb/${wikipediaStart}/${size}px-${picName}`;
-
   } catch (error) {
     console.log(error);
     return url;

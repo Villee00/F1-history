@@ -1,16 +1,13 @@
 import { Autocomplete, Divider, TextField } from '@mui/material';
 import React from 'react';
 
-function TeamsSelectField({
-  teams,
-  setTeams
-}) {
+function TeamsSelectField({ teams, setTeams }) {
   return (
     <>
       <Autocomplete
         multiple
-        name='teams'
-        className='teams'
+        name="teams"
+        className="teams"
         limitTags={2}
         options={teams}
         onChange={(event, value) => setTeams(value)}

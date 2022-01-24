@@ -3,7 +3,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import React, { createContext, useMemo, useState } from 'react';
 import App from './App';
 
-const ColorModeContext = createContext({ toggleColorMode: () => { } });
+const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 const ColorMode = () => {
   const [mode, setMode] = useState('light');
@@ -13,17 +13,17 @@ const ColorMode = () => {
         setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
       },
     }),
-    [],
+    []
   );
 
   const theme = useMemo(
     () =>
       createTheme({
         palette: {
-          mode
-        }
+          mode,
+        },
       }),
-    [mode],
+    [mode]
   );
 
   return (

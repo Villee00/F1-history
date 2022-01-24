@@ -1,4 +1,4 @@
-import Circuit from "../models/circuit.js";
+import Circuit from '../models/circuit.js';
 
 const ParseRaceData = async (raceData, tooltip, picture, year) => {
   let raceDate;
@@ -15,8 +15,8 @@ const ParseRaceData = async (raceData, tooltip, picture, year) => {
     date: raceDate,
     grandPrix: tooltip,
     pictureLink:
-      picture || "https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg",
-    weather: raceData.weather ? raceData.weather : "unknown",
+      picture || 'https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg',
+    weather: raceData.weather ? raceData.weather : 'unknown',
     laps: raceData.distanceLaps ? raceData.distanceLaps : 0,
     results: [],
   };
@@ -24,7 +24,7 @@ const ParseRaceData = async (raceData, tooltip, picture, year) => {
 
 export const parseCircuitToDB = async (circuit) => {
   if (Array.isArray(circuit.location)) {
-    circuit.location = circuit.location.join(", ");
+    circuit.location = circuit.location.join(', ');
   }
 
   if (!circuit.capacity) {

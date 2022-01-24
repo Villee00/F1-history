@@ -41,10 +41,13 @@ const MainMenu = ({ colorContext, onLogout, token, username }) => {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            {token ?
-              <Avatar sx={{ width: 32, height: 32 }}>{username.charAt(0).toUpperCase()}</Avatar> :
+            {token ? (
+              <Avatar sx={{ width: 32, height: 32 }}>
+                {username.charAt(0).toUpperCase()}
+              </Avatar>
+            ) : (
               <MenuIcon sx={{ width: 32, height: 32 }} />
-            }
+            )}
           </IconButton>
         </Tooltip>
       </Box>
@@ -64,14 +67,19 @@ const MainMenu = ({ colorContext, onLogout, token, username }) => {
               height: 32,
               ml: -0.5,
               mr: 1,
-            }
+            },
           },
         }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        {token ?
-          <MenuItem onClick={handleClose} component={RouterLink} to={`/${username}`} id="profileUserBtn">
+        {token ? (
+          <MenuItem
+            onClick={handleClose}
+            component={RouterLink}
+            to={`/${username}`}
+            id="profileUserBtn"
+          >
             <ListItemIcon>
               <Avatar>{username.charAt(0).toUpperCase()}</Avatar>
             </ListItemIcon>
@@ -79,36 +87,40 @@ const MainMenu = ({ colorContext, onLogout, token, username }) => {
               My Profile
             </Typography>
           </MenuItem>
-          : null}
+        ) : null}
         <Divider />
-        <MenuItem
-          onClick={colorMode.toggleColorMode}>
-          {theme.palette.mode === 'dark' ?
+        <MenuItem onClick={colorMode.toggleColorMode}>
+          {theme.palette.mode === 'dark' ? (
             <>
               <ListItemIcon>
                 <Brightness7Icon />
               </ListItemIcon>
-            Lightmode</> :
+              Lightmode
+            </>
+          ) : (
             <>
               <ListItemIcon>
                 <Brightness4Icon />
               </ListItemIcon>
-            Darkmode</>}
+              Darkmode
+            </>
+          )}
         </MenuItem>
-        {token ?
+        {token ? (
           <MenuItem onClick={() => onLogout()} id="logoutBtn">
             <ListItemIcon>
               <Logout fontSize="small" />
             </ListItemIcon>
-          Logout
-          </MenuItem> :
-          <MenuItem component={RouterLink} onClick={handleClose} to='/login'>
+            Logout
+          </MenuItem>
+        ) : (
+          <MenuItem component={RouterLink} onClick={handleClose} to="/login">
             <ListItemIcon>
               <LoginIcon fontSize="small" />
             </ListItemIcon>
             Login
           </MenuItem>
-        }
+        )}
       </Menu>
     </>
   );

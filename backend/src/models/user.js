@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
-  name:{
+  name: {
     type: String,
     require: true,
   },
@@ -9,23 +9,27 @@ const userSchema = mongoose.Schema({
     type: String,
     require: true,
     unique: true,
-    minlength: 3
+    minlength: 3,
   },
   passwordHash: {
     type: String,
     require: true,
-    minlength: 6
+    minlength: 6,
   },
   favorites: {
-    races: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Race'
-    }],
-    drivers: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Driver'
-    }],
-  }
-})
+    races: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Race',
+      },
+    ],
+    drivers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Driver',
+      },
+    ],
+  },
+});
 
-export default mongoose.model("User", userSchema);
+export default mongoose.model('User', userSchema);

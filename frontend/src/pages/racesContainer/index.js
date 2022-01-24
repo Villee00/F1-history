@@ -12,16 +12,15 @@ const RacesContainer = ({ year }) => {
   const { setError } = useNotification();
   const { data, loading } = useQuery(GET_SEASON_RACES_BASIC, {
     variables: {
-      SeasonYear: parseInt(year)
+      SeasonYear: parseInt(year),
     },
     onError: ({ graphQLErrors, networkError }) => {
       if (graphQLErrors.length > 0) {
         setError(graphQLErrors[0].message);
-      }
-      else if (networkError.result) {
+      } else if (networkError.result) {
         setError(networkError.result.errors[0].message);
       }
-    }
+    },
   });
 
   if (loading) {
@@ -30,7 +29,8 @@ const RacesContainer = ({ year }) => {
         <CircularProgress />
         <Typography>Loading races</Typography>
         <Typography>This could take few minutes</Typography>
-      </Box>);
+      </Box>
+    );
   }
 
   const races = data?.allRaces.races;
@@ -39,16 +39,17 @@ const RacesContainer = ({ year }) => {
       <Box>
         <Typography variant="h5">No races found</Typography>
       </Box>
-
     );
   }
   if (races.length == 0) {
     return (
       <Box textAlign="center">
-        <Typography variant="h6">No data could be parsed from {data?.allRaces.year} season</Typography>
+        <Typography variant="h6">
+          No data could be parsed from {data?.allRaces.year} season
+        </Typography>
         <Typography variant="subtitle2">Wikipedia article </Typography>
         <Typography variant="body1">
-          <a href={data?.allRaces.wikipediaLink} >
+          <a href={data?.allRaces.wikipediaLink}>
             {data?.allRaces.wikipediaLink}
           </a>
         </Typography>
@@ -56,8 +57,16 @@ const RacesContainer = ({ year }) => {
     );
   }
   return (
-    <Container maxWidth="xl" >
-      <Box sx={{ alignItems: 'center', display: 'flex', justifyContent: 'space-between', flexDirection: 'row', flexWrap: 'wrap' }}>
+    <Container maxWidth="xl">
+      <Box
+        sx={{
+          alignItems: 'center',
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+        }}
+      >
         <Paper elevation={5} sx={{ padding: 1, margin: 1 }}>
           <Typography variant="h3" textAlign="center">
             {year}
@@ -69,16 +78,22 @@ const RacesContainer = ({ year }) => {
           </Typography>
         </Paper>
         <Paper elevation={5} sx={{ padding: 1, marginTop: 1 }}>
-          <Link href={data?.allRaces.wikipediaLink} underline='hover'>
+          <Link href={data?.allRaces.wikipediaLink} underline="hover">
             <Typography variant="h4" textAlign="center">
               Wikipedia
             </Typography>
           </Link>
         </Paper>
       </Box>
-      <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center">
-        {races.map(race =>
-          <RaceCard key={race.id} race={race} year={year} />)}
+      <Box
+        display="flex"
+        flexDirection="row"
+        flexWrap="wrap"
+        justifyContent="center"
+      >
+        {races.map((race) => (
+          <RaceCard key={race.id} race={race} year={year} />
+        ))}
       </Box>
     </Container>
   );

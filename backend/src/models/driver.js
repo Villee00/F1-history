@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const driverSchema = mongoose.Schema({
   driverNumber: [Number],
@@ -10,7 +10,7 @@ const driverSchema = mongoose.Schema({
     {
       race: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Race",
+        ref: 'Race',
       },
       position: {
         type: String,
@@ -20,33 +20,35 @@ const driverSchema = mongoose.Schema({
       },
     },
   ],
-  teams: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Team",
-  }],
+  teams: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Team',
+    },
+  ],
   wikipediaLink: String,
   seasonsDriven: [Number],
   pictureLink: String,
   picture: {
     link: {
-      type: String
+      type: String,
     },
     author: {
-      type: String
+      type: String,
     },
     source: {
-      type: String
+      type: String,
     },
-    description:{
-      type: String
+    description: {
+      type: String,
     },
     license: {
-      type: String
+      type: String,
     },
     licenseInfo: {
-      type: String
-    }
-  }
+      type: String,
+    },
+  },
 });
 
-export default mongoose.model("Driver", driverSchema);
+export default mongoose.model('Driver', driverSchema);

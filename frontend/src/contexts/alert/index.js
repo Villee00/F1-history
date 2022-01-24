@@ -3,9 +3,8 @@ import { reducer } from './reducer';
 
 export const NotificationContext = createContext({
   state: { severity: '', message: '' },
-  dispatch: () => null
+  dispatch: () => null,
 });
-
 
 export const NotificationProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, { severity: '', message: '' });
@@ -24,11 +23,11 @@ export const NotificationProvider = ({ children }) => {
     },
     clear: () => {
       dispatch({ type: 'clear' });
-    }
+    },
   };
   return (
     <NotificationContext.Provider value={value}>
-      { children}
+      {children}
     </NotificationContext.Provider>
   );
 };

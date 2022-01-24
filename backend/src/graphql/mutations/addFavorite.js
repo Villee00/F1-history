@@ -1,8 +1,8 @@
-import { gql, UserInputError } from "apollo-server";
-import * as yup from "yup";
-import dotenv from "dotenv";
-import Driver from "../../models/driver";
-import Race from "../../models/race";
+import { gql, UserInputError } from 'apollo-server';
+import * as yup from 'yup';
+import dotenv from 'dotenv';
+import Driver from '../../models/driver';
+import Race from '../../models/race';
 dotenv.config();
 
 const typeDefs = gql`
@@ -21,11 +21,11 @@ const resolvers = {
       const { driverID, raceID } = await argsSchema.validate(args);
       const { currentUser } = context;
       if (!currentUser) {
-        throw new UserInputError("Token validation failed");
+        throw new UserInputError('Token validation failed');
       }
       if (driverID) {
         const driver = await Driver.findById(driverID);
-        if (!driver) throw new UserInputError("No driver found with that id");
+        if (!driver) throw new UserInputError('No driver found with that id');
         if (currentUser.favorites.drivers.some((d) => d.id === driver.id))
           currentUser.favorites.drivers = currentUser.favorites.drivers.filter(
             (favoriteDriver) => favoriteDriver.id !== driver.id
@@ -38,7 +38,7 @@ const resolvers = {
       }
       if (raceID) {
         const race = await Race.findById(raceID);
-        if (!race) throw new UserInputError("No race found with that id");
+        if (!race) throw new UserInputError('No race found with that id');
 
         if (currentUser.favorites.races.some((r) => r.id === race.id))
           currentUser.favorites.races = currentUser.favorites.races.filter(
