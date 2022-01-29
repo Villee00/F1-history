@@ -129,3 +129,4 @@ TODO.txt
 build/
 videos/
 screenshots/
+frontend/.eslintrc.js

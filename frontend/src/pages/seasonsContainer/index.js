@@ -35,9 +35,9 @@ const SeasonsContainer = () => {
     years.push(year.toString());
   }
   return (
-    <Paper elevation={2} sx={{ alignItems: 'center', padding: 2 }}>
-      <Grid container spacing={2} width="m">
-        <Grid item sx={{ textAlign: 'center' }}>
+    <Paper elevation={2} sx={{ alignItems: 'center', padding: 2, width:'100%' }}>
+      <Grid container spacing={2} width="m" sx={{width:'100%', placeContent:'center'}}>
+        <Grid item sx={{ textAlign: 'center', width:'100%',}}>
           <Paper
             sx={{
               display: 'flex',

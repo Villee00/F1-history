@@ -6,7 +6,7 @@ import App from './App';
 const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 const ColorMode = () => {
-  const [mode, setMode] = useState('light');
+  const [mode, setMode] = useState('dark');
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {

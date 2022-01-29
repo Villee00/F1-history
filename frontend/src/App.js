@@ -3,7 +3,7 @@ import NavBar from './components/NavBar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import RaceInfo from './pages/raceInfo';
 import DriversContainer from './pages/driversContainer';
-import SeasonsContainer from './pages/seasonSelectionField';
+import SeasonsContainer from './pages/seasonsContainer';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
