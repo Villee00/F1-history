@@ -1,26 +1,26 @@
-import { useQuery } from "@apollo/client";
-import { CircularProgress, Container, Typography } from "@mui/material";
-import { Box } from "@mui/system";
-import React, { useState, useEffect, useRef } from "react";
-import { GET_DRIVERS } from "../../queries";
-import DriverCard from "./DriverCard";
-import DriverFilterBar from "../../components/DriverFilterBar";
-import useUserToken from "../../hooks/useUserToken";
+import { useQuery } from '@apollo/client';
+import { CircularProgress, Container, Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import React, { useState, useEffect, useRef } from 'react';
+import { GET_DRIVERS } from '../../queries';
+import DriverCard from './DriverCard';
+import DriverFilterBar from '../../components/DriverFilterBar';
+import useUserToken from '../../hooks/useUserToken';
 
 const DriversContainer = () => {
   const [drivers, setDrivers] = useState([]);
   const [offset, setOffset] = useState(0);
-  const [searchName, setSearchName] = useState("");
+  const [searchName, setSearchName] = useState('');
   const [searchTeam, setSearchTeam] = useState([]);
   const [bottomReached, setBottomReached] = useState(false);
   const [moreDrivers, setMoreDrivers] = useState(true);
   const { favorites } = useUserToken();
   const [searchYears, setSearchYears] = useState(NaN);
   const [sortingOrder, setSortingOrder] = useState({
-    field: "age",
-    order: "desc",
+    field: 'age',
+    order: 'desc',
   });
-  const [searchNationality, setSearchNationality] = useState("");
+  const [searchNationality, setSearchNationality] = useState('');
   const { data, loading, refetch, fetchMore, error } = useQuery(GET_DRIVERS, {
     variables: {
       offset: 0,
@@ -44,7 +44,7 @@ const DriversContainer = () => {
     setSearchYears(!isNaN(parseInt(year)) ? parseInt(year) : undefined);
     setSearchNationality(nationality);
     setBottomReached(true);
-    const sortArr = sort.split(":");
+    const sortArr = sort.split(':');
     setSortingOrder({ field: sortArr[0], order: sortArr[1] });
     refetch().then(
       (newData) => {
@@ -115,7 +115,7 @@ const DriversContainer = () => {
         flexDirection="row"
         flexWrap="wrap"
         justifyContent="center"
-        sx={{ height: 900, overflowY: "auto" }}
+        sx={{ height: 900, overflowY: 'auto' }}
       >
         {loading ? (
           <CircularProgress />
@@ -138,7 +138,7 @@ const DriversContainer = () => {
         ) : (
           <Typography>No drivers found those filters</Typography>
         )}
-        <Box sx={{ width: "100%", textAlign: "center", mt: 1, mb: 2 }}>
+        <Box sx={{ width: '100%', textAlign: 'center', mt: 1, mb: 2 }}>
           {moreDrivers && !loading ? <CircularProgress /> : null}
         </Box>
       </Box>
