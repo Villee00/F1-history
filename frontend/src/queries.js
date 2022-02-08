@@ -106,10 +106,15 @@ export const GET_RACE_WEATHER = gql`
 export const GET_DRIVERS = gql`
   query Query($limit: Int, $offset: Int, $filters: Filters, $sort: Sorting) {
     getDrivers(limit: $limit, offset: $offset, filters: $filters, sort: $sort) {
-      drivers {
+      datasetInfo {
+        totalRecords
+      }
+      nodes {
         ...DriverSmallDetails
       }
-      driverCount
+      pageInfo {
+        hasNextPage
+      }
     }
   }
   ${DRIVER_SMALL_DETAILS}

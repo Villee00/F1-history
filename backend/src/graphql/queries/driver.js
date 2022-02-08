@@ -5,9 +5,11 @@ import * as yup from 'yup';
 import mongoose from 'mongoose';
 
 export const typeDefs = gql`
-  type Drivers {
-    drivers: [Driver!]!
-    driverCount: Int!
+  type DatasetInfo {
+    totalRecords: Int
+  }
+  type PageInfo {
+    hasNextPage: Boolean
   }
   input Filters {
     name: String
@@ -18,6 +20,11 @@ export const typeDefs = gql`
   input Sorting {
     field: String
     order: String
+  }
+  type Drivers {
+    datasetInfo: DatasetInfo!
+    nodes: [Driver!]!
+    pageInfo: PageInfo!
   }
   extend type Query {
     getDrivers(
@@ -106,7 +113,12 @@ export const resolvers = {
 
       const driverCount = await Driver.find(query).countDocuments();
 
-      return { drivers, driverCount };
+      const hasNextPage = offset + limit < driverCount;
+      return {
+        pageInfo: { hasNextPage },
+        nodes: drivers,
+        datasetInfo: { totalRecords: driverCount },
+      };
     },
     getDriver: async (obj, args, context, info) => {
       return await Driver.findById(args.driverID)

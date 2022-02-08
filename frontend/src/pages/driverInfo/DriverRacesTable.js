@@ -55,10 +55,10 @@ const DriverRacesTable = ({ races }) => {
   const data = races.map((result) => {
     return result.race?.grandPrix
       ? {
-          ...result,
-          grandPrix: result.race.grandPrix,
-          weather: result.race.weather,
-        }
+        ...result,
+        grandPrix: result.race.grandPrix,
+        weather: result.race.weather,
+      }
       : null;
   });
 

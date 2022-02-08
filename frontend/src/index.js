@@ -15,6 +15,7 @@ import { UserTokenProvider } from './contexts/user';
 import { NotificationProvider } from './contexts/alert';
 
 const httpLink = new HttpLink({
+  // eslint-disable-next-line no-undef
   uri: process.env.REACT_APP_GRAPHQL_URI ?? '/graphql',
 });
 
