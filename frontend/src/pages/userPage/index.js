@@ -55,7 +55,7 @@ const UserPage = () => {
         </Box>
         <Box>
           <Paper elevation={6} sx={{ m: 2 }}>
-            <Typography variant="h4">Favorite races</Typography>
+            <Typography variant="h4">Favorite Races</Typography>
             <Box
               sx={{
                 display: 'flex',
@@ -69,7 +69,7 @@ const UserPage = () => {
                   variant="h6"
                   sx={{ textAlign: 'center', alignSelf: 'center', pl: 2 }}
                 >
-                  {name} does not have any favorite races :(
+                  {name} has no favourite races :(
                 </Typography>
               ) : (
                 favorites.races.map((race) => (
@@ -93,7 +93,7 @@ const UserPage = () => {
                   variant="h6"
                   sx={{ textAlign: 'center', alignSelf: 'center', pl: 2 }}
                 >
-                  {name} does not have any favorite drivers :(
+                  {name} has no favourite drivers :(
                 </Typography>
               ) : (
                 favorites.drivers.map((driver) => (

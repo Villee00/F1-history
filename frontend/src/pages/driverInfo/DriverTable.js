@@ -70,7 +70,7 @@ const DriverTable = ({ driver }) => {
             </TableCell>
           </TableRow>
 
-          <CollapseRow header="Seasons driven in" data={driver.seasonsDriven} />
+          <CollapseRow header="Seasons driven" data={driver.seasonsDriven} />
           <CollapseRow
             header="Teams raced in"
             data={driver.teams.map((team) => team.name)}
