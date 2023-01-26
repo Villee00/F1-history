@@ -1,6 +1,5 @@
 name: Deployment pipeline
-env:
-  HEROKU_API_KEY
+
 on:
   push:
     branches:
