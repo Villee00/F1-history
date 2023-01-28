@@ -12,7 +12,7 @@ describe('Driver view', function () {
     cy.get('#mui-component-select-sort').click();
     cy.get('[data-value="age:asc"]').click();
     cy.get('form').submit();
-    cy.contains('Gerhard Berger');
+    cy.get('[cy-data="driver-card"]').eq(0).get('[cy-data="driver-card"]').should('contain', 'John Watson');
   });
   it('Youngest driver driven on 2021 season', function () {
     cy.get('#year').type('2021');
