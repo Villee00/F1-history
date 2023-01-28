@@ -1,7 +1,7 @@
 describe('Race view ', function () {
   describe('Race container', () => {
     beforeEach(() => {
-      cy.visit('http://localhost:3000');
+      cy.visit('/');
     });
     it('front page can be opened', function () {
       cy.get(

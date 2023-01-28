@@ -1,6 +1,6 @@
 describe('Driver view', function () {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/drivers');
+    cy.visit('/drivers');
   });
   it('Driver name filter', function () {
     cy.get('#name').type('kimi');

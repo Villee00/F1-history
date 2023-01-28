@@ -1,6 +1,6 @@
 describe('User tests', () => {
   beforeEach(() => {
-    cy.visit('localhost:3000/login');
+    cy.visit('/login');
   });
   describe('Login form', () => {
     it('Login successful', () => {
