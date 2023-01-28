@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { Typography } from '@mui/material';
 
 function CustomFooterStatusComponent(props) {
-  return <div> {props.races.length} races</div>;
+  return <div cy-data="races-count"> {props.races.length} races</div>;
 }
 
 const useStyles = makeStyles({
@@ -30,7 +30,7 @@ const columns = [
     flex: 1,
     width: 300,
     renderCell: (params) => (
-      <Link to={`/seasons/drivers/${encodeURIComponent(params.value)}`}>
+      <Link to={`/seasons/drivers/${encodeURIComponent(params.value)}`} cy-data="driver-grand-prix">
         <Typography color="primary">{params.value}</Typography>
       </Link>
     ),

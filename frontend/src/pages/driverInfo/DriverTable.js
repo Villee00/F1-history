@@ -15,17 +15,17 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 
 const DriverTable = ({ driver }) => {
-  const birthDay = new Date(driver.dateOfBirth).toLocaleDateString('en-FI');
+  const birthday = new Date(driver.dateOfBirth).toLocaleDateString('en-FI');
 
   return (
     <TableContainer sx={{ maxWidth: 500 }} component={Paper}>
-      <Table sx={{ minWidth: 400 }} aria-label="Driver info">
+      <Table sx={{ minWidth: 400 }} aria-label="Driver info" cy-data="driver-info-container">
         <TableBody>
           <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
             <TableCell component="th" scope="row">
               Date of birth
             </TableCell>
-            <TableCell align="right">{birthDay}</TableCell>
+            <TableCell align="right" cy-data="driver-info-birthday">{birthday}</TableCell>
             <TableCell align="right">
               <Icon size="small">
                 <CakeIcon />
@@ -36,7 +36,7 @@ const DriverTable = ({ driver }) => {
             <TableCell component="th" scope="row">
               Nationality
             </TableCell>
-            <TableCell align="right">{driver.nationality}</TableCell>
+            <TableCell align="right" cy-data="driver-info-nationality">{driver.nationality}</TableCell>
             <TableCell align="right">
               <Icon size="small">
                 <FlagIcon />
@@ -47,7 +47,7 @@ const DriverTable = ({ driver }) => {
             <TableCell component="th" scope="row">
               Races driven
             </TableCell>
-            <TableCell align="right">{driver.races.length}</TableCell>
+            <TableCell align="right" cy-data="driver-info-races-amount">{driver.races.length}</TableCell>
             <TableCell align="right">
               <Icon size="small">
                 <DriveEtaIcon />
@@ -58,7 +58,7 @@ const DriverTable = ({ driver }) => {
             <TableCell component="th" scope="row">
               Positions gained on race
             </TableCell>
-            <TableCell align="right">{driver.positionsGainedCareer}</TableCell>
+            <TableCell align="right" cy-data="driver-info-positions-gained">{driver.positionsGainedCareer}</TableCell>
             <TableCell align="right">
               <Icon size="small">
                 {driver.positionsGainedCareer < 0 ? (
