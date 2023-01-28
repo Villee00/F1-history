@@ -40,7 +40,9 @@ jobs:
           command: npm run e2e:run
 
       - name: Build UI
+        if: ${{ github.event_name == 'push' && !contains(Join(github.event.commits.*.message, ', '), '#skip')}}
         run: npm run build:ui
+
       - name: Heroku deployment
         if: ${{ github.event_name == 'push' && !contains(Join(github.event.commits.*.message, ', '), '#skip')}}
         uses: akhileshns/heroku-deploy@v3.12.12
@@ -65,7 +67,6 @@ jobs:
           DEFAULT_BUMP: patch
 
   notification:
-    if: ${{ github.event_name == 'push' && !contains(Join(github.event.commits.*.message, ', '), '#skip')}}
     needs: [ check_and_deploy ]
     runs-on: ubuntu-22.04
     steps:
