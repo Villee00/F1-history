@@ -37,6 +37,7 @@ const RaceCard = ({ race, year, info = true }) => {
         flexDirection: 'column',
         justifyContent: 'flex-end',
       }}
+      cy-data="race-card"
     >
       <CardActionArea
         component={RouterLink}

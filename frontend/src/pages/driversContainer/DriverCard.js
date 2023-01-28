@@ -40,6 +40,7 @@ const DriverCard = ({ driver }) => {
         margin: 2,
         boxShadow: 10,
       }}
+      cy-data="driver-card"
     >
       <Link
         component={RouterLink}
@@ -54,7 +55,7 @@ const DriverCard = ({ driver }) => {
         />
       </Link>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography gutterBottom variant="h5" component="div" cy-data="driver-name">
           {driver.fullName}
         </Typography>
         <Stack

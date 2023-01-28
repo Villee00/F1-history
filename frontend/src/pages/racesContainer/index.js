@@ -41,7 +41,7 @@ const RacesContainer = ({ year }) => {
       </Box>
     );
   }
-  if (races.length == 0) {
+  if (races.length === 0) {
     return (
       <Box textAlign="center">
         <Typography variant="h6">
@@ -68,12 +68,12 @@ const RacesContainer = ({ year }) => {
         }}
       >
         <Paper elevation={5} sx={{ padding: 1, margin: 1 }}>
-          <Typography variant="h3" textAlign="center">
+          <Typography variant="h3" textAlign="center" cy-data="season-year">
             {year}
           </Typography>
         </Paper>
         <Paper elevation={5} sx={{ padding: 1, marginTop: 1 }}>
-          <Typography variant="h4" textAlign="center">
+          <Typography variant="h4" textAlign="center" cy-data="race-count">
             Races: {races.length}
           </Typography>
         </Paper>
