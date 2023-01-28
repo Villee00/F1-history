@@ -1,3 +1,8 @@
+# Full stack open - Part 11 CI/CD
+- Other repo: [Pokedex](https://github.com/Villee00/full-stack-open-pokedex)
+
+-------------------------
+
 # F1-history
 
 Sivu: https://formula1history.herokuapp.com/ <br/>
