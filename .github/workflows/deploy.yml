@@ -10,7 +10,7 @@ on:
       - 'main'
 
 jobs:
-  build:
+  check_and_deploy:
     runs-on: ubuntu-22.04
     defaults:
       run:
@@ -23,10 +23,57 @@ jobs:
           node-version: '16'
       - name: Build UI
         run: npm run build:ui
+      - name: npm install
+        run: npm install, npm run frontend:install
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          start: npm start, npm run frontend:start
+          wait-on: 'http://localhost:3000'
+          command: npm run e2e:run
+
       - name: Heroku deployment
+        if: ${{ github.event_name == 'push' && !contains(Join(github.event.commits.*.message, ', '), '#skip')}}
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           appdir: "backend"
+
+  tag_release:
+    if: ${{ github.event_name == 'push' && !contains(Join(github.event.commits.*.message, ', '), '#skip')}}
+    needs: [ check_and_deploy ]
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+
+  notification:
+    if: ${{ github.event_name == 'push' && !contains(Join(github.event.commits.*.message, ', '), '#skip')}}
+    needs: [ check_and_deploy ]
+    runs-on: ubuntu-22.04
+    steps:
+      - name: The build succeeded
+        uses: sarisia/actions-status-discord@2947ebd8725337da402c454d25063e48e754f793
+        if: success()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          status: ${{ job.status }}
+          title: "New version deployed successfully!"
+          color: 0x008000
+
+      - name: The build failed
+        uses: sarisia/actions-status-discord@2947ebd8725337da402c454d25063e48e754f793
+        if: failure()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          status: ${{ job.status }}
+          title: "New version failed to deploy!"
+          color: 0xFF0000

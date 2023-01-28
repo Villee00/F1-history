@@ -34,8 +34,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint ./src/ ",
     "lint:fix": "eslint ./src/ --fix",
-    "cypress:open": "cypress open",
-    "test": "cypress run"
+    "e2e:open": "cypress open",
+    "e2e:run": "cypress run"
   },
   "eslintConfig": {
     "extends": [

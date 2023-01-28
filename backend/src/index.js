@@ -35,7 +35,7 @@ const serverStart = async () => {
   const app = express();
   const httpServer = http.createServer(app);
   let server;
-  if (process.env.NODE_ENV == 'production') {
+  if (process.env.NODE_ENV == 'production' || process.env.NODE_ENV == 'E2E') {
     app.use(express.static('build'));
     server = new ApolloServer({
       ...schema,
