@@ -50,7 +50,7 @@ describe('User tests', () => {
       cy.get('#menuBtn').click();
       cy.get('#profileUserBtn').click();
       cy.url().should('include', '/ville');
-      cy.contains('Favorite races');
+      cy.contains('Favorite Races');
     });
     it('Logout', () => {
       cy.get('#menuBtn').click();
