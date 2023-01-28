@@ -6,7 +6,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 const RaceInfoTable = ({ race }) => {
-  const raceDate = new Date(race.date).toLocaleDateString('en-FI');
+  const raceDate = new Date(race.date);
+  const day = raceDate.getUTCDate().toString().padStart(2, '0');
+  const month = (raceDate.getUTCMonth() + 1).toString().padStart(2, '0');
+  const year = raceDate.getUTCFullYear();
+  const formattedDate = `${day}/${month}/${year}`;
 
   return (
     <TableContainer sx={{ maxWidth: 500 }} component={Paper}>
@@ -16,7 +20,7 @@ const RaceInfoTable = ({ race }) => {
             <TableCell component="th" scope="row">
               Date
             </TableCell>
-            <TableCell align="right" cy-data="race-info-date">{raceDate}</TableCell>
+            <TableCell align="right" cy-data="race-info-date">{formattedDate}</TableCell>
           </TableRow>
           {race.circuit?.location ? (
             <TableRow

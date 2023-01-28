@@ -19,7 +19,7 @@ describe('Race view ', function () {
       cy.get('[cy-data="race-card"]').eq(0).click();
     });
     it('Should see bahrain data and correct information', function () {
-      cy.get('[cy-data="race-info-date"]').should('have.text','28/03/2021');
+      cy.get('[cy-data="race-info-date"]').should('have.text','27/03/2021');
       cy.get('[cy-data="race-info-location"]').contains('Sakhir, Bahrain');
       cy.get('[cy-data="race-info-laps"]').contains('56');
       cy.get('[cy-data="race-info-weather"]').contains('21 C');
