@@ -30,6 +30,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
+          project: ./backend
           start: npm start, npm run frontend:start
           wait-on: 'http://localhost:3000'
           command: npm run e2e:run
