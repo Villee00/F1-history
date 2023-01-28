@@ -5,7 +5,7 @@ describe('Driver view', function () {
   it('Driver name filter', function () {
     cy.get('#name').type('kimi');
     cy.get('form').submit();
-    cy.contains('Kimi Räikkönen');
+    cy.get('[cy-data="driver-card"]').eq(0).get('[cy-data="driver-card"]').contains('Kimi Räikkönen');
   });
   it('Oldest mclaren driver', function () {
     cy.get('#mui-2').type('mclaren').type('{downarrow}').type('{enter}');
