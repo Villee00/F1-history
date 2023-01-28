@@ -16,7 +16,7 @@ const RaceInfoTable = ({ race }) => {
             <TableCell component="th" scope="row">
               Date
             </TableCell>
-            <TableCell align="right">{raceDate}</TableCell>
+            <TableCell align="right" cy-data="race-info-date">{raceDate}</TableCell>
           </TableRow>
           {race.circuit?.location ? (
             <TableRow
@@ -25,7 +25,7 @@ const RaceInfoTable = ({ race }) => {
               <TableCell component="th" scope="row">
                 Location
               </TableCell>
-              <TableCell align="right">{race.circuit.location}</TableCell>
+              <TableCell align="right" cy-data="race-info-location">{race.circuit.location}</TableCell>
             </TableRow>
           ) : null}
 
@@ -33,13 +33,13 @@ const RaceInfoTable = ({ race }) => {
             <TableCell component="th" scope="row">
               Laps
             </TableCell>
-            <TableCell align="right">{race.laps}</TableCell>
+            <TableCell align="right" cy-data="race-info-laps">{race.laps}</TableCell>
           </TableRow>
           <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
             <TableCell component="th" scope="row">
               Weather
             </TableCell>
-            <TableCell align="right">{race.weather}</TableCell>
+            <TableCell align="right" cy-data="race-info-weather">{race.weather}</TableCell>
           </TableRow>
           {race.circuit?.length ? (
             <TableRow
@@ -48,7 +48,7 @@ const RaceInfoTable = ({ race }) => {
               <TableCell component="th" scope="row">
                 Lap lenght
               </TableCell>
-              <TableCell align="right">{race.circuit.length} km</TableCell>
+              <TableCell align="right" cy-data="race-info-lap-length">{race.circuit.length} km</TableCell>
             </TableRow>
           ) : null}
 
