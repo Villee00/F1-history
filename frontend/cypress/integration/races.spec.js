@@ -14,8 +14,9 @@ describe('Race view ', function () {
   describe('Race info', () => {
     beforeEach(() => {
       cy.visit(
-        '/seasons/2021/2021%20Bahrain%20Grand%20Prix'
+        '/seasons/2021/'
       );
+      cy.get('[cy-data="race-card"]').eq(0).click();
     });
     it('Should see bahrain data and correct information', function () {
       cy.get('[cy-data="race-info-date"]').contains('28/03/2021');
