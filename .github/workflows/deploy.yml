@@ -22,6 +22,10 @@ jobs:
         with:
           node-version: '16'
 
+      - name: Create env file for server
+        run: |
+          echo "${{ secrets.ENV_FILE }}" > .env
+
       - name: npm install
         run: |
           npm install
@@ -31,7 +35,7 @@ jobs:
         uses: cypress-io/github-action@v5
         with:
           working-directory: ./backend
-          start: npm run dev, npm run frontend:start
+          start: npm start, npm run frontend:start
           wait-on: 'http://localhost:3000'
           command: npm run e2e:run
 
