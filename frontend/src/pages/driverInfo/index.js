@@ -46,7 +46,7 @@ const DriverInfo = () => {
         <Paper elevation={3} sx={{ marginBottom: 2 }}>
           <Box textAlign="center">
             <Typography variant="h2">{driverInfo.fullName}</Typography>
-            <Link underline="hover" href={driverInfo.wikipediaLink}>
+            <Link underline="hover" href={driverInfo.wikipediaLink} cy-data="driver-info-wikipedia-link">
               <Typography variant="button">Wikipedia</Typography>
             </Link>
           </Box>
@@ -83,6 +83,7 @@ const DriverInfo = () => {
                       whiteSpace: 'nowrap',
                     }}
                     variant="caption"
+                    cy-data="driver-info-picture-author"
                   >
                     Picture Author: {ReactHtmlParser(driverInfo.picture.author)}{' '}
                   </Typography>
@@ -94,6 +95,7 @@ const DriverInfo = () => {
                       whiteSpace: 'nowrap',
                     }}
                     variant="caption"
+                    cy-data="driver-info-picture-source"
                   >
                     Source: {ReactHtmlParser(driverInfo.picture.source)}
                   </Typography>
@@ -105,6 +107,7 @@ const DriverInfo = () => {
                       whiteSpace: 'nowrap',
                     }}
                     variant="caption"
+                    cy-data="driver-info-picture-wikimedia-commons"
                   >
                     via:{' '}
                     <Link
@@ -121,6 +124,7 @@ const DriverInfo = () => {
                       whiteSpace: 'nowrap',
                     }}
                     variant="caption"
+                    cy-data="driver-info-picture-license-info"
                   >
                     License:{' '}
                     <Link href={driverInfo.picture.licenseInfo}>
